@@ -699,7 +699,15 @@ func (mf2 *MatchFinder2) FindLongestMatches(data []byte) []Match {
 		return mf2.matches
 	}
 	//sort.Sort(&mf2.matches)
-	slices.SortFunc(mf2.matches, func(i, j Match) bool { return i.Start < j.Start })
+	slices.SortFunc(mf2.matches, func(i, j Match) int {
+		if i.Start < j.Start {
+			return -1
+		}
+		if i.Start > j.Start {
+			return 1
+		}
+		return 0
+	})
 
 	lastEnd := mf2.matches[0].End
 	j := 1
