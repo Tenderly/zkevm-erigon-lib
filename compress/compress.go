@@ -282,7 +282,9 @@ func dictionaryBuilderLess(i, j *Pattern) bool {
 func (db *DictionaryBuilder) Swap(i, j int) {
 	db.items[i], db.items[j] = db.items[j], db.items[i]
 }
-func (db *DictionaryBuilder) Sort() { slices.SortFunc(db.items, dictionaryBuilderLess) }
+func (db *DictionaryBuilder) Sort() {
+	slices.SortFunc(db.items, convertOldSortOrderToNew(dictionaryBuilderLess))
+}
 
 func (db *DictionaryBuilder) Push(x interface{}) {
 	db.items = append(db.items, x.(*Pattern))
