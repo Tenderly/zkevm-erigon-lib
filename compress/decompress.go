@@ -25,9 +25,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ledgerwatch/erigon-lib/common/dbg"
-	"github.com/ledgerwatch/erigon-lib/mmap"
 	"github.com/ledgerwatch/log/v3"
+	"github.com/tenderly/zkevm-erigon-lib/common/dbg"
+	"github.com/tenderly/zkevm-erigon-lib/mmap"
 )
 
 type word []byte // plain text word associated with code from dictionary

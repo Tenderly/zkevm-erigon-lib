@@ -20,8 +20,8 @@ import (
 	"testing"
 
 	"github.com/RoaringBitmap/roaring"
-	"github.com/ledgerwatch/erigon-lib/kv/bitmapdb"
 	"github.com/stretchr/testify/require"
+	"github.com/tenderly/zkevm-erigon-lib/kv/bitmapdb"
 )
 
 func TestCutLeft(t *testing.T) {

@@ -21,9 +21,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/ledgerwatch/erigon-lib/kv"
-	"github.com/ledgerwatch/erigon-lib/kv/memdb"
 	"github.com/stretchr/testify/require"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
 	"golang.org/x/sync/errgroup"
 )
 

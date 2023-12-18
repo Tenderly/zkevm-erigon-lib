@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/ledgerwatch/erigon-lib/sais"
 	"github.com/stretchr/testify/assert"
+	"github.com/tenderly/zkevm-erigon-lib/sais"
 )
 
 func TestExampleGSA(t *testing.T) {

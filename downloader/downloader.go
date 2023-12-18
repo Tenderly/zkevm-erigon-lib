@@ -29,12 +29,12 @@ import (
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/metainfo"
 	"github.com/anacrolix/torrent/storage"
-	common2 "github.com/ledgerwatch/erigon-lib/common"
-	"github.com/ledgerwatch/erigon-lib/common/dir"
-	"github.com/ledgerwatch/erigon-lib/downloader/downloadercfg"
-	"github.com/ledgerwatch/erigon-lib/kv"
-	"github.com/ledgerwatch/erigon-lib/kv/mdbx"
 	"github.com/ledgerwatch/log/v3"
+	common2 "github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/dir"
+	"github.com/tenderly/zkevm-erigon-lib/downloader/downloadercfg"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"
 	"golang.org/x/sync/semaphore"
 )
 

@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ledgerwatch/erigon-lib/kv"
 	"github.com/stretchr/testify/require"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 func TestGCReadAfterRemoveFile(t *testing.T) {

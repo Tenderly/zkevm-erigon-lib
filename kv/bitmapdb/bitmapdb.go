@@ -26,8 +26,8 @@ import (
 	"github.com/RoaringBitmap/roaring"
 	"github.com/RoaringBitmap/roaring/roaring64"
 	"github.com/c2h5oh/datasize"
-	libcommon "github.com/ledgerwatch/erigon-lib/common"
-	"github.com/ledgerwatch/erigon-lib/kv"
+	libcommon "github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 const MaxUint32 = 1<<32 - 1

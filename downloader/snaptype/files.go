@@ -24,7 +24,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ledgerwatch/erigon-lib/common/dir"
+	"github.com/tenderly/zkevm-erigon-lib/common/dir"
 	"golang.org/x/exp/slices"
 )
 

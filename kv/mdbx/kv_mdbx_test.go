@@ -21,11 +21,11 @@ import (
 	"testing"
 
 	"github.com/c2h5oh/datasize"
-	"github.com/ledgerwatch/erigon-lib/kv"
-	"github.com/ledgerwatch/erigon-lib/kv/order"
 	"github.com/ledgerwatch/log/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/order"
 )
 
 func BaseCase(t *testing.T) (kv.RwDB, kv.RwTx, kv.RwCursorDupSort) {

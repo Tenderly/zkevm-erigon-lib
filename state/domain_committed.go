@@ -28,14 +28,14 @@ import (
 	"time"
 
 	"github.com/google/btree"
-	"github.com/ledgerwatch/erigon-lib/common/background"
 	"github.com/ledgerwatch/log/v3"
+	"github.com/tenderly/zkevm-erigon-lib/common/background"
 	"golang.org/x/crypto/sha3"
 
-	"github.com/ledgerwatch/erigon-lib/commitment"
-	"github.com/ledgerwatch/erigon-lib/common"
-	"github.com/ledgerwatch/erigon-lib/common/length"
-	"github.com/ledgerwatch/erigon-lib/compress"
+	"github.com/tenderly/zkevm-erigon-lib/commitment"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/compress"
 )
 
 // Defines how to evaluate commitments

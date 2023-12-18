@@ -19,9 +19,9 @@ package downloader
 import (
 	"testing"
 
-	"github.com/ledgerwatch/erigon-lib/kv/memdb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
 
 	"github.com/anacrolix/torrent/metainfo"
 	"github.com/anacrolix/torrent/storage"

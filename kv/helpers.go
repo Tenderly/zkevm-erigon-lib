@@ -24,7 +24,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ledgerwatch/erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common"
 	"github.com/torquem-ch/mdbx-go/mdbx"
 )
 

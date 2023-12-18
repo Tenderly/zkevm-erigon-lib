@@ -31,10 +31,10 @@ import (
 	btree2 "github.com/tidwall/btree"
 	"golang.org/x/crypto/sha3"
 
-	"github.com/ledgerwatch/erigon-lib/common"
-	"github.com/ledgerwatch/erigon-lib/gointerfaces"
-	"github.com/ledgerwatch/erigon-lib/gointerfaces/remote"
-	"github.com/ledgerwatch/erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 type CacheValidationResult struct {

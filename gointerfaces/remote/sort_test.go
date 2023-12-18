@@ -3,9 +3,9 @@ package remote_test
 import (
 	"testing"
 
-	"github.com/ledgerwatch/erigon-lib/gointerfaces/remote"
-	"github.com/ledgerwatch/erigon-lib/gointerfaces/types"
 	"github.com/stretchr/testify/assert"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"golang.org/x/exp/slices"
 )
 

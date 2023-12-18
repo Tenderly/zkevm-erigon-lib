@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/ledgerwatch/erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common"
 )
 
 // Config is the core config which determines the blockchain settings.
