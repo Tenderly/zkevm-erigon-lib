@@ -283,7 +283,7 @@ func (db *DictionaryBuilder) Swap(i, j int) {
 	db.items[i], db.items[j] = db.items[j], db.items[i]
 }
 func (db *DictionaryBuilder) Sort() {
-	slices.SortFunc(db.items, convertOldSortOrderToNew(dictionaryBuilderLess))
+	slices.SortFunc(db.items, ConvertOldSortOrderToNew(dictionaryBuilderLess))
 }
 
 func (db *DictionaryBuilder) Push(x interface{}) {

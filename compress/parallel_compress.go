@@ -469,7 +469,7 @@ func reducedict(ctx context.Context, trace bool, logPrefix, segmentFilePath stri
 			distribution[len(p.word)]++
 		}
 	}
-	slices.SortFunc(patternList, convertOldSortOrderToNew(patternListLess))
+	slices.SortFunc(patternList, ConvertOldSortOrderToNew(patternListLess))
 	logCtx := make([]interface{}, 0, 8)
 	logCtx = append(logCtx, "patternList.Len", patternList.Len())
 
@@ -555,7 +555,7 @@ func reducedict(ctx context.Context, trace bool, logPrefix, segmentFilePath stri
 	}
 	//fmt.Printf("patternsSize = %d\n", patternsSize)
 	// Write all the pattens
-	slices.SortFunc(patternList, convertOldSortOrderToNew(patternListLess))
+	slices.SortFunc(patternList, ConvertOldSortOrderToNew(patternListLess))
 	for _, p := range patternList {
 		ns := binary.PutUvarint(numBuf[:], uint64(p.depth))
 		if _, err = cw.Write(numBuf[:ns]); err != nil {
@@ -578,7 +578,7 @@ func reducedict(ctx context.Context, trace bool, logPrefix, segmentFilePath stri
 		positionList = append(positionList, p)
 		pos2code[pos] = p
 	}
-	slices.SortFunc(positionList, convertOldSortOrderToNew(positionListLess))
+	slices.SortFunc(positionList, ConvertOldSortOrderToNew(positionListLess))
 	i = 0
 	// Build Huffman tree for codes
 	var posHeap PositionHeap
@@ -636,7 +636,7 @@ func reducedict(ctx context.Context, trace bool, logPrefix, segmentFilePath stri
 	}
 	//fmt.Printf("posSize = %d\n", posSize)
 	// Write all the positions
-	slices.SortFunc(positionList, convertOldSortOrderToNew(positionListLess))
+	slices.SortFunc(positionList, ConvertOldSortOrderToNew(positionListLess))
 	for _, p := range positionList {
 		ns := binary.PutUvarint(numBuf[:], uint64(p.depth))
 		if _, err = cw.Write(numBuf[:ns]); err != nil {
