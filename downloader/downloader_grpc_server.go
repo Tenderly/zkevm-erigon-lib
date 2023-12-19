@@ -25,8 +25,8 @@ import (
 	"github.com/anacrolix/torrent/metainfo"
 	"github.com/ledgerwatch/log/v3"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	proto_downloader "github.com/tenderly/zkevm-erigon-lib/gointerfaces/downloader"
-	prototypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	proto_downloader "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmdownloader"
+	prototypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

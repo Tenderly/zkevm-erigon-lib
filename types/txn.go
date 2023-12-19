@@ -34,7 +34,7 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/common/length"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/crypto"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	"github.com/tenderly/zkevm-erigon-lib/rlp"
 )
 

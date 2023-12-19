@@ -20,7 +20,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	remote "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmremote"
 	"google.golang.org/grpc"
 )
 

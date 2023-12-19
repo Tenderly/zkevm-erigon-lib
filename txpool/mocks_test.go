@@ -5,7 +5,7 @@ package txpool
 
 import (
 	"context"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	remote "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmremote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	types2 "github.com/tenderly/zkevm-erigon-lib/types"
 	"sync"

@@ -7,7 +7,7 @@
 package zkevmtxpool
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"

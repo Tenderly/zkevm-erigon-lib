@@ -20,8 +20,8 @@ import (
 	"context"
 	"io"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	remote "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmremote"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 )

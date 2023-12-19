@@ -20,7 +20,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 )
 
 // DBSchemaVersion versions list

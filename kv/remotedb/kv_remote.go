@@ -32,7 +32,7 @@ import (
 
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/grpcutil"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	remote "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmremote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"
 )
