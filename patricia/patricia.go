@@ -21,7 +21,7 @@ import (
 	"math/bits"
 	"strings"
 
-	"github.com/tenderly/zkevm-erigon-lib/sais"
+	"github.com/tenderly/erigon/erigon-lib/sais"
 	"golang.org/x/exp/slices"
 )
 

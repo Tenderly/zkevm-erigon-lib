@@ -30,11 +30,11 @@ import (
 	"time"
 
 	"github.com/ledgerwatch/log/v3"
+	"github.com/tenderly/erigon/erigon-lib/sais"
 	"github.com/tenderly/zkevm-erigon-lib/common"
 	"github.com/tenderly/zkevm-erigon-lib/common/assert"
 	"github.com/tenderly/zkevm-erigon-lib/etl"
 	"github.com/tenderly/zkevm-erigon-lib/patricia"
-	"github.com/tenderly/zkevm-erigon-lib/sais"
 	"golang.org/x/exp/slices"
 )
 
