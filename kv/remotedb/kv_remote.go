@@ -30,9 +30,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 
+	"github.com/tenderly/erigon/erigon-lib/gointerfaces/grpcutil"
+	"github.com/tenderly/erigon/erigon-lib/gointerfaces/remote"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/grpcutil"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"
 )

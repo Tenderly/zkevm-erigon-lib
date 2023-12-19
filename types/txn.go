@@ -30,11 +30,11 @@ import (
 	"github.com/tenderly/secp256k1"
 	"golang.org/x/crypto/sha3"
 
+	"github.com/tenderly/erigon/erigon-lib/gointerfaces/types"
 	"github.com/tenderly/zkevm-erigon-lib/common"
 	"github.com/tenderly/zkevm-erigon-lib/common/length"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/crypto"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"github.com/tenderly/zkevm-erigon-lib/rlp"
 )
 

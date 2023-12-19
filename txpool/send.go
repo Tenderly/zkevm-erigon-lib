@@ -22,8 +22,8 @@ import (
 	"sync"
 
 	"github.com/ledgerwatch/log/v3"
+	"github.com/tenderly/erigon/erigon-lib/gointerfaces/sentry"
 	"github.com/tenderly/zkevm-erigon-lib/direct"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/sentry"
 	"github.com/tenderly/zkevm-erigon-lib/rlp"
 	types2 "github.com/tenderly/zkevm-erigon-lib/types"
 	"google.golang.org/grpc"
