@@ -30,6 +30,7 @@ import (
 	"time"
 
 	"github.com/c2h5oh/datasize"
+	"github.com/erigontech/mdbx-go/mdbx"
 	stack2 "github.com/go-stack/stack"
 	"github.com/ledgerwatch/log/v3"
 	"github.com/pbnjay/memory"
@@ -37,7 +38,6 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/iter"
 	"github.com/tenderly/zkevm-erigon-lib/kv/order"
-	"github.com/torquem-ch/mdbx-go/mdbx"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/semaphore"
 )
