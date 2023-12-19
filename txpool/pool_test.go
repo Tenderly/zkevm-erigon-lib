@@ -29,11 +29,11 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/tenderly/zkevm-erigon-lib/txpool/txpoolcfg"
 
-	"github.com/tenderly/erigon/erigon-lib/gointerfaces"
-	"github.com/tenderly/erigon/erigon-lib/gointerfaces/remote"
 	"github.com/tenderly/zkevm-erigon-lib/common"
 	"github.com/tenderly/zkevm-erigon-lib/common/fixedgas"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/kvcache"
 	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
