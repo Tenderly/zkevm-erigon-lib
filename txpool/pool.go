@@ -41,6 +41,7 @@ import (
 	"github.com/ledgerwatch/log/v3"
 	"github.com/tenderly/zkevm-erigon-lib/txpool/txpoolcfg"
 
+	"github.com/tenderly/erigon/erigon-lib/gointerfaces"
 	"github.com/tenderly/erigon/erigon-lib/gointerfaces/grpcutil"
 	"github.com/tenderly/erigon/erigon-lib/gointerfaces/remote"
 	proto_txpool "github.com/tenderly/erigon/erigon-lib/gointerfaces/txpool"
@@ -52,7 +53,6 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/common/fixedgas"
 	emath "github.com/tenderly/zkevm-erigon-lib/common/math"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/kvcache"
 	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"

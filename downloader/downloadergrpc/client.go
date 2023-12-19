@@ -24,9 +24,9 @@ import (
 
 	"github.com/anacrolix/torrent/metainfo"
 	"github.com/c2h5oh/datasize"
+	"github.com/tenderly/erigon/erigon-lib/gointerfaces"
 	proto_downloader "github.com/tenderly/erigon/erigon-lib/gointerfaces/downloader"
 	prototypes "github.com/tenderly/erigon/erigon-lib/gointerfaces/types"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/backoff"
 	"google.golang.org/grpc/credentials/insecure"
