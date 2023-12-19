@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: remote/kv.proto
+// source: zkevmremote/zkevmkv.proto
 
-package remote
+package zkevmremote
 
 import (
 	context "context"
@@ -21,16 +21,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	KV_Version_FullMethodName      = "/remote.KV/Version"
-	KV_Tx_FullMethodName           = "/remote.KV/Tx"
-	KV_StateChanges_FullMethodName = "/remote.KV/StateChanges"
-	KV_Snapshots_FullMethodName    = "/remote.KV/Snapshots"
-	KV_Range_FullMethodName        = "/remote.KV/Range"
-	KV_DomainGet_FullMethodName    = "/remote.KV/DomainGet"
-	KV_HistoryGet_FullMethodName   = "/remote.KV/HistoryGet"
-	KV_IndexRange_FullMethodName   = "/remote.KV/IndexRange"
-	KV_HistoryRange_FullMethodName = "/remote.KV/HistoryRange"
-	KV_DomainRange_FullMethodName  = "/remote.KV/DomainRange"
+	KV_Version_FullMethodName      = "/zkevmremote.KV/Version"
+	KV_Tx_FullMethodName           = "/zkevmremote.KV/Tx"
+	KV_StateChanges_FullMethodName = "/zkevmremote.KV/StateChanges"
+	KV_Snapshots_FullMethodName    = "/zkevmremote.KV/Snapshots"
+	KV_Range_FullMethodName        = "/zkevmremote.KV/Range"
+	KV_DomainGet_FullMethodName    = "/zkevmremote.KV/DomainGet"
+	KV_HistoryGet_FullMethodName   = "/zkevmremote.KV/HistoryGet"
+	KV_IndexRange_FullMethodName   = "/zkevmremote.KV/IndexRange"
+	KV_HistoryRange_FullMethodName = "/zkevmremote.KV/HistoryRange"
+	KV_DomainRange_FullMethodName  = "/zkevmremote.KV/DomainRange"
 )
 
 // KVClient is the client API for KV service.
@@ -475,7 +475,7 @@ func _KV_DomainRange_Handler(srv interface{}, ctx context.Context, dec func(inte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var KV_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "remote.KV",
+	ServiceName: "zkevmremote.KV",
 	HandlerType: (*KVServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -524,5 +524,5 @@ var KV_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "remote/kv.proto",
+	Metadata: "zkevmremote/zkevmkv.proto",
 }

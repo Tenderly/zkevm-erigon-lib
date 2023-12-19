@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: remote/ethbackend.proto
+// source: zkevmremote/zkevmethbackend.proto
 
-package remote
+package zkevmremote
 
 import (
 	context "context"
@@ -21,25 +21,25 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ETHBACKEND_Etherbase_FullMethodName                       = "/remote.ETHBACKEND/Etherbase"
-	ETHBACKEND_NetVersion_FullMethodName                      = "/remote.ETHBACKEND/NetVersion"
-	ETHBACKEND_NetPeerCount_FullMethodName                    = "/remote.ETHBACKEND/NetPeerCount"
-	ETHBACKEND_EngineNewPayload_FullMethodName                = "/remote.ETHBACKEND/EngineNewPayload"
-	ETHBACKEND_EngineForkChoiceUpdated_FullMethodName         = "/remote.ETHBACKEND/EngineForkChoiceUpdated"
-	ETHBACKEND_EngineGetPayload_FullMethodName                = "/remote.ETHBACKEND/EngineGetPayload"
-	ETHBACKEND_EngineGetPayloadBodiesByHashV1_FullMethodName  = "/remote.ETHBACKEND/EngineGetPayloadBodiesByHashV1"
-	ETHBACKEND_EngineGetPayloadBodiesByRangeV1_FullMethodName = "/remote.ETHBACKEND/EngineGetPayloadBodiesByRangeV1"
-	ETHBACKEND_EngineGetBlobsBundleV1_FullMethodName          = "/remote.ETHBACKEND/EngineGetBlobsBundleV1"
-	ETHBACKEND_Version_FullMethodName                         = "/remote.ETHBACKEND/Version"
-	ETHBACKEND_ProtocolVersion_FullMethodName                 = "/remote.ETHBACKEND/ProtocolVersion"
-	ETHBACKEND_ClientVersion_FullMethodName                   = "/remote.ETHBACKEND/ClientVersion"
-	ETHBACKEND_Subscribe_FullMethodName                       = "/remote.ETHBACKEND/Subscribe"
-	ETHBACKEND_SubscribeLogs_FullMethodName                   = "/remote.ETHBACKEND/SubscribeLogs"
-	ETHBACKEND_Block_FullMethodName                           = "/remote.ETHBACKEND/Block"
-	ETHBACKEND_TxnLookup_FullMethodName                       = "/remote.ETHBACKEND/TxnLookup"
-	ETHBACKEND_NodeInfo_FullMethodName                        = "/remote.ETHBACKEND/NodeInfo"
-	ETHBACKEND_Peers_FullMethodName                           = "/remote.ETHBACKEND/Peers"
-	ETHBACKEND_PendingBlock_FullMethodName                    = "/remote.ETHBACKEND/PendingBlock"
+	ETHBACKEND_Etherbase_FullMethodName                       = "/zkevmremote.ETHBACKEND/Etherbase"
+	ETHBACKEND_NetVersion_FullMethodName                      = "/zkevmremote.ETHBACKEND/NetVersion"
+	ETHBACKEND_NetPeerCount_FullMethodName                    = "/zkevmremote.ETHBACKEND/NetPeerCount"
+	ETHBACKEND_EngineNewPayload_FullMethodName                = "/zkevmremote.ETHBACKEND/EngineNewPayload"
+	ETHBACKEND_EngineForkChoiceUpdated_FullMethodName         = "/zkevmremote.ETHBACKEND/EngineForkChoiceUpdated"
+	ETHBACKEND_EngineGetPayload_FullMethodName                = "/zkevmremote.ETHBACKEND/EngineGetPayload"
+	ETHBACKEND_EngineGetPayloadBodiesByHashV1_FullMethodName  = "/zkevmremote.ETHBACKEND/EngineGetPayloadBodiesByHashV1"
+	ETHBACKEND_EngineGetPayloadBodiesByRangeV1_FullMethodName = "/zkevmremote.ETHBACKEND/EngineGetPayloadBodiesByRangeV1"
+	ETHBACKEND_EngineGetBlobsBundleV1_FullMethodName          = "/zkevmremote.ETHBACKEND/EngineGetBlobsBundleV1"
+	ETHBACKEND_Version_FullMethodName                         = "/zkevmremote.ETHBACKEND/Version"
+	ETHBACKEND_ProtocolVersion_FullMethodName                 = "/zkevmremote.ETHBACKEND/ProtocolVersion"
+	ETHBACKEND_ClientVersion_FullMethodName                   = "/zkevmremote.ETHBACKEND/ClientVersion"
+	ETHBACKEND_Subscribe_FullMethodName                       = "/zkevmremote.ETHBACKEND/Subscribe"
+	ETHBACKEND_SubscribeLogs_FullMethodName                   = "/zkevmremote.ETHBACKEND/SubscribeLogs"
+	ETHBACKEND_Block_FullMethodName                           = "/zkevmremote.ETHBACKEND/Block"
+	ETHBACKEND_TxnLookup_FullMethodName                       = "/zkevmremote.ETHBACKEND/TxnLookup"
+	ETHBACKEND_NodeInfo_FullMethodName                        = "/zkevmremote.ETHBACKEND/NodeInfo"
+	ETHBACKEND_Peers_FullMethodName                           = "/zkevmremote.ETHBACKEND/Peers"
+	ETHBACKEND_PendingBlock_FullMethodName                    = "/zkevmremote.ETHBACKEND/PendingBlock"
 )
 
 // ETHBACKENDClient is the client API for ETHBACKEND service.
@@ -778,7 +778,7 @@ func _ETHBACKEND_PendingBlock_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ETHBACKEND_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "remote.ETHBACKEND",
+	ServiceName: "zkevmremote.ETHBACKEND",
 	HandlerType: (*ETHBACKENDServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -863,5 +863,5 @@ var ETHBACKEND_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "remote/ethbackend.proto",
+	Metadata: "zkevmremote/zkevmethbackend.proto",
 }

@@ -19,7 +19,7 @@ package gointerfaces
 import (
 	"fmt"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 )
 
 type Version struct {

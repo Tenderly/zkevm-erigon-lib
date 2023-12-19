@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: downloader/downloader.proto
+// source: zkevmdownloader/zkevmdownloader.proto
 
-package downloader
+package zkevmdownloader
 
 import (
 	context "context"
@@ -20,9 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Downloader_Download_FullMethodName = "/downloader.Downloader/Download"
-	Downloader_Verify_FullMethodName   = "/downloader.Downloader/Verify"
-	Downloader_Stats_FullMethodName    = "/downloader.Downloader/Stats"
+	Downloader_Download_FullMethodName = "/zkevmdownloader.Downloader/Download"
+	Downloader_Verify_FullMethodName   = "/zkevmdownloader.Downloader/Verify"
+	Downloader_Stats_FullMethodName    = "/zkevmdownloader.Downloader/Stats"
 )
 
 // DownloaderClient is the client API for Downloader service.
@@ -163,7 +163,7 @@ func _Downloader_Stats_Handler(srv interface{}, ctx context.Context, dec func(in
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Downloader_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "downloader.Downloader",
+	ServiceName: "zkevmdownloader.Downloader",
 	HandlerType: (*DownloaderServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -180,5 +180,5 @@ var Downloader_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "downloader/downloader.proto",
+	Metadata: "zkevmdownloader/zkevmdownloader.proto",
 }

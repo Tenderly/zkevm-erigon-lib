@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: txpool/mining.proto
+// source: zkevmtxpool/zkevmmining.proto
 
-package txpool
+package zkevmtxpool
 
 import (
 	context "context"
@@ -21,15 +21,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Mining_Version_FullMethodName        = "/txpool.Mining/Version"
-	Mining_OnPendingBlock_FullMethodName = "/txpool.Mining/OnPendingBlock"
-	Mining_OnMinedBlock_FullMethodName   = "/txpool.Mining/OnMinedBlock"
-	Mining_OnPendingLogs_FullMethodName  = "/txpool.Mining/OnPendingLogs"
-	Mining_GetWork_FullMethodName        = "/txpool.Mining/GetWork"
-	Mining_SubmitWork_FullMethodName     = "/txpool.Mining/SubmitWork"
-	Mining_SubmitHashRate_FullMethodName = "/txpool.Mining/SubmitHashRate"
-	Mining_HashRate_FullMethodName       = "/txpool.Mining/HashRate"
-	Mining_Mining_FullMethodName         = "/txpool.Mining/Mining"
+	Mining_Version_FullMethodName        = "/zkevmtxpool.Mining/Version"
+	Mining_OnPendingBlock_FullMethodName = "/zkevmtxpool.Mining/OnPendingBlock"
+	Mining_OnMinedBlock_FullMethodName   = "/zkevmtxpool.Mining/OnMinedBlock"
+	Mining_OnPendingLogs_FullMethodName  = "/zkevmtxpool.Mining/OnPendingLogs"
+	Mining_GetWork_FullMethodName        = "/zkevmtxpool.Mining/GetWork"
+	Mining_SubmitWork_FullMethodName     = "/zkevmtxpool.Mining/SubmitWork"
+	Mining_SubmitHashRate_FullMethodName = "/zkevmtxpool.Mining/SubmitHashRate"
+	Mining_HashRate_FullMethodName       = "/zkevmtxpool.Mining/HashRate"
+	Mining_Mining_FullMethodName         = "/zkevmtxpool.Mining/Mining"
 )
 
 // MiningClient is the client API for Mining service.
@@ -486,7 +486,7 @@ func _Mining_Mining_Handler(srv interface{}, ctx context.Context, dec func(inter
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Mining_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "txpool.Mining",
+	ServiceName: "zkevmtxpool.Mining",
 	HandlerType: (*MiningServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -531,5 +531,5 @@ var Mining_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "txpool/mining.proto",
+	Metadata: "zkevmtxpool/zkevmmining.proto",
 }

@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: p2psentry/sentry.proto
+// source: zkevmp2psentry/zkevmsentry.proto
 
-package sentry
+package zkevmsentry
 
 import (
 	context "context"
@@ -21,20 +21,20 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Sentry_SetStatus_FullMethodName                = "/sentry.Sentry/SetStatus"
-	Sentry_PenalizePeer_FullMethodName             = "/sentry.Sentry/PenalizePeer"
-	Sentry_PeerMinBlock_FullMethodName             = "/sentry.Sentry/PeerMinBlock"
-	Sentry_HandShake_FullMethodName                = "/sentry.Sentry/HandShake"
-	Sentry_SendMessageByMinBlock_FullMethodName    = "/sentry.Sentry/SendMessageByMinBlock"
-	Sentry_SendMessageById_FullMethodName          = "/sentry.Sentry/SendMessageById"
-	Sentry_SendMessageToRandomPeers_FullMethodName = "/sentry.Sentry/SendMessageToRandomPeers"
-	Sentry_SendMessageToAll_FullMethodName         = "/sentry.Sentry/SendMessageToAll"
-	Sentry_Messages_FullMethodName                 = "/sentry.Sentry/Messages"
-	Sentry_Peers_FullMethodName                    = "/sentry.Sentry/Peers"
-	Sentry_PeerCount_FullMethodName                = "/sentry.Sentry/PeerCount"
-	Sentry_PeerById_FullMethodName                 = "/sentry.Sentry/PeerById"
-	Sentry_PeerEvents_FullMethodName               = "/sentry.Sentry/PeerEvents"
-	Sentry_NodeInfo_FullMethodName                 = "/sentry.Sentry/NodeInfo"
+	Sentry_SetStatus_FullMethodName                = "/zkevmsentry.Sentry/SetStatus"
+	Sentry_PenalizePeer_FullMethodName             = "/zkevmsentry.Sentry/PenalizePeer"
+	Sentry_PeerMinBlock_FullMethodName             = "/zkevmsentry.Sentry/PeerMinBlock"
+	Sentry_HandShake_FullMethodName                = "/zkevmsentry.Sentry/HandShake"
+	Sentry_SendMessageByMinBlock_FullMethodName    = "/zkevmsentry.Sentry/SendMessageByMinBlock"
+	Sentry_SendMessageById_FullMethodName          = "/zkevmsentry.Sentry/SendMessageById"
+	Sentry_SendMessageToRandomPeers_FullMethodName = "/zkevmsentry.Sentry/SendMessageToRandomPeers"
+	Sentry_SendMessageToAll_FullMethodName         = "/zkevmsentry.Sentry/SendMessageToAll"
+	Sentry_Messages_FullMethodName                 = "/zkevmsentry.Sentry/Messages"
+	Sentry_Peers_FullMethodName                    = "/zkevmsentry.Sentry/Peers"
+	Sentry_PeerCount_FullMethodName                = "/zkevmsentry.Sentry/PeerCount"
+	Sentry_PeerById_FullMethodName                 = "/zkevmsentry.Sentry/PeerById"
+	Sentry_PeerEvents_FullMethodName               = "/zkevmsentry.Sentry/PeerEvents"
+	Sentry_NodeInfo_FullMethodName                 = "/zkevmsentry.Sentry/NodeInfo"
 )
 
 // SentryClient is the client API for Sentry service.
@@ -595,7 +595,7 @@ func _Sentry_NodeInfo_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Sentry_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "sentry.Sentry",
+	ServiceName: "zkevmsentry.Sentry",
 	HandlerType: (*SentryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -659,5 +659,5 @@ var Sentry_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "p2psentry/sentry.proto",
+	Metadata: "zkevmp2psentry/zkevmsentry.proto",
 }

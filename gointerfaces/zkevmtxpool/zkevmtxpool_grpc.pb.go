@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: txpool/txpool.proto
+// source: zkevmtxpool/zkevmtxpool.proto
 
-package txpool
+package zkevmtxpool
 
 import (
 	context "context"
@@ -21,15 +21,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Txpool_Version_FullMethodName      = "/txpool.Txpool/Version"
-	Txpool_FindUnknown_FullMethodName  = "/txpool.Txpool/FindUnknown"
-	Txpool_Add_FullMethodName          = "/txpool.Txpool/Add"
-	Txpool_Transactions_FullMethodName = "/txpool.Txpool/Transactions"
-	Txpool_All_FullMethodName          = "/txpool.Txpool/All"
-	Txpool_Pending_FullMethodName      = "/txpool.Txpool/Pending"
-	Txpool_OnAdd_FullMethodName        = "/txpool.Txpool/OnAdd"
-	Txpool_Status_FullMethodName       = "/txpool.Txpool/Status"
-	Txpool_Nonce_FullMethodName        = "/txpool.Txpool/Nonce"
+	Txpool_Version_FullMethodName      = "/zkevmtxpool.Txpool/Version"
+	Txpool_FindUnknown_FullMethodName  = "/zkevmtxpool.Txpool/FindUnknown"
+	Txpool_Add_FullMethodName          = "/zkevmtxpool.Txpool/Add"
+	Txpool_Transactions_FullMethodName = "/zkevmtxpool.Txpool/Transactions"
+	Txpool_All_FullMethodName          = "/zkevmtxpool.Txpool/All"
+	Txpool_Pending_FullMethodName      = "/zkevmtxpool.Txpool/Pending"
+	Txpool_OnAdd_FullMethodName        = "/zkevmtxpool.Txpool/OnAdd"
+	Txpool_Status_FullMethodName       = "/zkevmtxpool.Txpool/Status"
+	Txpool_Nonce_FullMethodName        = "/zkevmtxpool.Txpool/Nonce"
 )
 
 // TxpoolClient is the client API for Txpool service.
@@ -408,7 +408,7 @@ func _Txpool_Nonce_Handler(srv interface{}, ctx context.Context, dec func(interf
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Txpool_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "txpool.Txpool",
+	ServiceName: "zkevmtxpool.Txpool",
 	HandlerType: (*TxpoolServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -451,5 +451,5 @@ var Txpool_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "txpool/txpool.proto",
+	Metadata: "zkevmtxpool/zkevmtxpool.proto",
 }

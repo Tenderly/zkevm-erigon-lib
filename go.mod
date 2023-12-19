@@ -5,7 +5,6 @@ go 1.19
 require (
 	//github.com/torquem-ch/mdbx-go v0.27.10
 	github.com/erigontech/mdbx-go v0.27.21
-	github.com/ledgerwatch/interfaces v0.0.0-20231031050643-c86352e41520
 	github.com/ledgerwatch/log/v3 v3.9.0
 	github.com/ledgerwatch/trackerslist v1.1.0
 	github.com/tenderly/secp256k1 v1.0.1-0.20231212115822-31dacfc1e0c7
@@ -31,6 +30,7 @@ require (
 	github.com/quasilyte/go-ruleguard/dsl v0.3.22
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/testify v1.8.4
+	github.com/tenderly/erigon-interfaces v0.0.0-20231219142311-539864b62885
 	github.com/tenderly/erigon/erigon-lib v0.0.0-20231213155600-d3d9290e9e54
 	github.com/tidwall/btree v1.6.0
 	golang.org/x/crypto v0.16.0

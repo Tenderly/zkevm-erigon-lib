@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: execution/execution.proto
+// source: zkevmexecution/zkevmexecution.proto
 
-package execution
+package zkevmexecution
 
 import (
 	context "context"
@@ -20,15 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Execution_InsertHeaders_FullMethodName       = "/execution.Execution/InsertHeaders"
-	Execution_InsertBodies_FullMethodName        = "/execution.Execution/InsertBodies"
-	Execution_ValidateChain_FullMethodName       = "/execution.Execution/ValidateChain"
-	Execution_UpdateForkChoice_FullMethodName    = "/execution.Execution/UpdateForkChoice"
-	Execution_AssembleBlock_FullMethodName       = "/execution.Execution/AssembleBlock"
-	Execution_GetHeader_FullMethodName           = "/execution.Execution/GetHeader"
-	Execution_GetBody_FullMethodName             = "/execution.Execution/GetBody"
-	Execution_IsCanonicalHash_FullMethodName     = "/execution.Execution/IsCanonicalHash"
-	Execution_GetHeaderHashNumber_FullMethodName = "/execution.Execution/GetHeaderHashNumber"
+	Execution_InsertHeaders_FullMethodName       = "/zkevmexecution.Execution/InsertHeaders"
+	Execution_InsertBodies_FullMethodName        = "/zkevmexecution.Execution/InsertBodies"
+	Execution_ValidateChain_FullMethodName       = "/zkevmexecution.Execution/ValidateChain"
+	Execution_UpdateForkChoice_FullMethodName    = "/zkevmexecution.Execution/UpdateForkChoice"
+	Execution_AssembleBlock_FullMethodName       = "/zkevmexecution.Execution/AssembleBlock"
+	Execution_GetHeader_FullMethodName           = "/zkevmexecution.Execution/GetHeader"
+	Execution_GetBody_FullMethodName             = "/zkevmexecution.Execution/GetBody"
+	Execution_IsCanonicalHash_FullMethodName     = "/zkevmexecution.Execution/IsCanonicalHash"
+	Execution_GetHeaderHashNumber_FullMethodName = "/zkevmexecution.Execution/GetHeaderHashNumber"
 )
 
 // ExecutionClient is the client API for Execution service.
@@ -367,7 +367,7 @@ func _Execution_GetHeaderHashNumber_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Execution_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "execution.Execution",
+	ServiceName: "zkevmexecution.Execution",
 	HandlerType: (*ExecutionServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -408,5 +408,5 @@ var Execution_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "execution/execution.proto",
+	Metadata: "zkevmexecution/zkevmexecution.proto",
 }

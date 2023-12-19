@@ -1,4 +1,4 @@
 package gointerfaces
 
-//go:generate moq -stub -out ./sentry/mocks.go ./sentry SentryServer SentryClient
-//go:generate moq -stub -out ./remote/mocks.go ./remote KVClient KV_StateChangesClient
+//go:generate moq -stub -out ./zkevmsentry/mocks.go ./zkevmsentry SentryServer SentryClient
+//go:generate moq -stub -out ./zkevmremote/mocks.go ./zkevmremote KVClient KV_StateChangesClient

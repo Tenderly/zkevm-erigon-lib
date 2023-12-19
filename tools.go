@@ -17,15 +17,15 @@ package tools
 // build tag 'trick_go_mod_tidy' - is used to hide warnings of IDEA (because we can't import `main` packages in go)
 
 import (
-	_ "github.com/ledgerwatch/interfaces"
-	_ "github.com/ledgerwatch/interfaces/downloader"
-	_ "github.com/ledgerwatch/interfaces/execution"
-	_ "github.com/ledgerwatch/interfaces/p2psentinel"
-	_ "github.com/ledgerwatch/interfaces/p2psentry"
-	_ "github.com/ledgerwatch/interfaces/remote"
-	_ "github.com/ledgerwatch/interfaces/txpool"
-	_ "github.com/ledgerwatch/interfaces/types"
-	_ "github.com/ledgerwatch/interfaces/web3"
 	_ "github.com/matryer/moq"
+	_ "github.com/tenderly/erigon-interfaces"
+	_ "github.com/tenderly/erigon-interfaces/zkevmdownloader"
+	_ "github.com/tenderly/erigon-interfaces/zkevmexecution"
+	_ "github.com/tenderly/erigon-interfaces/zkevmp2psentinel"
+	_ "github.com/tenderly/erigon-interfaces/zkevmp2psentry"
+	_ "github.com/tenderly/erigon-interfaces/zkevmremote"
+	_ "github.com/tenderly/erigon-interfaces/zkevmtxpool"
+	_ "github.com/tenderly/erigon-interfaces/zkevmtypes"
+	_ "github.com/tenderly/erigon-interfaces/zkevmweb3"
 	_ "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
 )

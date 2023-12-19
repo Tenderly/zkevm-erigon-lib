@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: p2psentinel/sentinel.proto
+// source: zkevmp2psentinel/zkevmsentinel.proto
 
-package sentinel
+package zkevmsentinel
 
 import (
 	context "context"
@@ -19,12 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Sentinel_SubscribeGossip_FullMethodName = "/sentinel.Sentinel/SubscribeGossip"
-	Sentinel_SendRequest_FullMethodName     = "/sentinel.Sentinel/SendRequest"
-	Sentinel_SetStatus_FullMethodName       = "/sentinel.Sentinel/SetStatus"
-	Sentinel_GetPeers_FullMethodName        = "/sentinel.Sentinel/GetPeers"
-	Sentinel_BanPeer_FullMethodName         = "/sentinel.Sentinel/BanPeer"
-	Sentinel_PublishGossip_FullMethodName   = "/sentinel.Sentinel/PublishGossip"
+	Sentinel_SubscribeGossip_FullMethodName = "/zkevmsentinel.Sentinel/SubscribeGossip"
+	Sentinel_SendRequest_FullMethodName     = "/zkevmsentinel.Sentinel/SendRequest"
+	Sentinel_SetStatus_FullMethodName       = "/zkevmsentinel.Sentinel/SetStatus"
+	Sentinel_GetPeers_FullMethodName        = "/zkevmsentinel.Sentinel/GetPeers"
+	Sentinel_BanPeer_FullMethodName         = "/zkevmsentinel.Sentinel/BanPeer"
+	Sentinel_PublishGossip_FullMethodName   = "/zkevmsentinel.Sentinel/PublishGossip"
 )
 
 // SentinelClient is the client API for Sentinel service.
@@ -287,7 +287,7 @@ func _Sentinel_PublishGossip_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Sentinel_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "sentinel.Sentinel",
+	ServiceName: "zkevmsentinel.Sentinel",
 	HandlerType: (*SentinelServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -318,5 +318,5 @@ var Sentinel_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "p2psentinel/sentinel.proto",
+	Metadata: "zkevmp2psentinel/zkevmsentinel.proto",
 }

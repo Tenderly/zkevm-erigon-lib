@@ -17,7 +17,7 @@ import (
 	"encoding/binary"
 
 	"github.com/holiman/uint256"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 )
 
 func ConvertH2048ToBloom(h2048 *types.H2048) [256]byte {

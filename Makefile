@@ -52,15 +52,15 @@ protoc-clean:
 
 grpc: protoc-all
 	go mod vendor
-	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/ledgerwatch/interfaces --go_out=gointerfaces -I=$(PROTOC_INCLUDE) \
-		types/types.proto
-	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/ledgerwatch/interfaces --go_out=gointerfaces --go-grpc_out=gointerfaces -I=$(PROTOC_INCLUDE) \
-		--go_opt=Mtypes/types.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
-		--go-grpc_opt=Mtypes/types.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
-		p2psentry/sentry.proto p2psentinel/sentinel.proto \
-		remote/kv.proto remote/ethbackend.proto \
-		downloader/downloader.proto execution/execution.proto \
-		txpool/txpool.proto txpool/mining.proto
+	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/tenderly/erigon-interfaces --go_out=gointerfaces -I=$(PROTOC_INCLUDE) \
+		zkevmtypes/zkevmtypes.proto
+	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/tenderly/erigon-interfaces --go_out=gointerfaces --go-grpc_out=gointerfaces -I=$(PROTOC_INCLUDE) \
+		--go_opt=Mzkevmtypes/zkevmtypes.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
+		--go-grpc_opt=Mzkevmtypes/zkevmtypes.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
+		zkevmp2psentry/zkevmsentry.proto zkevmp2psentinel/zkevmsentinel.proto \
+		zkevmremote/zkevmkv.proto zkevmremote/zkevmethbackend.proto \
+		zkevmdownloader/zkevmdownloader.proto zkevmexecution/zkevmexecution.proto \
+		zkevmtxpool/zkevmtxpool.proto zkevmtxpool/zkevmmining.proto
 	rm -rf vendor
 
 $(GOBINREL)/moq: | $(GOBINREL)
