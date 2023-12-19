@@ -29,9 +29,9 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/direct"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/sentry"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_sentry"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
 	types3 "github.com/tenderly/zkevm-erigon-lib/types"
 	"google.golang.org/grpc"
@@ -45,7 +45,7 @@ func TestFetch(t *testing.T) {
 	sentryClient := direct.NewSentryClientDirect(direct.ETH66, m)
 	pool := &PoolMock{}
 
-	fetch := NewFetch(ctx, []direct.SentryClient{sentryClient}, pool, &remote.KVClientMock{}, nil, nil, *u256.N1)
+	fetch := NewFetch(ctx, []direct.SentryClient{sentryClient}, pool, &zkevm_remote.KVClientMock{}, nil, nil, *u256.N1)
 	var wg sync.WaitGroup
 	fetch.SetWaitGroup(&wg)
 	m.StreamWg.Add(2)
@@ -53,8 +53,8 @@ func TestFetch(t *testing.T) {
 	m.StreamWg.Wait()
 	// Send one transaction id
 	wg.Add(1)
-	errs := m.Send(&sentry.InboundMessage{
-		Id:     sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
+	errs := m.Send(&zkevm_sentry.InboundMessage{
+		Id:     zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
 		Data:   decodeHex("e1a0595e27a835cd79729ff1eeacec3120eeb6ed1464a04ec727aaca734ead961328"),
 		PeerId: peerID,
 	})
@@ -81,10 +81,10 @@ func TestSendTxPropagate(t *testing.T) {
 		calls2 := m.SendMessageToAllCalls()
 		require.Equal(t, 1, len(calls2))
 		first := calls1[0].SendMessageToRandomPeersRequest.Data
-		assert.Equal(t, sentry.MessageId_TRANSACTIONS_66, first.Id)
+		assert.Equal(t, zkevm_sentry.MessageId_TRANSACTIONS_66, first.Id)
 		assert.Equal(t, 3, len(first.Data))
 		second := calls2[0].OutboundMessageData
-		assert.Equal(t, sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, second.Id)
+		assert.Equal(t, zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, second.Id)
 		assert.Equal(t, 76, len(second.Data))
 	})
 	t.Run("much remote byHash", func(t *testing.T) {
@@ -102,18 +102,18 @@ func TestSendTxPropagate(t *testing.T) {
 		calls2 := m.SendMessageToAllCalls()
 		require.Equal(t, 1, len(calls2))
 		call1 := calls1[0].SendMessageToRandomPeersRequest.Data
-		require.Equal(t, sentry.MessageId_TRANSACTIONS_66, call1.Id)
+		require.Equal(t, zkevm_sentry.MessageId_TRANSACTIONS_66, call1.Id)
 		require.True(t, len(call1.Data) > 0)
 		for i := 0; i < 1; i++ {
 			call2 := calls2[i].OutboundMessageData
-			require.Equal(t, sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, call2.Id)
+			require.Equal(t, zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, call2.Id)
 			require.True(t, len(call2.Data) > 0)
 		}
 	})
 	t.Run("few local byHash", func(t *testing.T) {
 		m := NewMockSentry(ctx)
-		m.SendMessageToAllFunc = func(contextMoqParam context.Context, outboundMessageData *sentry.OutboundMessageData) (*sentry.SentPeers, error) {
-			return &sentry.SentPeers{Peers: make([]*types.H512, 5)}, nil
+		m.SendMessageToAllFunc = func(contextMoqParam context.Context, outboundMessageData *zkevm_sentry.OutboundMessageData) (*zkevm_sentry.SentPeers, error) {
+			return &zkevm_sentry.SentPeers{Peers: make([]*zkevm_types.H512, 5)}, nil
 		}
 		send := NewSend(ctx, []direct.SentryClient{direct.NewSentryClientDirect(direct.ETH68, m)}, nil)
 		send.BroadcastPooledTxs(testRlps(2))
@@ -122,14 +122,14 @@ func TestSendTxPropagate(t *testing.T) {
 		calls := m.SendMessageToAllCalls()
 		require.Equal(t, 1, len(calls))
 		first := calls[0].OutboundMessageData
-		assert.Equal(t, sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, first.Id)
+		assert.Equal(t, zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, first.Id)
 		assert.Equal(t, 76, len(first.Data))
 	})
 	t.Run("sync with new peer", func(t *testing.T) {
 		m := NewMockSentry(ctx)
 
-		m.SendMessageToAllFunc = func(contextMoqParam context.Context, outboundMessageData *sentry.OutboundMessageData) (*sentry.SentPeers, error) {
-			return &sentry.SentPeers{Peers: make([]*types.H512, 5)}, nil
+		m.SendMessageToAllFunc = func(contextMoqParam context.Context, outboundMessageData *zkevm_sentry.OutboundMessageData) (*zkevm_sentry.SentPeers, error) {
+			return &zkevm_sentry.SentPeers{Peers: make([]*zkevm_types.H512, 5)}, nil
 		}
 		send := NewSend(ctx, []direct.SentryClient{direct.NewSentryClientDirect(direct.ETH68, m)}, nil)
 		expectPeers := toPeerIDs(1, 2, 42)
@@ -140,7 +140,7 @@ func TestSendTxPropagate(t *testing.T) {
 		for i, call := range calls {
 			req := call.SendMessageByIdRequest
 			assert.Equal(t, expectPeers[i], types3.PeerID(req.PeerId))
-			assert.Equal(t, sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, req.Data.Id)
+			assert.Equal(t, zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68, req.Data.Id)
 			assert.True(t, len(req.Data.Data) > 0)
 		}
 	})
@@ -159,22 +159,22 @@ func TestOnNewBlock(t *testing.T) {
 	coreDB, db := memdb.NewTestDB(t), memdb.NewTestDB(t)
 
 	i := 0
-	stream := &remote.KV_StateChangesClientMock{
-		RecvFunc: func() (*remote.StateChangeBatch, error) {
+	stream := &zkevm_remote.KV_StateChangesClientMock{
+		RecvFunc: func() (*zkevm_remote.StateChangeBatch, error) {
 			if i > 0 {
 				return nil, io.EOF
 			}
 			i++
-			return &remote.StateChangeBatch{
+			return &zkevm_remote.StateChangeBatch{
 				StateVersionId: 1,
-				ChangeBatch: []*remote.StateChange{
+				ChangeBatch: []*zkevm_remote.StateChange{
 					{Txs: [][]byte{decodeHex(types3.TxParseMainnetTests[0].PayloadStr), decodeHex(types3.TxParseMainnetTests[1].PayloadStr), decodeHex(types3.TxParseMainnetTests[2].PayloadStr)}, BlockHeight: 1, BlockHash: gointerfaces.ConvertHashToH256([32]byte{})},
 				},
 			}, nil
 		},
 	}
-	stateChanges := &remote.KVClientMock{
-		StateChangesFunc: func(ctx context.Context, in *remote.StateChangeRequest, opts ...grpc.CallOption) (remote.KV_StateChangesClient, error) {
+	stateChanges := &zkevm_remote.KVClientMock{
+		StateChangesFunc: func(ctx context.Context, in *zkevm_remote.StateChangeRequest, opts ...grpc.CallOption) (zkevm_remote.KV_StateChangesClient, error) {
 			return stream, nil
 		},
 	}

@@ -26,8 +26,8 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/sentry"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_sentry"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 )
 
 const (
@@ -37,78 +37,78 @@ const (
 	ETH68 = 68
 )
 
-var ProtoIds = map[uint]map[sentry.MessageId]struct{}{
+var ProtoIds = map[uint]map[zkevm_sentry.MessageId]struct{}{
 	ETH65: {
-		sentry.MessageId_GET_BLOCK_HEADERS_65:             struct{}{},
-		sentry.MessageId_BLOCK_HEADERS_65:                 struct{}{},
-		sentry.MessageId_GET_BLOCK_BODIES_65:              struct{}{},
-		sentry.MessageId_BLOCK_BODIES_65:                  struct{}{},
-		sentry.MessageId_GET_NODE_DATA_65:                 struct{}{},
-		sentry.MessageId_NODE_DATA_65:                     struct{}{},
-		sentry.MessageId_GET_RECEIPTS_65:                  struct{}{},
-		sentry.MessageId_RECEIPTS_65:                      struct{}{},
-		sentry.MessageId_NEW_BLOCK_HASHES_65:              struct{}{},
-		sentry.MessageId_NEW_BLOCK_65:                     struct{}{},
-		sentry.MessageId_TRANSACTIONS_65:                  struct{}{},
-		sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_65: struct{}{},
-		sentry.MessageId_GET_POOLED_TRANSACTIONS_65:       struct{}{},
-		sentry.MessageId_POOLED_TRANSACTIONS_65:           struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_HEADERS_65:             struct{}{},
+		zkevm_sentry.MessageId_BLOCK_HEADERS_65:                 struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_BODIES_65:              struct{}{},
+		zkevm_sentry.MessageId_BLOCK_BODIES_65:                  struct{}{},
+		zkevm_sentry.MessageId_GET_NODE_DATA_65:                 struct{}{},
+		zkevm_sentry.MessageId_NODE_DATA_65:                     struct{}{},
+		zkevm_sentry.MessageId_GET_RECEIPTS_65:                  struct{}{},
+		zkevm_sentry.MessageId_RECEIPTS_65:                      struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_HASHES_65:              struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_65:                     struct{}{},
+		zkevm_sentry.MessageId_TRANSACTIONS_65:                  struct{}{},
+		zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_65: struct{}{},
+		zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_65:       struct{}{},
+		zkevm_sentry.MessageId_POOLED_TRANSACTIONS_65:           struct{}{},
 	},
 	ETH66: {
-		sentry.MessageId_GET_BLOCK_HEADERS_66:             struct{}{},
-		sentry.MessageId_BLOCK_HEADERS_66:                 struct{}{},
-		sentry.MessageId_GET_BLOCK_BODIES_66:              struct{}{},
-		sentry.MessageId_BLOCK_BODIES_66:                  struct{}{},
-		sentry.MessageId_GET_NODE_DATA_66:                 struct{}{},
-		sentry.MessageId_NODE_DATA_66:                     struct{}{},
-		sentry.MessageId_GET_RECEIPTS_66:                  struct{}{},
-		sentry.MessageId_RECEIPTS_66:                      struct{}{},
-		sentry.MessageId_NEW_BLOCK_HASHES_66:              struct{}{},
-		sentry.MessageId_NEW_BLOCK_66:                     struct{}{},
-		sentry.MessageId_TRANSACTIONS_66:                  struct{}{},
-		sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66: struct{}{},
-		sentry.MessageId_GET_POOLED_TRANSACTIONS_66:       struct{}{},
-		sentry.MessageId_POOLED_TRANSACTIONS_66:           struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_HEADERS_66:             struct{}{},
+		zkevm_sentry.MessageId_BLOCK_HEADERS_66:                 struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_BODIES_66:              struct{}{},
+		zkevm_sentry.MessageId_BLOCK_BODIES_66:                  struct{}{},
+		zkevm_sentry.MessageId_GET_NODE_DATA_66:                 struct{}{},
+		zkevm_sentry.MessageId_NODE_DATA_66:                     struct{}{},
+		zkevm_sentry.MessageId_GET_RECEIPTS_66:                  struct{}{},
+		zkevm_sentry.MessageId_RECEIPTS_66:                      struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_HASHES_66:              struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_66:                     struct{}{},
+		zkevm_sentry.MessageId_TRANSACTIONS_66:                  struct{}{},
+		zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66: struct{}{},
+		zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66:       struct{}{},
+		zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66:           struct{}{},
 	},
 	ETH67: {
-		sentry.MessageId_GET_BLOCK_HEADERS_66:             struct{}{},
-		sentry.MessageId_BLOCK_HEADERS_66:                 struct{}{},
-		sentry.MessageId_GET_BLOCK_BODIES_66:              struct{}{},
-		sentry.MessageId_BLOCK_BODIES_66:                  struct{}{},
-		sentry.MessageId_GET_RECEIPTS_66:                  struct{}{},
-		sentry.MessageId_RECEIPTS_66:                      struct{}{},
-		sentry.MessageId_NEW_BLOCK_HASHES_66:              struct{}{},
-		sentry.MessageId_NEW_BLOCK_66:                     struct{}{},
-		sentry.MessageId_TRANSACTIONS_66:                  struct{}{},
-		sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66: struct{}{},
-		sentry.MessageId_GET_POOLED_TRANSACTIONS_66:       struct{}{},
-		sentry.MessageId_POOLED_TRANSACTIONS_66:           struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_HEADERS_66:             struct{}{},
+		zkevm_sentry.MessageId_BLOCK_HEADERS_66:                 struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_BODIES_66:              struct{}{},
+		zkevm_sentry.MessageId_BLOCK_BODIES_66:                  struct{}{},
+		zkevm_sentry.MessageId_GET_RECEIPTS_66:                  struct{}{},
+		zkevm_sentry.MessageId_RECEIPTS_66:                      struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_HASHES_66:              struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_66:                     struct{}{},
+		zkevm_sentry.MessageId_TRANSACTIONS_66:                  struct{}{},
+		zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66: struct{}{},
+		zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66:       struct{}{},
+		zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66:           struct{}{},
 	},
 	ETH68: {
-		sentry.MessageId_GET_BLOCK_HEADERS_66:             struct{}{},
-		sentry.MessageId_BLOCK_HEADERS_66:                 struct{}{},
-		sentry.MessageId_GET_BLOCK_BODIES_66:              struct{}{},
-		sentry.MessageId_BLOCK_BODIES_66:                  struct{}{},
-		sentry.MessageId_GET_RECEIPTS_66:                  struct{}{},
-		sentry.MessageId_RECEIPTS_66:                      struct{}{},
-		sentry.MessageId_NEW_BLOCK_HASHES_66:              struct{}{},
-		sentry.MessageId_NEW_BLOCK_66:                     struct{}{},
-		sentry.MessageId_TRANSACTIONS_66:                  struct{}{},
-		sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68: struct{}{},
-		sentry.MessageId_GET_POOLED_TRANSACTIONS_66:       struct{}{},
-		sentry.MessageId_POOLED_TRANSACTIONS_66:           struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_HEADERS_66:             struct{}{},
+		zkevm_sentry.MessageId_BLOCK_HEADERS_66:                 struct{}{},
+		zkevm_sentry.MessageId_GET_BLOCK_BODIES_66:              struct{}{},
+		zkevm_sentry.MessageId_BLOCK_BODIES_66:                  struct{}{},
+		zkevm_sentry.MessageId_GET_RECEIPTS_66:                  struct{}{},
+		zkevm_sentry.MessageId_RECEIPTS_66:                      struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_HASHES_66:              struct{}{},
+		zkevm_sentry.MessageId_NEW_BLOCK_66:                     struct{}{},
+		zkevm_sentry.MessageId_TRANSACTIONS_66:                  struct{}{},
+		zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68: struct{}{},
+		zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66:       struct{}{},
+		zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66:           struct{}{},
 	},
 }
 
 type SentryClient interface {
-	sentry.SentryClient
+	zkevm_sentry.SentryClient
 	Protocol() uint
 	Ready() bool
 	MarkDisconnected()
 }
 
 type SentryClientRemote struct {
-	sentry.SentryClient
+	zkevm_sentry.SentryClient
 	sync.RWMutex
 	protocol uint
 	ready    bool
@@ -120,7 +120,7 @@ var _ SentryClient = (*SentryClientDirect)(nil) // compile-time interface check
 // NewSentryClientRemote - app code must use this class
 // to avoid concurrency - it accepts protocol (which received async by SetStatus) in constructor,
 // means app can't use client which protocol unknown yet
-func NewSentryClientRemote(client sentry.SentryClient) *SentryClientRemote {
+func NewSentryClientRemote(client zkevm_sentry.SentryClient) *SentryClientRemote {
 	return &SentryClientRemote{SentryClient: client}
 }
 
@@ -142,7 +142,7 @@ func (c *SentryClientRemote) MarkDisconnected() {
 	c.ready = false
 }
 
-func (c *SentryClientRemote) HandShake(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*sentry.HandShakeReply, error) {
+func (c *SentryClientRemote) HandShake(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_sentry.HandShakeReply, error) {
 	reply, err := c.SentryClient.HandShake(ctx, in, opts...)
 	if err != nil {
 		return nil, err
@@ -150,13 +150,13 @@ func (c *SentryClientRemote) HandShake(ctx context.Context, in *emptypb.Empty, o
 	c.Lock()
 	defer c.Unlock()
 	switch reply.Protocol {
-	case sentry.Protocol_ETH65:
+	case zkevm_sentry.Protocol_ETH65:
 		c.protocol = ETH65
-	case sentry.Protocol_ETH66:
+	case zkevm_sentry.Protocol_ETH66:
 		c.protocol = ETH66
-	case sentry.Protocol_ETH67:
+	case zkevm_sentry.Protocol_ETH67:
 		c.protocol = ETH67
-	case sentry.Protocol_ETH68:
+	case zkevm_sentry.Protocol_ETH68:
 		c.protocol = ETH68
 	default:
 		return nil, fmt.Errorf("unexpected protocol: %d", reply.Protocol)
@@ -164,16 +164,16 @@ func (c *SentryClientRemote) HandShake(ctx context.Context, in *emptypb.Empty, o
 	c.ready = true
 	return reply, nil
 }
-func (c *SentryClientRemote) SetStatus(ctx context.Context, in *sentry.StatusData, opts ...grpc.CallOption) (*sentry.SetStatusReply, error) {
+func (c *SentryClientRemote) SetStatus(ctx context.Context, in *zkevm_sentry.StatusData, opts ...grpc.CallOption) (*zkevm_sentry.SetStatusReply, error) {
 	return c.SentryClient.SetStatus(ctx, in, opts...)
 }
 
-func (c *SentryClientRemote) Messages(ctx context.Context, in *sentry.MessagesRequest, opts ...grpc.CallOption) (sentry.Sentry_MessagesClient, error) {
+func (c *SentryClientRemote) Messages(ctx context.Context, in *zkevm_sentry.MessagesRequest, opts ...grpc.CallOption) (zkevm_sentry.Sentry_MessagesClient, error) {
 	in.Ids = filterIds(in.Ids, c.Protocol())
 	return c.SentryClient.Messages(ctx, in, opts...)
 }
 
-func (c *SentryClientRemote) PeerCount(ctx context.Context, in *sentry.PeerCountRequest, opts ...grpc.CallOption) (*sentry.PeerCountReply, error) {
+func (c *SentryClientRemote) PeerCount(ctx context.Context, in *zkevm_sentry.PeerCountRequest, opts ...grpc.CallOption) (*zkevm_sentry.PeerCountReply, error) {
 	return c.SentryClient.PeerCount(ctx, in)
 }
 
@@ -186,11 +186,11 @@ func (c *SentryClientRemote) PeerCount(ctx context.Context, in *sentry.PeerCount
 // SentryClientDirect implements SentryClient interface by connecting the instance of the client directly with the corresponding
 // instance of SentryServer
 type SentryClientDirect struct {
-	server   sentry.SentryServer
+	server   zkevm_sentry.SentryServer
 	protocol uint
 }
 
-func NewSentryClientDirect(protocol uint, sentryServer sentry.SentryServer) *SentryClientDirect {
+func NewSentryClientDirect(protocol uint, sentryServer zkevm_sentry.SentryServer) *SentryClientDirect {
 	return &SentryClientDirect{protocol: protocol, server: sentryServer}
 }
 
@@ -198,53 +198,53 @@ func (c *SentryClientDirect) Protocol() uint    { return c.protocol }
 func (c *SentryClientDirect) Ready() bool       { return true }
 func (c *SentryClientDirect) MarkDisconnected() {}
 
-func (c *SentryClientDirect) PenalizePeer(ctx context.Context, in *sentry.PenalizePeerRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *SentryClientDirect) PenalizePeer(ctx context.Context, in *zkevm_sentry.PenalizePeerRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	return c.server.PenalizePeer(ctx, in)
 }
 
-func (c *SentryClientDirect) PeerMinBlock(ctx context.Context, in *sentry.PeerMinBlockRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *SentryClientDirect) PeerMinBlock(ctx context.Context, in *zkevm_sentry.PeerMinBlockRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	return c.server.PeerMinBlock(ctx, in)
 }
 
-func (c *SentryClientDirect) SendMessageByMinBlock(ctx context.Context, in *sentry.SendMessageByMinBlockRequest, opts ...grpc.CallOption) (*sentry.SentPeers, error) {
+func (c *SentryClientDirect) SendMessageByMinBlock(ctx context.Context, in *zkevm_sentry.SendMessageByMinBlockRequest, opts ...grpc.CallOption) (*zkevm_sentry.SentPeers, error) {
 	return c.server.SendMessageByMinBlock(ctx, in)
 }
 
-func (c *SentryClientDirect) SendMessageById(ctx context.Context, in *sentry.SendMessageByIdRequest, opts ...grpc.CallOption) (*sentry.SentPeers, error) {
+func (c *SentryClientDirect) SendMessageById(ctx context.Context, in *zkevm_sentry.SendMessageByIdRequest, opts ...grpc.CallOption) (*zkevm_sentry.SentPeers, error) {
 	return c.server.SendMessageById(ctx, in)
 }
 
-func (c *SentryClientDirect) SendMessageToRandomPeers(ctx context.Context, in *sentry.SendMessageToRandomPeersRequest, opts ...grpc.CallOption) (*sentry.SentPeers, error) {
+func (c *SentryClientDirect) SendMessageToRandomPeers(ctx context.Context, in *zkevm_sentry.SendMessageToRandomPeersRequest, opts ...grpc.CallOption) (*zkevm_sentry.SentPeers, error) {
 	return c.server.SendMessageToRandomPeers(ctx, in)
 }
 
-func (c *SentryClientDirect) SendMessageToAll(ctx context.Context, in *sentry.OutboundMessageData, opts ...grpc.CallOption) (*sentry.SentPeers, error) {
+func (c *SentryClientDirect) SendMessageToAll(ctx context.Context, in *zkevm_sentry.OutboundMessageData, opts ...grpc.CallOption) (*zkevm_sentry.SentPeers, error) {
 	return c.server.SendMessageToAll(ctx, in)
 }
 
-func (c *SentryClientDirect) HandShake(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*sentry.HandShakeReply, error) {
+func (c *SentryClientDirect) HandShake(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_sentry.HandShakeReply, error) {
 	return c.server.HandShake(ctx, in)
 }
 
-func (c *SentryClientDirect) SetStatus(ctx context.Context, in *sentry.StatusData, opts ...grpc.CallOption) (*sentry.SetStatusReply, error) {
+func (c *SentryClientDirect) SetStatus(ctx context.Context, in *zkevm_sentry.StatusData, opts ...grpc.CallOption) (*zkevm_sentry.SetStatusReply, error) {
 	return c.server.SetStatus(ctx, in)
 }
 
-func (c *SentryClientDirect) Peers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*sentry.PeersReply, error) {
+func (c *SentryClientDirect) Peers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_sentry.PeersReply, error) {
 	return c.server.Peers(ctx, in)
 }
 
-func (c *SentryClientDirect) PeerCount(ctx context.Context, in *sentry.PeerCountRequest, opts ...grpc.CallOption) (*sentry.PeerCountReply, error) {
+func (c *SentryClientDirect) PeerCount(ctx context.Context, in *zkevm_sentry.PeerCountRequest, opts ...grpc.CallOption) (*zkevm_sentry.PeerCountReply, error) {
 	return c.server.PeerCount(ctx, in)
 }
 
-func (c *SentryClientDirect) PeerById(ctx context.Context, in *sentry.PeerByIdRequest, opts ...grpc.CallOption) (*sentry.PeerByIdReply, error) {
+func (c *SentryClientDirect) PeerById(ctx context.Context, in *zkevm_sentry.PeerByIdRequest, opts ...grpc.CallOption) (*zkevm_sentry.PeerByIdReply, error) {
 	return c.server.PeerById(ctx, in)
 }
 
 // -- start Messages
 
-func (c *SentryClientDirect) Messages(ctx context.Context, in *sentry.MessagesRequest, opts ...grpc.CallOption) (sentry.Sentry_MessagesClient, error) {
+func (c *SentryClientDirect) Messages(ctx context.Context, in *zkevm_sentry.MessagesRequest, opts ...grpc.CallOption) (zkevm_sentry.Sentry_MessagesClient, error) {
 	in.Ids = filterIds(in.Ids, c.Protocol())
 	ch := make(chan *inboundMessageReply, 16384)
 	streamServer := &SentryMessagesStreamS{ch: ch, ctx: ctx}
@@ -256,7 +256,7 @@ func (c *SentryClientDirect) Messages(ctx context.Context, in *sentry.MessagesRe
 }
 
 type inboundMessageReply struct {
-	r   *sentry.InboundMessage
+	r   *zkevm_sentry.InboundMessage
 	err error
 }
 
@@ -267,7 +267,7 @@ type SentryMessagesStreamS struct {
 	grpc.ServerStream
 }
 
-func (s *SentryMessagesStreamS) Send(m *sentry.InboundMessage) error {
+func (s *SentryMessagesStreamS) Send(m *zkevm_sentry.InboundMessage) error {
 	s.ch <- &inboundMessageReply{r: m}
 	return nil
 }
@@ -287,7 +287,7 @@ type SentryMessagesStreamC struct {
 	grpc.ClientStream
 }
 
-func (c *SentryMessagesStreamC) Recv() (*sentry.InboundMessage, error) {
+func (c *SentryMessagesStreamC) Recv() (*zkevm_sentry.InboundMessage, error) {
 	m, ok := <-c.ch
 	if !ok || m == nil {
 		return nil, io.EOF
@@ -302,7 +302,7 @@ func (c *SentryMessagesStreamC) RecvMsg(anyMessage interface{}) error {
 	if err != nil {
 		return err
 	}
-	outMessage := anyMessage.(*sentry.InboundMessage)
+	outMessage := anyMessage.(*zkevm_sentry.InboundMessage)
 	proto.Merge(outMessage, m)
 	return nil
 }
@@ -310,7 +310,7 @@ func (c *SentryMessagesStreamC) RecvMsg(anyMessage interface{}) error {
 // -- end Messages
 // -- start Peers
 
-func (c *SentryClientDirect) PeerEvents(ctx context.Context, in *sentry.PeerEventsRequest, opts ...grpc.CallOption) (sentry.Sentry_PeerEventsClient, error) {
+func (c *SentryClientDirect) PeerEvents(ctx context.Context, in *zkevm_sentry.PeerEventsRequest, opts ...grpc.CallOption) (zkevm_sentry.Sentry_PeerEventsClient, error) {
 	ch := make(chan *peersReply, 16384)
 	streamServer := &SentryPeersStreamS{ch: ch, ctx: ctx}
 	go func() {
@@ -321,7 +321,7 @@ func (c *SentryClientDirect) PeerEvents(ctx context.Context, in *sentry.PeerEven
 }
 
 type peersReply struct {
-	r   *sentry.PeerEvent
+	r   *zkevm_sentry.PeerEvent
 	err error
 }
 
@@ -332,7 +332,7 @@ type SentryPeersStreamS struct {
 	grpc.ServerStream
 }
 
-func (s *SentryPeersStreamS) Send(m *sentry.PeerEvent) error {
+func (s *SentryPeersStreamS) Send(m *zkevm_sentry.PeerEvent) error {
 	s.ch <- &peersReply{r: m}
 	return nil
 }
@@ -352,7 +352,7 @@ type SentryPeersStreamC struct {
 	grpc.ClientStream
 }
 
-func (c *SentryPeersStreamC) Recv() (*sentry.PeerEvent, error) {
+func (c *SentryPeersStreamC) Recv() (*zkevm_sentry.PeerEvent, error) {
 	m, ok := <-c.ch
 	if !ok || m == nil {
 		return nil, io.EOF
@@ -367,18 +367,18 @@ func (c *SentryPeersStreamC) RecvMsg(anyMessage interface{}) error {
 	if err != nil {
 		return err
 	}
-	outMessage := anyMessage.(*sentry.PeerEvent)
+	outMessage := anyMessage.(*zkevm_sentry.PeerEvent)
 	proto.Merge(outMessage, m)
 	return nil
 }
 
 // -- end Peers
 
-func (c *SentryClientDirect) NodeInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.NodeInfoReply, error) {
+func (c *SentryClientDirect) NodeInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_types.NodeInfoReply, error) {
 	return c.server.NodeInfo(ctx, in)
 }
 
-func filterIds(in []sentry.MessageId, protocol uint) (filtered []sentry.MessageId) {
+func filterIds(in []zkevm_sentry.MessageId, protocol uint) (filtered []zkevm_sentry.MessageId) {
 	for _, id := range in {
 		if _, ok := ProtoIds[protocol][id]; ok {
 			filtered = append(filtered, id)

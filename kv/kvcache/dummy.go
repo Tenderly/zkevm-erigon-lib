@@ -18,7 +18,7 @@ package kvcache
 import (
 	"context"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
@@ -32,9 +32,9 @@ func NewDummy() *DummyCache { return &DummyCache{} }
 func (c *DummyCache) View(_ context.Context, tx kv.Tx) (CacheView, error) {
 	return &DummyView{cache: c, tx: tx}, nil
 }
-func (c *DummyCache) OnNewBlock(sc *remote.StateChangeBatch) {}
-func (c *DummyCache) Evict() int                             { return 0 }
-func (c *DummyCache) Len() int                               { return 0 }
+func (c *DummyCache) OnNewBlock(sc *zkevm_remote.StateChangeBatch) {}
+func (c *DummyCache) Evict() int                                   { return 0 }
+func (c *DummyCache) Len() int                                     { return 0 }
 func (c *DummyCache) Get(k []byte, tx kv.Tx, id uint64) ([]byte, error) {
 	return tx.GetOne(kv.PlainState, k)
 }

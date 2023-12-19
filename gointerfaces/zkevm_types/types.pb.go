@@ -4,7 +4,7 @@
 // 	protoc        v4.22.2
 // source: types/types.proto
 
-package types
+package zkevm_types
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

@@ -17,10 +17,10 @@ import (
 	"encoding/binary"
 
 	"github.com/holiman/uint256"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 )
 
-func ConvertH2048ToBloom(h2048 *types.H2048) [256]byte {
+func ConvertH2048ToBloom(h2048 *zkevm_types.H2048) [256]byte {
 	var bloom [256]byte
 	copy(bloom[:], ConvertH512ToBytes(h2048.Hi.Hi))
 	copy(bloom[64:], ConvertH512ToBytes(h2048.Hi.Lo))
@@ -29,20 +29,20 @@ func ConvertH2048ToBloom(h2048 *types.H2048) [256]byte {
 	return bloom
 }
 
-func ConvertBytesToH2048(data []byte) *types.H2048 {
-	return &types.H2048{
-		Hi: &types.H1024{
+func ConvertBytesToH2048(data []byte) *zkevm_types.H2048 {
+	return &zkevm_types.H2048{
+		Hi: &zkevm_types.H1024{
 			Hi: ConvertBytesToH512(data),
 			Lo: ConvertBytesToH512(data[64:]),
 		},
-		Lo: &types.H1024{
+		Lo: &zkevm_types.H1024{
 			Hi: ConvertBytesToH512(data[128:]),
 			Lo: ConvertBytesToH512(data[192:]),
 		},
 	}
 }
 
-func ConvertH256ToHash(h256 *types.H256) [32]byte {
+func ConvertH256ToHash(h256 *zkevm_types.H256) [32]byte {
 	var hash [32]byte
 	binary.BigEndian.PutUint64(hash[0:], h256.Hi.Hi)
 	binary.BigEndian.PutUint64(hash[8:], h256.Hi.Lo)
@@ -51,7 +51,7 @@ func ConvertH256ToHash(h256 *types.H256) [32]byte {
 	return hash
 }
 
-func ConvertH512ToHash(h512 *types.H512) [64]byte {
+func ConvertH512ToHash(h512 *zkevm_types.H512) [64]byte {
 	var b [64]byte
 	binary.BigEndian.PutUint64(b[0:], h512.Hi.Hi.Hi)
 	binary.BigEndian.PutUint64(b[8:], h512.Hi.Hi.Lo)
@@ -64,26 +64,26 @@ func ConvertH512ToHash(h512 *types.H512) [64]byte {
 	return b
 }
 
-func ConvertHashesToH256(hashes [][32]byte) []*types.H256 {
-	res := make([]*types.H256, len(hashes))
+func ConvertHashesToH256(hashes [][32]byte) []*zkevm_types.H256 {
+	res := make([]*zkevm_types.H256, len(hashes))
 	for i := range hashes {
 		res[i] = ConvertHashToH256(hashes[i])
 	}
 	return res
 }
 
-func ConvertHashToH256(hash [32]byte) *types.H256 {
-	return &types.H256{
-		Lo: &types.H128{Lo: binary.BigEndian.Uint64(hash[24:]), Hi: binary.BigEndian.Uint64(hash[16:])},
-		Hi: &types.H128{Lo: binary.BigEndian.Uint64(hash[8:]), Hi: binary.BigEndian.Uint64(hash[0:])},
+func ConvertHashToH256(hash [32]byte) *zkevm_types.H256 {
+	return &zkevm_types.H256{
+		Lo: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(hash[24:]), Hi: binary.BigEndian.Uint64(hash[16:])},
+		Hi: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(hash[8:]), Hi: binary.BigEndian.Uint64(hash[0:])},
 	}
 }
 
-func ConvertHashToH512(hash [64]byte) *types.H512 {
+func ConvertHashToH512(hash [64]byte) *zkevm_types.H512 {
 	return ConvertBytesToH512(hash[:])
 }
 
-func ConvertH160toAddress(h160 *types.H160) [20]byte {
+func ConvertH160toAddress(h160 *zkevm_types.H160) [20]byte {
 	var addr [20]byte
 	binary.BigEndian.PutUint64(addr[0:], h160.Hi.Hi)
 	binary.BigEndian.PutUint64(addr[8:], h160.Hi.Lo)
@@ -91,14 +91,14 @@ func ConvertH160toAddress(h160 *types.H160) [20]byte {
 	return addr
 }
 
-func ConvertAddressToH160(addr [20]byte) *types.H160 {
-	return &types.H160{
+func ConvertAddressToH160(addr [20]byte) *zkevm_types.H160 {
+	return &zkevm_types.H160{
 		Lo: binary.BigEndian.Uint32(addr[16:]),
-		Hi: &types.H128{Lo: binary.BigEndian.Uint64(addr[8:]), Hi: binary.BigEndian.Uint64(addr[0:])},
+		Hi: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(addr[8:]), Hi: binary.BigEndian.Uint64(addr[0:])},
 	}
 }
 
-func ConvertH256ToUint256Int(h256 *types.H256) *uint256.Int {
+func ConvertH256ToUint256Int(h256 *zkevm_types.H256) *uint256.Int {
 	// Note: uint256.Int is an array of 4 uint64 in little-endian order, i.e. most significant word is [3]
 	var i uint256.Int
 	i[3] = h256.Hi.Hi
@@ -108,33 +108,33 @@ func ConvertH256ToUint256Int(h256 *types.H256) *uint256.Int {
 	return &i
 }
 
-func ConvertUint256IntToH256(i *uint256.Int) *types.H256 {
+func ConvertUint256IntToH256(i *uint256.Int) *zkevm_types.H256 {
 	// Note: uint256.Int is an array of 4 uint64 in little-endian order, i.e. most significant word is [3]
-	return &types.H256{
-		Lo: &types.H128{Lo: i[0], Hi: i[1]},
-		Hi: &types.H128{Lo: i[2], Hi: i[3]},
+	return &zkevm_types.H256{
+		Lo: &zkevm_types.H128{Lo: i[0], Hi: i[1]},
+		Hi: &zkevm_types.H128{Lo: i[2], Hi: i[3]},
 	}
 }
 
-func ConvertH512ToBytes(h512 *types.H512) []byte {
+func ConvertH512ToBytes(h512 *zkevm_types.H512) []byte {
 	b := ConvertH512ToHash(h512)
 	return b[:]
 }
 
-func ConvertBytesToH512(b []byte) *types.H512 {
+func ConvertBytesToH512(b []byte) *zkevm_types.H512 {
 	if len(b) < 64 {
 		var b1 [64]byte
 		copy(b1[:], b)
 		b = b1[:]
 	}
-	return &types.H512{
-		Lo: &types.H256{
-			Lo: &types.H128{Lo: binary.BigEndian.Uint64(b[56:]), Hi: binary.BigEndian.Uint64(b[48:])},
-			Hi: &types.H128{Lo: binary.BigEndian.Uint64(b[40:]), Hi: binary.BigEndian.Uint64(b[32:])},
+	return &zkevm_types.H512{
+		Lo: &zkevm_types.H256{
+			Lo: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(b[56:]), Hi: binary.BigEndian.Uint64(b[48:])},
+			Hi: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(b[40:]), Hi: binary.BigEndian.Uint64(b[32:])},
 		},
-		Hi: &types.H256{
-			Lo: &types.H128{Lo: binary.BigEndian.Uint64(b[24:]), Hi: binary.BigEndian.Uint64(b[16:])},
-			Hi: &types.H128{Lo: binary.BigEndian.Uint64(b[8:]), Hi: binary.BigEndian.Uint64(b[0:])},
+		Hi: &zkevm_types.H256{
+			Lo: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(b[24:]), Hi: binary.BigEndian.Uint64(b[16:])},
+			Hi: &zkevm_types.H128{Lo: binary.BigEndian.Uint64(b[8:]), Hi: binary.BigEndian.Uint64(b[0:])},
 		},
 	}
 }

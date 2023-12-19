@@ -4,11 +4,11 @@
 // - protoc             v4.22.2
 // source: p2psentry/sentry.proto
 
-package sentry
+package zkevm_sentry
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

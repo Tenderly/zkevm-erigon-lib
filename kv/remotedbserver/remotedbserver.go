@@ -34,8 +34,8 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/common"
 	"github.com/tenderly/zkevm-erigon-lib/common/dbg"
 	"github.com/tenderly/zkevm-erigon-lib/common/hexutility"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/iter"
 	"github.com/tenderly/zkevm-erigon-lib/kv/order"
@@ -64,10 +64,10 @@ const MaxTxTTL = 60 * time.Second
 // 6.0.0 - Blocks now have system-txs - in the begin/end of block
 // 6.1.0 - Add methods Range, IndexRange, HistoryGet, HistoryRange
 // 6.2.0 - Add HistoryFiles to reply of Snapshots() method
-var KvServiceAPIVersion = &types.VersionReply{Major: 6, Minor: 2, Patch: 0}
+var KvServiceAPIVersion = &zkevm_types.VersionReply{Major: 6, Minor: 2, Patch: 0}
 
 type KvServer struct {
-	remote.UnimplementedKVServer // must be embedded to have forward compatible implementations.
+	zkevm_remote.UnimplementedKVServer // must be embedded to have forward compatible implementations.
 
 	kv                 kv.RoDB
 	stateChangeStreams *StateChangePubSub
@@ -104,7 +104,7 @@ func NewKvServer(ctx context.Context, db kv.RoDB, snapshots Snapsthots, historyS
 }
 
 // Version returns the service-side interface version number
-func (s *KvServer) Version(context.Context, *emptypb.Empty) (*types.VersionReply, error) {
+func (s *KvServer) Version(context.Context, *emptypb.Empty) (*zkevm_types.VersionReply, error) {
 	dbSchemaVersion := &kv.DBSchemaVersion
 	if KvServiceAPIVersion.Major > dbSchemaVersion.Major {
 		return KvServiceAPIVersion, nil
@@ -204,7 +204,7 @@ func (s *KvServer) with(id uint64, f func(kv.Tx) error) error {
 	return f(tx.Tx)
 }
 
-func (s *KvServer) Tx(stream remote.KV_TxServer) error {
+func (s *KvServer) Tx(stream zkevm_remote.KV_TxServer) error {
 	id, errBegin := s.begin(stream.Context())
 	if errBegin != nil {
 		return fmt.Errorf("server-side error: %w", errBegin)
@@ -218,7 +218,7 @@ func (s *KvServer) Tx(stream remote.KV_TxServer) error {
 	}); err != nil {
 		return err
 	}
-	if err := stream.Send(&remote.Pair{ViewId: viewID, TxId: id}); err != nil {
+	if err := stream.Send(&zkevm_remote.Pair{ViewId: viewID, TxId: id}); err != nil {
 		return fmt.Errorf("server-side error: %w", err)
 	}
 
@@ -299,7 +299,7 @@ func (s *KvServer) Tx(stream remote.KV_TxServer) error {
 			c = cInfo.c
 		}
 		switch in.Op {
-		case remote.Op_OPEN:
+		case zkevm_remote.Op_OPEN:
 			CursorID++
 			var err error
 			if err := s.with(id, func(tx kv.Tx) error {
@@ -315,11 +315,11 @@ func (s *KvServer) Tx(stream remote.KV_TxServer) error {
 				bucket: in.BucketName,
 				c:      c,
 			}
-			if err := stream.Send(&remote.Pair{CursorId: CursorID}); err != nil {
+			if err := stream.Send(&zkevm_remote.Pair{CursorId: CursorID}); err != nil {
 				return fmt.Errorf("server-side error: %w", err)
 			}
 			continue
-		case remote.Op_OPEN_DUP_SORT:
+		case zkevm_remote.Op_OPEN_DUP_SORT:
 			CursorID++
 			var err error
 			if err := s.with(id, func(tx kv.Tx) error {
@@ -335,18 +335,18 @@ func (s *KvServer) Tx(stream remote.KV_TxServer) error {
 				bucket: in.BucketName,
 				c:      c,
 			}
-			if err := stream.Send(&remote.Pair{CursorId: CursorID}); err != nil {
+			if err := stream.Send(&zkevm_remote.Pair{CursorId: CursorID}); err != nil {
 				return fmt.Errorf("server-side error: %w", err)
 			}
 			continue
-		case remote.Op_CLOSE:
+		case zkevm_remote.Op_CLOSE:
 			cInfo, ok := cursors[in.Cursor]
 			if !ok {
 				return fmt.Errorf("server-side error: unknown Cursor=%d, Op=%s", in.Cursor, in.Op)
 			}
 			cInfo.c.Close()
 			delete(cursors, in.Cursor)
-			if err := stream.Send(&remote.Pair{}); err != nil {
+			if err := stream.Send(&zkevm_remote.Pair{}); err != nil {
 				return fmt.Errorf("server-side error: %w", err)
 			}
 			continue
@@ -359,31 +359,31 @@ func (s *KvServer) Tx(stream remote.KV_TxServer) error {
 	}
 }
 
-func handleOp(c kv.Cursor, stream remote.KV_TxServer, in *remote.Cursor) error {
+func handleOp(c kv.Cursor, stream zkevm_remote.KV_TxServer, in *zkevm_remote.Cursor) error {
 	var k, v []byte
 	var err error
 	switch in.Op {
-	case remote.Op_FIRST:
+	case zkevm_remote.Op_FIRST:
 		k, v, err = c.First()
-	case remote.Op_FIRST_DUP:
+	case zkevm_remote.Op_FIRST_DUP:
 		v, err = c.(kv.CursorDupSort).FirstDup()
-	case remote.Op_SEEK:
+	case zkevm_remote.Op_SEEK:
 		k, v, err = c.Seek(in.K)
-	case remote.Op_SEEK_BOTH:
+	case zkevm_remote.Op_SEEK_BOTH:
 		v, err = c.(kv.CursorDupSort).SeekBothRange(in.K, in.V)
-	case remote.Op_CURRENT:
+	case zkevm_remote.Op_CURRENT:
 		k, v, err = c.Current()
-	case remote.Op_LAST:
+	case zkevm_remote.Op_LAST:
 		k, v, err = c.Last()
-	case remote.Op_LAST_DUP:
+	case zkevm_remote.Op_LAST_DUP:
 		v, err = c.(kv.CursorDupSort).LastDup()
-	case remote.Op_NEXT:
+	case zkevm_remote.Op_NEXT:
 		k, v, err = c.Next()
-	case remote.Op_NEXT_DUP:
+	case zkevm_remote.Op_NEXT_DUP:
 		k, v, err = c.(kv.CursorDupSort).NextDup()
-	case remote.Op_NEXT_NO_DUP:
+	case zkevm_remote.Op_NEXT_NO_DUP:
 		k, v, err = c.(kv.CursorDupSort).NextNoDup()
-	case remote.Op_PREV:
+	case zkevm_remote.Op_PREV:
 		k, v, err = c.Prev()
 	//case remote.Op_PREV_DUP:
 	//	k, v, err = c.(ethdb.CursorDupSort).Prev()
@@ -395,11 +395,11 @@ func handleOp(c kv.Cursor, stream remote.KV_TxServer, in *remote.Cursor) error {
 	//	if err != nil {
 	//		return err
 	//	}
-	case remote.Op_SEEK_EXACT:
+	case zkevm_remote.Op_SEEK_EXACT:
 		k, v, err = c.SeekExact(in.K)
-	case remote.Op_SEEK_BOTH_EXACT:
+	case zkevm_remote.Op_SEEK_BOTH_EXACT:
 		k, v, err = c.(kv.CursorDupSort).SeekBothExact(in.K, in.V)
-	case remote.Op_COUNT:
+	case zkevm_remote.Op_COUNT:
 		cnt, err := c.Count()
 		if err != nil {
 			return err
@@ -412,7 +412,7 @@ func handleOp(c kv.Cursor, stream remote.KV_TxServer, in *remote.Cursor) error {
 		return err
 	}
 
-	if err := stream.Send(&remote.Pair{K: k, V: v}); err != nil {
+	if err := stream.Send(&zkevm_remote.Pair{K: k, V: v}); err != nil {
 		return err
 	}
 
@@ -428,7 +428,7 @@ func bytesCopy(b []byte) []byte {
 	return copiedBytes
 }
 
-func (s *KvServer) StateChanges(req *remote.StateChangeRequest, server remote.KV_StateChangesServer) error {
+func (s *KvServer) StateChanges(req *zkevm_remote.StateChangeRequest, server zkevm_remote.KV_StateChangesServer) error {
 	ch, remove := s.stateChangeStreams.Sub()
 	defer remove()
 	for {
@@ -445,20 +445,20 @@ func (s *KvServer) StateChanges(req *remote.StateChangeRequest, server remote.KV
 	}
 }
 
-func (s *KvServer) SendStateChanges(ctx context.Context, sc *remote.StateChangeBatch) {
+func (s *KvServer) SendStateChanges(ctx context.Context, sc *zkevm_remote.StateChangeBatch) {
 	s.stateChangeStreams.Pub(sc)
 }
 
-func (s *KvServer) Snapshots(ctx context.Context, _ *remote.SnapshotsRequest) (*remote.SnapshotsReply, error) {
+func (s *KvServer) Snapshots(ctx context.Context, _ *zkevm_remote.SnapshotsRequest) (*zkevm_remote.SnapshotsReply, error) {
 	if s.blockSnapshots == nil || reflect.ValueOf(s.blockSnapshots).IsNil() { // nolint
-		return &remote.SnapshotsReply{BlocksFiles: []string{}, HistoryFiles: []string{}}, nil
+		return &zkevm_remote.SnapshotsReply{BlocksFiles: []string{}, HistoryFiles: []string{}}, nil
 	}
 
-	return &remote.SnapshotsReply{BlocksFiles: s.blockSnapshots.Files(), HistoryFiles: s.historySnapshots.Files()}, nil
+	return &zkevm_remote.SnapshotsReply{BlocksFiles: s.blockSnapshots.Files(), HistoryFiles: s.historySnapshots.Files()}, nil
 }
 
 type StateChangePubSub struct {
-	chans map[uint]chan *remote.StateChangeBatch
+	chans map[uint]chan *zkevm_remote.StateChangeBatch
 	id    uint
 	mu    sync.RWMutex
 }
@@ -467,20 +467,20 @@ func newStateChangeStreams() *StateChangePubSub {
 	return &StateChangePubSub{}
 }
 
-func (s *StateChangePubSub) Sub() (ch chan *remote.StateChangeBatch, remove func()) {
+func (s *StateChangePubSub) Sub() (ch chan *zkevm_remote.StateChangeBatch, remove func()) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.chans == nil {
-		s.chans = make(map[uint]chan *remote.StateChangeBatch)
+		s.chans = make(map[uint]chan *zkevm_remote.StateChangeBatch)
 	}
 	s.id++
 	id := s.id
-	ch = make(chan *remote.StateChangeBatch, 8)
+	ch = make(chan *zkevm_remote.StateChangeBatch, 8)
 	s.chans[id] = ch
 	return ch, func() { s.remove(id) }
 }
 
-func (s *StateChangePubSub) Pub(reply *remote.StateChangeBatch) {
+func (s *StateChangePubSub) Pub(reply *zkevm_remote.StateChangeBatch) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	for _, ch := range s.chans {
@@ -506,8 +506,8 @@ func (s *StateChangePubSub) remove(id uint) {
 }
 
 // Temporal methods
-func (s *KvServer) DomainGet(ctx context.Context, req *remote.DomainGetReq) (reply *remote.DomainGetReply, err error) {
-	reply = &remote.DomainGetReply{}
+func (s *KvServer) DomainGet(ctx context.Context, req *zkevm_remote.DomainGetReq) (reply *zkevm_remote.DomainGetReply, err error) {
+	reply = &zkevm_remote.DomainGetReply{}
 	if err := s.with(req.TxId, func(tx kv.Tx) error {
 		ttx, ok := tx.(kv.TemporalTx)
 		if !ok {
@@ -530,8 +530,8 @@ func (s *KvServer) DomainGet(ctx context.Context, req *remote.DomainGetReq) (rep
 	}
 	return reply, nil
 }
-func (s *KvServer) HistoryGet(ctx context.Context, req *remote.HistoryGetReq) (reply *remote.HistoryGetReply, err error) {
-	reply = &remote.HistoryGetReply{}
+func (s *KvServer) HistoryGet(ctx context.Context, req *zkevm_remote.HistoryGetReq) (reply *zkevm_remote.HistoryGetReply, err error) {
+	reply = &zkevm_remote.HistoryGetReply{}
 	if err := s.with(req.TxId, func(tx kv.Tx) error {
 		ttx, ok := tx.(kv.TemporalTx)
 		if !ok {
@@ -550,11 +550,11 @@ func (s *KvServer) HistoryGet(ctx context.Context, req *remote.HistoryGetReq) (r
 
 const PageSizeLimit = 4 * 4096
 
-func (s *KvServer) IndexRange(ctx context.Context, req *remote.IndexRangeReq) (*remote.IndexRangeReply, error) {
-	reply := &remote.IndexRangeReply{}
+func (s *KvServer) IndexRange(ctx context.Context, req *zkevm_remote.IndexRangeReq) (*zkevm_remote.IndexRangeReply, error) {
+	reply := &zkevm_remote.IndexRangeReply{}
 	from, limit := int(req.FromTs), int(req.Limit)
 	if req.PageToken != "" {
-		var pagination remote.IndexPagination
+		var pagination zkevm_remote.IndexPagination
 		if err := unmarshalPagination(req.PageToken, &pagination); err != nil {
 			return nil, err
 		}
@@ -586,7 +586,7 @@ func (s *KvServer) IndexRange(ctx context.Context, req *remote.IndexRangeReq) (*
 			if err != nil {
 				return err
 			}
-			reply.NextPageToken, err = marshalPagination(&remote.IndexPagination{NextTimeStamp: int64(next), Limit: int64(limit)})
+			reply.NextPageToken, err = marshalPagination(&zkevm_remote.IndexPagination{NextTimeStamp: int64(next), Limit: int64(limit)})
 			if err != nil {
 				return err
 			}
@@ -598,10 +598,10 @@ func (s *KvServer) IndexRange(ctx context.Context, req *remote.IndexRangeReq) (*
 	return reply, nil
 }
 
-func (s *KvServer) Range(ctx context.Context, req *remote.RangeReq) (*remote.Pairs, error) {
+func (s *KvServer) Range(ctx context.Context, req *zkevm_remote.RangeReq) (*zkevm_remote.Pairs, error) {
 	from, limit := req.FromPrefix, int(req.Limit)
 	if req.PageToken != "" {
-		var pagination remote.ParisPagination
+		var pagination zkevm_remote.ParisPagination
 		if err := unmarshalPagination(req.PageToken, &pagination); err != nil {
 			return nil, err
 		}
@@ -611,7 +611,7 @@ func (s *KvServer) Range(ctx context.Context, req *remote.RangeReq) (*remote.Pai
 		req.PageSize = PageSizeLimit
 	}
 
-	reply := &remote.Pairs{}
+	reply := &zkevm_remote.Pairs{}
 	var err error
 	if err = s.with(req.TxId, func(tx kv.Tx) error {
 		var it iter.KV
@@ -640,7 +640,7 @@ func (s *KvServer) Range(ctx context.Context, req *remote.RangeReq) (*remote.Pai
 			if err != nil {
 				return err
 			}
-			reply.NextPageToken, err = marshalPagination(&remote.ParisPagination{NextKey: nextK, Limit: int64(limit)})
+			reply.NextPageToken, err = marshalPagination(&zkevm_remote.ParisPagination{NextKey: nextK, Limit: int64(limit)})
 			if err != nil {
 				return err
 			}

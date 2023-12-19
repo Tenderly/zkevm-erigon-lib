@@ -33,7 +33,7 @@ import (
 
 	"github.com/tenderly/zkevm-erigon-lib/common"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
@@ -50,7 +50,7 @@ type CacheValidationResult struct {
 type Cache interface {
 	// View - returns CacheView consistent with givent kv.Tx
 	View(ctx context.Context, tx kv.Tx) (CacheView, error)
-	OnNewBlock(sc *remote.StateChangeBatch)
+	OnNewBlock(sc *zkevm_remote.StateChangeBatch)
 	Len() int
 	ValidateCurrentRoot(ctx context.Context, tx kv.Tx) (*CacheValidationResult, error)
 }
@@ -267,7 +267,7 @@ func (c *Coherent) advanceRoot(stateVersionID uint64) (r *CoherentRoot) {
 	return r
 }
 
-func (c *Coherent) OnNewBlock(stateChanges *remote.StateChangeBatch) {
+func (c *Coherent) OnNewBlock(stateChanges *zkevm_remote.StateChangeBatch) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 	c.waitExceededCount.Store(0) // reset the circuit breaker
@@ -276,12 +276,12 @@ func (c *Coherent) OnNewBlock(stateChanges *remote.StateChangeBatch) {
 	for _, sc := range stateChanges.ChangeBatch {
 		for i := range sc.Changes {
 			switch sc.Changes[i].Action {
-			case remote.Action_UPSERT:
+			case zkevm_remote.Action_UPSERT:
 				addr := gointerfaces.ConvertH160toAddress(sc.Changes[i].Address)
 				v := sc.Changes[i].Data
 				//fmt.Printf("set: %x,%x\n", addr, v)
 				c.add(addr[:], v, r, id)
-			case remote.Action_UPSERT_CODE:
+			case zkevm_remote.Action_UPSERT_CODE:
 				addr := gointerfaces.ConvertH160toAddress(sc.Changes[i].Address)
 				v := sc.Changes[i].Data
 				c.add(addr[:], v, r, id)
@@ -290,12 +290,12 @@ func (c *Coherent) OnNewBlock(stateChanges *remote.StateChangeBatch) {
 				k := make([]byte, 32)
 				c.hasher.Sum(k)
 				c.addCode(k, sc.Changes[i].Code, r, id)
-			case remote.Action_REMOVE:
+			case zkevm_remote.Action_REMOVE:
 				addr := gointerfaces.ConvertH160toAddress(sc.Changes[i].Address)
 				c.add(addr[:], nil, r, id)
-			case remote.Action_STORAGE:
+			case zkevm_remote.Action_STORAGE:
 				//skip, will check later
-			case remote.Action_CODE:
+			case zkevm_remote.Action_CODE:
 				c.hasher.Reset()
 				c.hasher.Write(sc.Changes[i].Code)
 				k := make([]byte, 32)

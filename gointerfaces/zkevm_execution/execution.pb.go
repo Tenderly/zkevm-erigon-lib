@@ -4,10 +4,10 @@
 // 	protoc        v4.22.2
 // source: execution/execution.proto
 
-package execution
+package zkevm_execution
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

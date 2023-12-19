@@ -20,8 +20,8 @@ import (
 	"context"
 	"io"
 
-	txpool_proto "github.com/tenderly/zkevm-erigon-lib/gointerfaces/txpool"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	txpool_proto "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_txpool"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -36,7 +36,7 @@ func NewMiningClient(server txpool_proto.MiningServer) *MiningClient {
 	return &MiningClient{server: server}
 }
 
-func (s *MiningClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error) {
+func (s *MiningClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_types.VersionReply, error) {
 	return s.server.Version(ctx, in)
 }
 

@@ -4,10 +4,10 @@
 // 	protoc        v4.22.2
 // source: txpool/mining.proto
 
-package txpool
+package zkevm_txpool
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"

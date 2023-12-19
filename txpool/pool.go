@@ -50,9 +50,9 @@ import (
 	emath "github.com/tenderly/zkevm-erigon-lib/common/math"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/grpcutil"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
-	proto_txpool "github.com/tenderly/zkevm-erigon-lib/gointerfaces/txpool"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_grpcutil"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
+	proto_txpool "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_txpool"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/kvcache"
 	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"
@@ -81,7 +81,7 @@ type Pool interface {
 	// Handle 3 main events - new remote txs from p2p, new local txs from RPC, new blocks from execution layer
 	AddRemoteTxs(ctx context.Context, newTxs types.TxSlots)
 	AddLocalTxs(ctx context.Context, newTxs types.TxSlots, tx kv.Tx) ([]DiscardReason, error)
-	OnNewBlock(ctx context.Context, stateChanges *remote.StateChangeBatch, unwindTxs, minedTxs types.TxSlots, tx kv.Tx) error
+	OnNewBlock(ctx context.Context, stateChanges *zkevm_remote.StateChangeBatch, unwindTxs, minedTxs types.TxSlots, tx kv.Tx) error
 
 	// IdHashKnown check whether transaction with given Id hash is known to the pool
 	IdHashKnown(tx kv.Tx, hash []byte) (bool, error)
@@ -341,7 +341,7 @@ func New(newTxs chan types.Announcements, coreDB kv.RoDB, cfg txpoolcfg.Config, 
 	}, nil
 }
 
-func (p *TxPool) OnNewBlock(ctx context.Context, stateChanges *remote.StateChangeBatch, unwindTxs, minedTxs types.TxSlots, tx kv.Tx) error {
+func (p *TxPool) OnNewBlock(ctx context.Context, stateChanges *zkevm_remote.StateChangeBatch, unwindTxs, minedTxs types.TxSlots, tx kv.Tx) error {
 	defer newBlockTimer.UpdateDuration(time.Now())
 	//t := time.Now()
 
@@ -1001,7 +1001,7 @@ func addTxs(blockNum uint64, cacheView kvcache.CacheView, senders *sendersBatch,
 
 	return announcements, discardReasons, nil
 }
-func addTxsOnNewBlock(blockNum uint64, cacheView kvcache.CacheView, stateChanges *remote.StateChangeBatch,
+func addTxsOnNewBlock(blockNum uint64, cacheView kvcache.CacheView, stateChanges *zkevm_remote.StateChangeBatch,
 	senders *sendersBatch, newTxs types.TxSlots, pendingBaseFee uint64, blockGasLimit uint64,
 	pending *PendingPool, baseFee, queued *SubPool,
 	byNonce *BySenderAndNonce, byHash map[string]*metaTx, add func(*metaTx, *types.Announcements) DiscardReason, discard func(*metaTx, DiscardReason)) (types.Announcements, error) {
@@ -1039,7 +1039,7 @@ func addTxsOnNewBlock(blockNum uint64, cacheView kvcache.CacheView, stateChanges
 	for _, changesList := range stateChanges.ChangeBatch {
 		for _, change := range changesList.Changes {
 			switch change.Action {
-			case remote.Action_UPSERT, remote.Action_UPSERT_CODE:
+			case zkevm_remote.Action_UPSERT, zkevm_remote.Action_UPSERT_CODE:
 				if change.Incarnation > 0 {
 					continue
 				}
@@ -1408,7 +1408,7 @@ func MainLoop(ctx context.Context, db kv.RwDB, coreDB kv.RoDB, p *TxPool, newTxs
 			}
 
 			if err := p.processRemoteTxs(ctx); err != nil {
-				if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+				if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 					time.Sleep(3 * time.Second)
 					continue
 				}
@@ -1990,7 +1990,7 @@ func (sc *sendersBatch) registerNewSenders(newTxs *types.TxSlots) (err error) {
 	}
 	return nil
 }
-func (sc *sendersBatch) onNewBlock(stateChanges *remote.StateChangeBatch, unwindTxs, minedTxs types.TxSlots) error {
+func (sc *sendersBatch) onNewBlock(stateChanges *zkevm_remote.StateChangeBatch, unwindTxs, minedTxs types.TxSlots) error {
 	for _, diff := range stateChanges.ChangeBatch {
 		for _, change := range diff.Changes { // merge state changes
 			addrB := gointerfaces.ConvertH160toAddress(change.Address)

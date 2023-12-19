@@ -33,7 +33,7 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/common/fixedgas"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/kvcache"
 	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
@@ -55,11 +55,11 @@ func TestNonceFromAddress(t *testing.T) {
 	pendingBaseFee := uint64(200000)
 	// start blocks from 0, set empty hash - then kvcache will also work on this
 	h1 := gointerfaces.ConvertHashToH256([32]byte{})
-	change := &remote.StateChangeBatch{
+	change := &zkevm_remote.StateChangeBatch{
 		StateVersionId:      stateVersionID,
 		PendingBlockBaseFee: pendingBaseFee,
 		BlockGasLimit:       1000000,
-		ChangeBatch: []*remote.StateChange{
+		ChangeBatch: []*zkevm_remote.StateChange{
 			{BlockHeight: 0, BlockHash: h1},
 		},
 	}
@@ -67,8 +67,8 @@ func TestNonceFromAddress(t *testing.T) {
 	addr[0] = 1
 	v := make([]byte, types.EncodeSenderLengthForStorage(2, *uint256.NewInt(1 * common.Ether)))
 	types.EncodeSender(2, *uint256.NewInt(1 * common.Ether), v)
-	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &remote.AccountChange{
-		Action:  remote.Action_UPSERT,
+	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &zkevm_remote.AccountChange{
+		Action:  zkevm_remote.Action_UPSERT,
 		Address: gointerfaces.ConvertAddressToH160(addr),
 		Data:    v,
 	})
@@ -175,11 +175,11 @@ func TestReplaceWithHigherFee(t *testing.T) {
 	pendingBaseFee := uint64(200000)
 	// start blocks from 0, set empty hash - then kvcache will also work on this
 	h1 := gointerfaces.ConvertHashToH256([32]byte{})
-	change := &remote.StateChangeBatch{
+	change := &zkevm_remote.StateChangeBatch{
 		StateVersionId:      stateVersionID,
 		PendingBlockBaseFee: pendingBaseFee,
 		BlockGasLimit:       1000000,
-		ChangeBatch: []*remote.StateChange{
+		ChangeBatch: []*zkevm_remote.StateChange{
 			{BlockHeight: 0, BlockHash: h1},
 		},
 	}
@@ -187,8 +187,8 @@ func TestReplaceWithHigherFee(t *testing.T) {
 	addr[0] = 1
 	v := make([]byte, types.EncodeSenderLengthForStorage(2, *uint256.NewInt(1 * common.Ether)))
 	types.EncodeSender(2, *uint256.NewInt(1 * common.Ether), v)
-	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &remote.AccountChange{
-		Action:  remote.Action_UPSERT,
+	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &zkevm_remote.AccountChange{
+		Action:  zkevm_remote.Action_UPSERT,
 		Address: gointerfaces.ConvertAddressToH160(addr),
 		Data:    v,
 	})
@@ -292,11 +292,11 @@ func TestReverseNonces(t *testing.T) {
 	pendingBaseFee := uint64(1_000_000)
 	// start blocks from 0, set empty hash - then kvcache will also work on this
 	h1 := gointerfaces.ConvertHashToH256([32]byte{})
-	change := &remote.StateChangeBatch{
+	change := &zkevm_remote.StateChangeBatch{
 		StateVersionId:      stateVersionID,
 		PendingBlockBaseFee: pendingBaseFee,
 		BlockGasLimit:       1000000,
-		ChangeBatch: []*remote.StateChange{
+		ChangeBatch: []*zkevm_remote.StateChange{
 			{BlockHeight: 0, BlockHash: h1},
 		},
 	}
@@ -304,8 +304,8 @@ func TestReverseNonces(t *testing.T) {
 	addr[0] = 1
 	v := make([]byte, types.EncodeSenderLengthForStorage(2, *uint256.NewInt(1 * common.Ether)))
 	types.EncodeSender(2, *uint256.NewInt(1 * common.Ether), v)
-	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &remote.AccountChange{
-		Action:  remote.Action_UPSERT,
+	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &zkevm_remote.AccountChange{
+		Action:  zkevm_remote.Action_UPSERT,
 		Address: gointerfaces.ConvertAddressToH160(addr),
 		Data:    v,
 	})
@@ -419,11 +419,11 @@ func TestTxPoke(t *testing.T) {
 	pendingBaseFee := uint64(200000)
 	// start blocks from 0, set empty hash - then kvcache will also work on this
 	h1 := gointerfaces.ConvertHashToH256([32]byte{})
-	change := &remote.StateChangeBatch{
+	change := &zkevm_remote.StateChangeBatch{
 		StateVersionId:      stateVersionID,
 		PendingBlockBaseFee: pendingBaseFee,
 		BlockGasLimit:       1000000,
-		ChangeBatch: []*remote.StateChange{
+		ChangeBatch: []*zkevm_remote.StateChange{
 			{BlockHeight: 0, BlockHash: h1},
 		},
 	}
@@ -431,8 +431,8 @@ func TestTxPoke(t *testing.T) {
 	addr[0] = 1
 	v := make([]byte, types.EncodeSenderLengthForStorage(2, *uint256.NewInt(1 * common.Ether)))
 	types.EncodeSender(2, *uint256.NewInt(1 * common.Ether), v)
-	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &remote.AccountChange{
-		Action:  remote.Action_UPSERT,
+	change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &zkevm_remote.AccountChange{
+		Action:  zkevm_remote.Action_UPSERT,
 		Address: gointerfaces.ConvertAddressToH160(addr),
 		Data:    v,
 	})

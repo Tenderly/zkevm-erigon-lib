@@ -26,9 +26,9 @@ import (
 	"github.com/ledgerwatch/log/v3"
 	"github.com/tenderly/zkevm-erigon-lib/common/dbg"
 	"github.com/tenderly/zkevm-erigon-lib/direct"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/grpcutil"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/sentry"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_grpcutil"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_sentry"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/rlp"
 	types2 "github.com/tenderly/zkevm-erigon-lib/types"
@@ -55,7 +55,7 @@ type Fetch struct {
 }
 
 type StateChangesClient interface {
-	StateChanges(ctx context.Context, in *remote.StateChangeRequest, opts ...grpc.CallOption) (remote.KV_StateChangesClient, error)
+	StateChanges(ctx context.Context, in *zkevm_remote.StateChangeRequest, opts ...grpc.CallOption) (zkevm_remote.KV_StateChangesClient, error)
 }
 
 // NewFetch creates a new fetch object that will work with given sentry clients. Since the
@@ -114,7 +114,7 @@ func (f *Fetch) ConnectCore() {
 			default:
 			}
 			if err := f.handleStateChanges(f.ctx, f.stateChangesClient); err != nil {
-				if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+				if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 					time.Sleep(3 * time.Second)
 					continue
 				}
@@ -124,7 +124,7 @@ func (f *Fetch) ConnectCore() {
 	}()
 }
 
-func (f *Fetch) receiveMessageLoop(sentryClient sentry.SentryClient) {
+func (f *Fetch) receiveMessageLoop(sentryClient zkevm_sentry.SentryClient) {
 	for {
 		select {
 		case <-f.ctx.Done():
@@ -132,7 +132,7 @@ func (f *Fetch) receiveMessageLoop(sentryClient sentry.SentryClient) {
 		default:
 		}
 		if _, err := sentryClient.HandShake(f.ctx, &emptypb.Empty{}, grpc.WaitForReady(true)); err != nil {
-			if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+			if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 				time.Sleep(3 * time.Second)
 				continue
 			}
@@ -142,7 +142,7 @@ func (f *Fetch) receiveMessageLoop(sentryClient sentry.SentryClient) {
 		}
 
 		if err := f.receiveMessage(f.ctx, sentryClient); err != nil {
-			if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+			if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 				time.Sleep(3 * time.Second)
 				continue
 			}
@@ -151,15 +151,15 @@ func (f *Fetch) receiveMessageLoop(sentryClient sentry.SentryClient) {
 	}
 }
 
-func (f *Fetch) receiveMessage(ctx context.Context, sentryClient sentry.SentryClient) error {
+func (f *Fetch) receiveMessage(ctx context.Context, sentryClient zkevm_sentry.SentryClient) error {
 	streamCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	stream, err := sentryClient.Messages(streamCtx, &sentry.MessagesRequest{Ids: []sentry.MessageId{
-		sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
-		sentry.MessageId_GET_POOLED_TRANSACTIONS_66,
-		sentry.MessageId_TRANSACTIONS_66,
-		sentry.MessageId_POOLED_TRANSACTIONS_66,
-		sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68,
+	stream, err := sentryClient.Messages(streamCtx, &zkevm_sentry.MessagesRequest{Ids: []zkevm_sentry.MessageId{
+		zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
+		zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66,
+		zkevm_sentry.MessageId_TRANSACTIONS_66,
+		zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66,
+		zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68,
 	}}, grpc.WaitForReady(true))
 	if err != nil {
 		select {
@@ -170,7 +170,7 @@ func (f *Fetch) receiveMessage(ctx context.Context, sentryClient sentry.SentryCl
 		return err
 	}
 
-	var req *sentry.InboundMessage
+	var req *zkevm_sentry.InboundMessage
 	for req, err = stream.Recv(); ; req, err = stream.Recv() {
 		if err != nil {
 			select {
@@ -184,7 +184,7 @@ func (f *Fetch) receiveMessage(ctx context.Context, sentryClient sentry.SentryCl
 			return nil
 		}
 		if err := f.handleInboundMessage(streamCtx, req, sentryClient); err != nil {
-			if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+			if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 				time.Sleep(3 * time.Second)
 				continue
 			}
@@ -201,7 +201,7 @@ func (f *Fetch) receiveMessage(ctx context.Context, sentryClient sentry.SentryCl
 	}
 }
 
-func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMessage, sentryClient sentry.SentryClient) (err error) {
+func (f *Fetch) handleInboundMessage(ctx context.Context, req *zkevm_sentry.InboundMessage, sentryClient zkevm_sentry.SentryClient) (err error) {
 	defer func() {
 		if rec := recover(); rec != nil {
 			err = fmt.Errorf("%+v, trace: %s, rlp: %x", rec, dbg.Stack(), req.Data)
@@ -218,7 +218,7 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 	defer tx.Rollback()
 
 	switch req.Id {
-	case sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66:
+	case zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66:
 		hashCount, pos, err := types2.ParseHashesCount(req.Data, 0)
 		if err != nil {
 			return fmt.Errorf("parsing NewPooledTransactionHashes: %w", err)
@@ -240,19 +240,19 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 		}
 		if len(unknownHashes) > 0 {
 			var encodedRequest []byte
-			var messageID sentry.MessageId
+			var messageID zkevm_sentry.MessageId
 			if encodedRequest, err = types2.EncodeGetPooledTransactions66(unknownHashes, uint64(1), nil); err != nil {
 				return err
 			}
-			messageID = sentry.MessageId_GET_POOLED_TRANSACTIONS_66
-			if _, err = sentryClient.SendMessageById(f.ctx, &sentry.SendMessageByIdRequest{
-				Data:   &sentry.OutboundMessageData{Id: messageID, Data: encodedRequest},
+			messageID = zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66
+			if _, err = sentryClient.SendMessageById(f.ctx, &zkevm_sentry.SendMessageByIdRequest{
+				Data:   &zkevm_sentry.OutboundMessageData{Id: messageID, Data: encodedRequest},
 				PeerId: req.PeerId,
 			}, &grpc.EmptyCallOption{}); err != nil {
 				return err
 			}
 		}
-	case sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68:
+	case zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68:
 		_, _, hashes, _, err := rlp.ParseAnnouncements(req.Data, 0)
 		if err != nil {
 			return fmt.Errorf("parsing NewPooledTransactionHashes88: %w", err)
@@ -269,25 +269,25 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 		}
 		if len(unknownHashes) > 0 {
 			var encodedRequest []byte
-			var messageID sentry.MessageId
+			var messageID zkevm_sentry.MessageId
 			if encodedRequest, err = types2.EncodeGetPooledTransactions66(unknownHashes, uint64(1), nil); err != nil {
 				return err
 			}
-			messageID = sentry.MessageId_GET_POOLED_TRANSACTIONS_66
-			if _, err = sentryClient.SendMessageById(f.ctx, &sentry.SendMessageByIdRequest{
-				Data:   &sentry.OutboundMessageData{Id: messageID, Data: encodedRequest},
+			messageID = zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66
+			if _, err = sentryClient.SendMessageById(f.ctx, &zkevm_sentry.SendMessageByIdRequest{
+				Data:   &zkevm_sentry.OutboundMessageData{Id: messageID, Data: encodedRequest},
 				PeerId: req.PeerId,
 			}, &grpc.EmptyCallOption{}); err != nil {
 				return err
 			}
 		}
-	case sentry.MessageId_GET_POOLED_TRANSACTIONS_66:
+	case zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66:
 		//TODO: handleInboundMessage is single-threaded - means it can accept as argument couple buffers (or analog of txParseContext). Protobuf encoding will copy data anyway, but DirectClient doesn't
 		var encodedRequest []byte
-		var messageID sentry.MessageId
+		var messageID zkevm_sentry.MessageId
 		switch req.Id {
-		case sentry.MessageId_GET_POOLED_TRANSACTIONS_66:
-			messageID = sentry.MessageId_POOLED_TRANSACTIONS_66
+		case zkevm_sentry.MessageId_GET_POOLED_TRANSACTIONS_66:
+			messageID = zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66
 			requestID, hashes, _, err := types2.ParseGetPooledTransactions66(req.Data, 0, nil)
 			if err != nil {
 				return err
@@ -310,13 +310,13 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 			return fmt.Errorf("unexpected message: %s", req.Id.String())
 		}
 
-		if _, err := sentryClient.SendMessageById(f.ctx, &sentry.SendMessageByIdRequest{
-			Data:   &sentry.OutboundMessageData{Id: messageID, Data: encodedRequest},
+		if _, err := sentryClient.SendMessageById(f.ctx, &zkevm_sentry.SendMessageByIdRequest{
+			Data:   &zkevm_sentry.OutboundMessageData{Id: messageID, Data: encodedRequest},
 			PeerId: req.PeerId,
 		}, &grpc.EmptyCallOption{}); err != nil {
 			return err
 		}
-	case sentry.MessageId_POOLED_TRANSACTIONS_66, sentry.MessageId_TRANSACTIONS_66:
+	case zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66, zkevm_sentry.MessageId_TRANSACTIONS_66:
 		txs := types2.TxSlots{}
 		if err := f.threadSafeParsePooledTxn(func(parseContext *types2.TxParseContext) error {
 			return nil
@@ -325,7 +325,7 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 		}
 
 		switch req.Id {
-		case sentry.MessageId_TRANSACTIONS_66:
+		case zkevm_sentry.MessageId_TRANSACTIONS_66:
 			if err := f.threadSafeParsePooledTxn(func(parseContext *types2.TxParseContext) error {
 				if _, err := types2.ParseTransactions(req.Data, 0, parseContext, &txs, func(hash []byte) error {
 					known, err := f.pool.IdHashKnown(tx, hash)
@@ -343,7 +343,7 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 			}); err != nil {
 				return err
 			}
-		case sentry.MessageId_POOLED_TRANSACTIONS_66:
+		case zkevm_sentry.MessageId_POOLED_TRANSACTIONS_66:
 			if err := f.threadSafeParsePooledTxn(func(parseContext *types2.TxParseContext) error {
 				if _, _, err := types2.ParsePooledTransactions66(req.Data, 0, parseContext, &txs, func(hash []byte) error {
 					known, err := f.pool.IdHashKnown(tx, hash)
@@ -375,7 +375,7 @@ func (f *Fetch) handleInboundMessage(ctx context.Context, req *sentry.InboundMes
 	return nil
 }
 
-func (f *Fetch) receivePeerLoop(sentryClient sentry.SentryClient) {
+func (f *Fetch) receivePeerLoop(sentryClient zkevm_sentry.SentryClient) {
 	for {
 		select {
 		case <-f.ctx.Done():
@@ -383,7 +383,7 @@ func (f *Fetch) receivePeerLoop(sentryClient sentry.SentryClient) {
 		default:
 		}
 		if _, err := sentryClient.HandShake(f.ctx, &emptypb.Empty{}, grpc.WaitForReady(true)); err != nil {
-			if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+			if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 				time.Sleep(3 * time.Second)
 				continue
 			}
@@ -393,7 +393,7 @@ func (f *Fetch) receivePeerLoop(sentryClient sentry.SentryClient) {
 			continue
 		}
 		if err := f.receivePeer(sentryClient); err != nil {
-			if grpcutil.IsRetryLater(err) || grpcutil.IsEndOfStream(err) {
+			if zkevm_grpcutil.IsRetryLater(err) || zkevm_grpcutil.IsEndOfStream(err) {
 				time.Sleep(3 * time.Second)
 				continue
 			}
@@ -403,11 +403,11 @@ func (f *Fetch) receivePeerLoop(sentryClient sentry.SentryClient) {
 	}
 }
 
-func (f *Fetch) receivePeer(sentryClient sentry.SentryClient) error {
+func (f *Fetch) receivePeer(sentryClient zkevm_sentry.SentryClient) error {
 	streamCtx, cancel := context.WithCancel(f.ctx)
 	defer cancel()
 
-	stream, err := sentryClient.PeerEvents(streamCtx, &sentry.PeerEventsRequest{})
+	stream, err := sentryClient.PeerEvents(streamCtx, &zkevm_sentry.PeerEventsRequest{})
 	if err != nil {
 		select {
 		case <-f.ctx.Done():
@@ -417,7 +417,7 @@ func (f *Fetch) receivePeer(sentryClient sentry.SentryClient) error {
 		return err
 	}
 
-	var req *sentry.PeerEvent
+	var req *zkevm_sentry.PeerEvent
 	for req, err = stream.Recv(); ; req, err = stream.Recv() {
 		if err != nil {
 			return err
@@ -434,12 +434,12 @@ func (f *Fetch) receivePeer(sentryClient sentry.SentryClient) error {
 	}
 }
 
-func (f *Fetch) handleNewPeer(req *sentry.PeerEvent) error {
+func (f *Fetch) handleNewPeer(req *zkevm_sentry.PeerEvent) error {
 	if req == nil {
 		return nil
 	}
 	switch req.EventId {
-	case sentry.PeerEvent_Connect:
+	case zkevm_sentry.PeerEvent_Connect:
 		f.pool.AddNewGoodPeer(req.PeerId)
 	}
 
@@ -449,7 +449,7 @@ func (f *Fetch) handleNewPeer(req *sentry.PeerEvent) error {
 func (f *Fetch) handleStateChanges(ctx context.Context, client StateChangesClient) error {
 	streamCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	stream, err := client.StateChanges(streamCtx, &remote.StateChangeRequest{WithStorage: false, WithTransactions: true}, grpc.WaitForReady(true))
+	stream, err := client.StateChanges(streamCtx, &zkevm_remote.StateChangeRequest{WithStorage: false, WithTransactions: true}, grpc.WaitForReady(true))
 	if err != nil {
 		return err
 	}
@@ -463,7 +463,7 @@ func (f *Fetch) handleStateChanges(ctx context.Context, client StateChangesClien
 
 		var unwindTxs, minedTxs types2.TxSlots
 		for _, change := range req.ChangeBatch {
-			if change.Direction == remote.Direction_FORWARD {
+			if change.Direction == zkevm_remote.Direction_FORWARD {
 				minedTxs.Resize(uint(len(change.Txs)))
 				for i := range change.Txs {
 					minedTxs.Txs[i] = &types2.TxSlot{}
@@ -476,7 +476,7 @@ func (f *Fetch) handleStateChanges(ctx context.Context, client StateChangesClien
 					}
 				}
 			}
-			if change.Direction == remote.Direction_UNWIND {
+			if change.Direction == zkevm_remote.Direction_UNWIND {
 				unwindTxs.Resize(uint(len(change.Txs)))
 				for i := range change.Txs {
 					unwindTxs.Txs[i] = &types2.TxSlot{}

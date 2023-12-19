@@ -20,13 +20,13 @@ import (
 	"context"
 	"io"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
 	"google.golang.org/grpc"
 )
 
 type StateDiffClient interface {
-	StateChanges(ctx context.Context, in *remote.StateChangeRequest, opts ...grpc.CallOption) (remote.KV_StateChangesClient, error)
-	Snapshots(ctx context.Context, in *remote.SnapshotsRequest, opts ...grpc.CallOption) (*remote.SnapshotsReply, error)
+	StateChanges(ctx context.Context, in *zkevm_remote.StateChangeRequest, opts ...grpc.CallOption) (zkevm_remote.KV_StateChangesClient, error)
+	Snapshots(ctx context.Context, in *zkevm_remote.SnapshotsRequest, opts ...grpc.CallOption) (*zkevm_remote.SnapshotsReply, error)
 }
 
 var _ StateDiffClient = (*StateDiffClientDirect)(nil) // compile-time interface check
@@ -34,20 +34,20 @@ var _ StateDiffClient = (*StateDiffClientDirect)(nil) // compile-time interface 
 // SentryClientDirect implements SentryClient interface by connecting the instance of the client directly with the corresponding
 // instance of SentryServer
 type StateDiffClientDirect struct {
-	server remote.KVServer
+	server zkevm_remote.KVServer
 }
 
-func NewStateDiffClientDirect(server remote.KVServer) *StateDiffClientDirect {
+func NewStateDiffClientDirect(server zkevm_remote.KVServer) *StateDiffClientDirect {
 	return &StateDiffClientDirect{server: server}
 }
 
-func (c *StateDiffClientDirect) Snapshots(ctx context.Context, in *remote.SnapshotsRequest, opts ...grpc.CallOption) (*remote.SnapshotsReply, error) {
+func (c *StateDiffClientDirect) Snapshots(ctx context.Context, in *zkevm_remote.SnapshotsRequest, opts ...grpc.CallOption) (*zkevm_remote.SnapshotsReply, error) {
 	return c.server.Snapshots(ctx, in)
 }
 
 // -- start StateChanges
 
-func (c *StateDiffClientDirect) StateChanges(ctx context.Context, in *remote.StateChangeRequest, opts ...grpc.CallOption) (remote.KV_StateChangesClient, error) {
+func (c *StateDiffClientDirect) StateChanges(ctx context.Context, in *zkevm_remote.StateChangeRequest, opts ...grpc.CallOption) (zkevm_remote.KV_StateChangesClient, error) {
 	ch := make(chan *stateDiffReply, 16384)
 	streamServer := &StateDiffStreamS{ch: ch, ctx: ctx}
 	go func() {
@@ -58,7 +58,7 @@ func (c *StateDiffClientDirect) StateChanges(ctx context.Context, in *remote.Sta
 }
 
 type stateDiffReply struct {
-	r   *remote.StateChangeBatch
+	r   *zkevm_remote.StateChangeBatch
 	err error
 }
 
@@ -68,7 +68,7 @@ type StateDiffStreamC struct {
 	grpc.ClientStream
 }
 
-func (c *StateDiffStreamC) Recv() (*remote.StateChangeBatch, error) {
+func (c *StateDiffStreamC) Recv() (*zkevm_remote.StateChangeBatch, error) {
 	m, ok := <-c.ch
 	if !ok || m == nil {
 		return nil, io.EOF
@@ -84,7 +84,7 @@ type StateDiffStreamS struct {
 	grpc.ServerStream
 }
 
-func (s *StateDiffStreamS) Send(m *remote.StateChangeBatch) error {
+func (s *StateDiffStreamS) Send(m *zkevm_remote.StateChangeBatch) error {
 	s.ch <- &stateDiffReply{r: m}
 	return nil
 }

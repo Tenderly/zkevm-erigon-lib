@@ -21,7 +21,7 @@ import (
 	"sync"
 
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/sentry"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_sentry"
 	"github.com/tenderly/zkevm-erigon-lib/types"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -30,20 +30,20 @@ import (
 
 type MockSentry struct {
 	ctx context.Context
-	*sentry.SentryServerMock
-	streams      map[sentry.MessageId][]sentry.Sentry_MessagesServer
-	peersStreams []sentry.Sentry_PeerEventsServer
+	*zkevm_sentry.SentryServerMock
+	streams      map[zkevm_sentry.MessageId][]zkevm_sentry.Sentry_MessagesServer
+	peersStreams []zkevm_sentry.Sentry_PeerEventsServer
 	StreamWg     sync.WaitGroup
 	lock         sync.RWMutex
 }
 
 func NewMockSentry(ctx context.Context) *MockSentry {
-	return &MockSentry{ctx: ctx, SentryServerMock: &sentry.SentryServerMock{}}
+	return &MockSentry{ctx: ctx, SentryServerMock: &zkevm_sentry.SentryServerMock{}}
 }
 
 var peerID types.PeerID = gointerfaces.ConvertHashToH512([64]byte{0x12, 0x34, 0x50}) // "12345"
 
-func (ms *MockSentry) Send(req *sentry.InboundMessage) (errs []error) {
+func (ms *MockSentry) Send(req *zkevm_sentry.InboundMessage) (errs []error) {
 	ms.lock.RLock()
 	defer ms.lock.RUnlock()
 	for _, stream := range ms.streams[req.Id] {
@@ -54,16 +54,16 @@ func (ms *MockSentry) Send(req *sentry.InboundMessage) (errs []error) {
 	return errs
 }
 
-func (ms *MockSentry) SetStatus(context.Context, *sentry.StatusData) (*sentry.SetStatusReply, error) {
-	return &sentry.SetStatusReply{}, nil
+func (ms *MockSentry) SetStatus(context.Context, *zkevm_sentry.StatusData) (*zkevm_sentry.SetStatusReply, error) {
+	return &zkevm_sentry.SetStatusReply{}, nil
 }
-func (ms *MockSentry) HandShake(context.Context, *emptypb.Empty) (*sentry.HandShakeReply, error) {
-	return &sentry.HandShakeReply{Protocol: sentry.Protocol_ETH68}, nil
+func (ms *MockSentry) HandShake(context.Context, *emptypb.Empty) (*zkevm_sentry.HandShakeReply, error) {
+	return &zkevm_sentry.HandShakeReply{Protocol: zkevm_sentry.Protocol_ETH68}, nil
 }
-func (ms *MockSentry) Messages(req *sentry.MessagesRequest, stream sentry.Sentry_MessagesServer) error {
+func (ms *MockSentry) Messages(req *zkevm_sentry.MessagesRequest, stream zkevm_sentry.Sentry_MessagesServer) error {
 	ms.lock.Lock()
 	if ms.streams == nil {
-		ms.streams = map[sentry.MessageId][]sentry.Sentry_MessagesServer{}
+		ms.streams = map[zkevm_sentry.MessageId][]zkevm_sentry.Sentry_MessagesServer{}
 	}
 	for _, id := range req.Ids {
 		ms.streams[id] = append(ms.streams[id], stream)
@@ -78,7 +78,7 @@ func (ms *MockSentry) Messages(req *sentry.MessagesRequest, stream sentry.Sentry
 	}
 }
 
-func (ms *MockSentry) PeerEvents(req *sentry.PeerEventsRequest, stream sentry.Sentry_PeerEventsServer) error {
+func (ms *MockSentry) PeerEvents(req *zkevm_sentry.PeerEventsRequest, stream zkevm_sentry.Sentry_PeerEventsServer) error {
 	ms.lock.Lock()
 	ms.peersStreams = append(ms.peersStreams, stream)
 	ms.lock.Unlock()

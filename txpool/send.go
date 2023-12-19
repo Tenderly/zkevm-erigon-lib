@@ -23,14 +23,14 @@ import (
 
 	"github.com/ledgerwatch/log/v3"
 	"github.com/tenderly/zkevm-erigon-lib/direct"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/sentry"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_sentry"
 	"github.com/tenderly/zkevm-erigon-lib/rlp"
 	types2 "github.com/tenderly/zkevm-erigon-lib/types"
 	"google.golang.org/grpc"
 )
 
 type SentryClient interface {
-	sentry.SentryClient
+	zkevm_sentry.SentryClient
 	Protocol() uint
 }
 
@@ -78,15 +78,15 @@ func (f *Send) BroadcastPooledTxs(rlps [][]byte) (txSentTo []int) {
 		size += len(rlps[i])
 		if i == l-1 || size >= p2pTxPacketLimit {
 			txsData := types2.EncodeTransactions(rlps[prev:i+1], nil)
-			var txs66 *sentry.SendMessageToRandomPeersRequest
+			var txs66 *zkevm_sentry.SendMessageToRandomPeersRequest
 			for _, sentryClient := range f.sentryClients {
 				if !sentryClient.Ready() {
 					continue
 				}
 				if txs66 == nil {
-					txs66 = &sentry.SendMessageToRandomPeersRequest{
-						Data: &sentry.OutboundMessageData{
-							Id:   sentry.MessageId_TRANSACTIONS_66,
+					txs66 = &zkevm_sentry.SendMessageToRandomPeersRequest{
+						Data: &zkevm_sentry.OutboundMessageData{
+							Id:   zkevm_sentry.MessageId_TRANSACTIONS_66,
 							Data: txsData,
 						},
 						MaxPeers: 100,
@@ -144,8 +144,8 @@ func (f *Send) AnnouncePooledTxs(types []byte, sizes []uint32, hashes types2.Has
 			switch sentryClient.Protocol() {
 			case direct.ETH66, direct.ETH67:
 				if i > prevI {
-					req := &sentry.OutboundMessageData{
-						Id:   sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
+					req := &zkevm_sentry.OutboundMessageData{
+						Id:   zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
 						Data: iData,
 					}
 					peers, err := sentryClient.SendMessageToAll(f.ctx, req, &grpc.EmptyCallOption{})
@@ -161,8 +161,8 @@ func (f *Send) AnnouncePooledTxs(types []byte, sizes []uint32, hashes types2.Has
 			case direct.ETH68:
 
 				if j > prevJ {
-					req := &sentry.OutboundMessageData{
-						Id:   sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68,
+					req := &zkevm_sentry.OutboundMessageData{
+						Id:   zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68,
 						Data: jData,
 					}
 					peers, err := sentryClient.SendMessageToAll(f.ctx, req, &grpc.EmptyCallOption{})
@@ -223,10 +223,10 @@ func (f *Send) PropagatePooledTxsToPeersList(peers []types2.PeerID, types []byte
 				switch sentryClient.Protocol() {
 				case direct.ETH66, direct.ETH67:
 					if i > prevI {
-						req := &sentry.SendMessageByIdRequest{
+						req := &zkevm_sentry.SendMessageByIdRequest{
 							PeerId: peer,
-							Data: &sentry.OutboundMessageData{
-								Id:   sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
+							Data: &zkevm_sentry.OutboundMessageData{
+								Id:   zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_66,
 								Data: iData,
 							},
 						}
@@ -237,10 +237,10 @@ func (f *Send) PropagatePooledTxsToPeersList(peers []types2.PeerID, types []byte
 				case direct.ETH68:
 
 					if j > prevJ {
-						req := &sentry.SendMessageByIdRequest{
+						req := &zkevm_sentry.SendMessageByIdRequest{
 							PeerId: peer,
-							Data: &sentry.OutboundMessageData{
-								Id:   sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68,
+							Data: &zkevm_sentry.OutboundMessageData{
+								Id:   zkevm_sentry.MessageId_NEW_POOLED_TRANSACTION_HASHES_68,
 								Data: jData,
 							},
 						}

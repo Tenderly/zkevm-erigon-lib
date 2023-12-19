@@ -18,7 +18,7 @@ import (
 
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/tenderly/zkevm-erigon-lib/kv/kvcache"
 	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
@@ -471,10 +471,10 @@ func FuzzOnNewBlocks(f *testing.F) {
 			txID = tx.ViewID()
 			return nil
 		})
-		change := &remote.StateChangeBatch{
+		change := &zkevm_remote.StateChangeBatch{
 			StateVersionId:      txID,
 			PendingBlockBaseFee: pendingBaseFee,
-			ChangeBatch: []*remote.StateChange{
+			ChangeBatch: []*zkevm_remote.StateChange{
 				{BlockHeight: 0, BlockHash: h0},
 			},
 		}
@@ -482,8 +482,8 @@ func FuzzOnNewBlocks(f *testing.F) {
 			addr := pool.senders.senderID2Addr[id]
 			v := make([]byte, types.EncodeSenderLengthForStorage(sender.nonce, sender.balance))
 			types.EncodeSender(sender.nonce, sender.balance, v)
-			change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &remote.AccountChange{
-				Action:  remote.Action_UPSERT,
+			change.ChangeBatch[0].Changes = append(change.ChangeBatch[0].Changes, &zkevm_remote.AccountChange{
+				Action:  zkevm_remote.Action_UPSERT,
 				Address: gointerfaces.ConvertAddressToH160(addr),
 				Data:    v,
 			})
@@ -496,10 +496,10 @@ func FuzzOnNewBlocks(f *testing.F) {
 		checkNotify(txs1, types.TxSlots{}, "fork1")
 
 		_, _, _ = p2pReceived, txs2, txs3
-		change = &remote.StateChangeBatch{
+		change = &zkevm_remote.StateChangeBatch{
 			StateVersionId:      txID,
 			PendingBlockBaseFee: pendingBaseFee,
-			ChangeBatch: []*remote.StateChange{
+			ChangeBatch: []*zkevm_remote.StateChange{
 				{BlockHeight: 1, BlockHash: h0},
 			},
 		}
@@ -509,11 +509,11 @@ func FuzzOnNewBlocks(f *testing.F) {
 		checkNotify(types.TxSlots{}, txs2, "fork1 mined")
 
 		// unwind everything and switch to new fork (need unwind mined now)
-		change = &remote.StateChangeBatch{
+		change = &zkevm_remote.StateChangeBatch{
 			StateVersionId:      txID,
 			PendingBlockBaseFee: pendingBaseFee,
-			ChangeBatch: []*remote.StateChange{
-				{BlockHeight: 0, BlockHash: h0, Direction: remote.Direction_UNWIND},
+			ChangeBatch: []*zkevm_remote.StateChange{
+				{BlockHeight: 0, BlockHash: h0, Direction: zkevm_remote.Direction_UNWIND},
 			},
 		}
 		err = pool.OnNewBlock(ctx, change, txs2, types.TxSlots{}, tx)
@@ -521,10 +521,10 @@ func FuzzOnNewBlocks(f *testing.F) {
 		check(txs2, types.TxSlots{}, "fork2")
 		checkNotify(txs2, types.TxSlots{}, "fork2")
 
-		change = &remote.StateChangeBatch{
+		change = &zkevm_remote.StateChangeBatch{
 			StateVersionId:      txID,
 			PendingBlockBaseFee: pendingBaseFee,
-			ChangeBatch: []*remote.StateChange{
+			ChangeBatch: []*zkevm_remote.StateChange{
 				{BlockHeight: 1, BlockHash: h22},
 			},
 		}
