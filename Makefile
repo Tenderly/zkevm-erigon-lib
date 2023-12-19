@@ -53,14 +53,14 @@ protoc-clean:
 grpc: protoc-all
 	go mod vendor
 	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/ledgerwatch/interfaces --go_out=gointerfaces -I=$(PROTOC_INCLUDE) \
-		types/zkevm_types.proto
+		types/types.proto
 	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/ledgerwatch/interfaces --go_out=gointerfaces --go-grpc_out=gointerfaces -I=$(PROTOC_INCLUDE) \
-		--go_opt=Mtypes/zkevm_types.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
-		--go-grpc_opt=Mtypes/zkevm_types.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
+		--go_opt=Mtypes/types.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
+		--go-grpc_opt=Mtypes/types.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
 		p2psentry/sentry.proto p2psentinel/sentinel.proto \
 		remote/kv.proto remote/ethbackend.proto \
 		downloader/downloader.proto execution/execution.proto \
-		txpool/zkevm_txpool.proto txpool/zkevm_mining.proto
+		txpool/txpool.proto txpool/mining.proto
 	rm -rf vendor
 
 $(GOBINREL)/moq: | $(GOBINREL)

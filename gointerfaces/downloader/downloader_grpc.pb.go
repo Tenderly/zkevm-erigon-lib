@@ -4,7 +4,7 @@
 // - protoc             v4.22.2
 // source: downloader/downloader.proto
 
-package zkevm_downloader
+package downloader
 
 import (
 	context "context"

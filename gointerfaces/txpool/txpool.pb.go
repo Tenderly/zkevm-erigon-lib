@@ -2,12 +2,12 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v4.22.2
-// source: txpool/zkevm_txpool.proto
+// source: txpool/txpool.proto
 
-package zkevm_txpool
+package txpool
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"

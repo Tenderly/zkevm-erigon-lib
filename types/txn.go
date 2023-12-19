@@ -34,7 +34,7 @@ import (
 	"github.com/tenderly/zkevm-erigon-lib/common/length"
 	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 	"github.com/tenderly/zkevm-erigon-lib/crypto"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"github.com/tenderly/zkevm-erigon-lib/rlp"
 )
 
@@ -465,7 +465,7 @@ func (ctx *TxParseContext) ParseTransaction(payload []byte, pos int, slot *TxSlo
 	return p, nil
 }
 
-type PeerID *zkevm_types.H512
+type PeerID *types.H512
 
 type Hashes []byte // flatten list of 32-byte hashes
 

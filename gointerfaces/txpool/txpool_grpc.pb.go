@@ -2,13 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: txpool/zkevm_txpool.proto
+// source: txpool/txpool.proto
 
-package zkevm_txpool
+package txpool
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -451,5 +451,5 @@ var Txpool_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "txpool/zkevm_txpool.proto",
+	Metadata: "txpool/txpool.proto",
 }

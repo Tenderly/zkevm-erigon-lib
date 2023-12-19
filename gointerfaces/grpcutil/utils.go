@@ -1,4 +1,4 @@
-package zkevm_grpcutil
+package grpcutil
 
 import (
 	"context"

@@ -19,19 +19,19 @@ package gointerfaces
 import (
 	"fmt"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 )
 
 type Version struct {
 	Major, Minor, Patch uint32 // interface Version of the client - to perform compatibility check when opening
 }
 
-func VersionFromProto(r *zkevm_types.VersionReply) Version {
+func VersionFromProto(r *types.VersionReply) Version {
 	return Version{Major: r.Major, Minor: r.Minor, Patch: r.Patch}
 }
 
 // EnsureVersion - Default policy: allow only patch difference
-func EnsureVersion(local Version, remote *zkevm_types.VersionReply) bool {
+func EnsureVersion(local Version, remote *types.VersionReply) bool {
 	if remote.Major != local.Major {
 		return false
 	}

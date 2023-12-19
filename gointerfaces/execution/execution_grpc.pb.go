@@ -4,11 +4,11 @@
 // - protoc             v4.22.2
 // source: execution/execution.proto
 
-package zkevm_execution
+package execution
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

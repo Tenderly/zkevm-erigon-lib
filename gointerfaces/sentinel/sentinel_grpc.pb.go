@@ -4,7 +4,7 @@
 // - protoc             v4.22.2
 // source: p2psentinel/sentinel.proto
 
-package zkevm_sentinel
+package sentinel
 
 import (
 	context "context"

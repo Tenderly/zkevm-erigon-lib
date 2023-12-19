@@ -5,7 +5,7 @@ package txpool
 
 import (
 	"context"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
 	"github.com/tenderly/zkevm-erigon-lib/kv"
 	types2 "github.com/tenderly/zkevm-erigon-lib/types"
 	"sync"
@@ -68,7 +68,7 @@ type PoolMock struct {
 	IdHashKnownFunc func(tx kv.Tx, hash []byte) (bool, error)
 
 	// OnNewBlockFunc mocks the OnNewBlock method.
-	OnNewBlockFunc func(ctx context.Context, stateChanges *zkevm_remote.StateChangeBatch, unwindTxs types2.TxSlots, minedTxs types2.TxSlots, tx kv.Tx) error
+	OnNewBlockFunc func(ctx context.Context, stateChanges *remote.StateChangeBatch, unwindTxs types2.TxSlots, minedTxs types2.TxSlots, tx kv.Tx) error
 
 	// StartedFunc mocks the Started method.
 	StartedFunc func() bool
@@ -118,7 +118,7 @@ type PoolMock struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
 			// StateChanges is the stateChanges argument value.
-			StateChanges *zkevm_remote.StateChangeBatch
+			StateChanges *remote.StateChangeBatch
 			// UnwindTxs is the unwindTxs argument value.
 			UnwindTxs types2.TxSlots
 			// MinedTxs is the minedTxs argument value.
@@ -338,10 +338,10 @@ func (mock *PoolMock) IdHashKnownCalls() []struct {
 }
 
 // OnNewBlock calls OnNewBlockFunc.
-func (mock *PoolMock) OnNewBlock(ctx context.Context, stateChanges *zkevm_remote.StateChangeBatch, unwindTxs types2.TxSlots, minedTxs types2.TxSlots, tx kv.Tx) error {
+func (mock *PoolMock) OnNewBlock(ctx context.Context, stateChanges *remote.StateChangeBatch, unwindTxs types2.TxSlots, minedTxs types2.TxSlots, tx kv.Tx) error {
 	callInfo := struct {
 		Ctx          context.Context
-		StateChanges *zkevm_remote.StateChangeBatch
+		StateChanges *remote.StateChangeBatch
 		UnwindTxs    types2.TxSlots
 		MinedTxs     types2.TxSlots
 		Tx           kv.Tx
@@ -370,14 +370,14 @@ func (mock *PoolMock) OnNewBlock(ctx context.Context, stateChanges *zkevm_remote
 //	len(mockedPool.OnNewBlockCalls())
 func (mock *PoolMock) OnNewBlockCalls() []struct {
 	Ctx          context.Context
-	StateChanges *zkevm_remote.StateChangeBatch
+	StateChanges *remote.StateChangeBatch
 	UnwindTxs    types2.TxSlots
 	MinedTxs     types2.TxSlots
 	Tx           kv.Tx
 } {
 	var calls []struct {
 		Ctx          context.Context
-		StateChanges *zkevm_remote.StateChangeBatch
+		StateChanges *remote.StateChangeBatch
 		UnwindTxs    types2.TxSlots
 		MinedTxs     types2.TxSlots
 		Tx           kv.Tx

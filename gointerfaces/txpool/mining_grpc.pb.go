@@ -2,13 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: txpool/zkevm_mining.proto
+// source: txpool/mining.proto
 
-package zkevm_txpool
+package txpool
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -531,5 +531,5 @@ var Mining_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "txpool/zkevm_mining.proto",
+	Metadata: "txpool/mining.proto",
 }

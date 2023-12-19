@@ -20,71 +20,71 @@ import (
 	"context"
 	"io"
 
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_remote"
-	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type EthBackendClientDirect struct {
-	server zkevm_remote.ETHBACKENDServer
+	server remote.ETHBACKENDServer
 }
 
-func NewEthBackendClientDirect(server zkevm_remote.ETHBACKENDServer) *EthBackendClientDirect {
+func NewEthBackendClientDirect(server remote.ETHBACKENDServer) *EthBackendClientDirect {
 	return &EthBackendClientDirect{server: server}
 }
 
-func (s *EthBackendClientDirect) EngineGetBlobsBundleV1(ctx context.Context, in *zkevm_remote.EngineGetBlobsBundleRequest, opts ...grpc.CallOption) (*zkevm_types.BlobsBundleV1, error) {
+func (s *EthBackendClientDirect) EngineGetBlobsBundleV1(ctx context.Context, in *remote.EngineGetBlobsBundleRequest, opts ...grpc.CallOption) (*types.BlobsBundleV1, error) {
 	return s.server.EngineGetBlobsBundleV1(ctx, in)
 }
 
-func (s *EthBackendClientDirect) Etherbase(ctx context.Context, in *zkevm_remote.EtherbaseRequest, opts ...grpc.CallOption) (*zkevm_remote.EtherbaseReply, error) {
+func (s *EthBackendClientDirect) Etherbase(ctx context.Context, in *remote.EtherbaseRequest, opts ...grpc.CallOption) (*remote.EtherbaseReply, error) {
 	return s.server.Etherbase(ctx, in)
 }
 
-func (s *EthBackendClientDirect) NetVersion(ctx context.Context, in *zkevm_remote.NetVersionRequest, opts ...grpc.CallOption) (*zkevm_remote.NetVersionReply, error) {
+func (s *EthBackendClientDirect) NetVersion(ctx context.Context, in *remote.NetVersionRequest, opts ...grpc.CallOption) (*remote.NetVersionReply, error) {
 	return s.server.NetVersion(ctx, in)
 }
 
-func (s *EthBackendClientDirect) NetPeerCount(ctx context.Context, in *zkevm_remote.NetPeerCountRequest, opts ...grpc.CallOption) (*zkevm_remote.NetPeerCountReply, error) {
+func (s *EthBackendClientDirect) NetPeerCount(ctx context.Context, in *remote.NetPeerCountRequest, opts ...grpc.CallOption) (*remote.NetPeerCountReply, error) {
 	return s.server.NetPeerCount(ctx, in)
 }
 
-func (s *EthBackendClientDirect) EngineNewPayload(ctx context.Context, in *zkevm_types.ExecutionPayload, opts ...grpc.CallOption) (*zkevm_remote.EnginePayloadStatus, error) {
+func (s *EthBackendClientDirect) EngineNewPayload(ctx context.Context, in *types.ExecutionPayload, opts ...grpc.CallOption) (*remote.EnginePayloadStatus, error) {
 	return s.server.EngineNewPayload(ctx, in)
 }
 
-func (s *EthBackendClientDirect) EngineForkChoiceUpdated(ctx context.Context, in *zkevm_remote.EngineForkChoiceUpdatedRequest, opts ...grpc.CallOption) (*zkevm_remote.EngineForkChoiceUpdatedResponse, error) {
+func (s *EthBackendClientDirect) EngineForkChoiceUpdated(ctx context.Context, in *remote.EngineForkChoiceUpdatedRequest, opts ...grpc.CallOption) (*remote.EngineForkChoiceUpdatedResponse, error) {
 	return s.server.EngineForkChoiceUpdated(ctx, in)
 }
 
-func (s *EthBackendClientDirect) EngineGetPayload(ctx context.Context, in *zkevm_remote.EngineGetPayloadRequest, opts ...grpc.CallOption) (*zkevm_remote.EngineGetPayloadResponse, error) {
+func (s *EthBackendClientDirect) EngineGetPayload(ctx context.Context, in *remote.EngineGetPayloadRequest, opts ...grpc.CallOption) (*remote.EngineGetPayloadResponse, error) {
 	return s.server.EngineGetPayload(ctx, in)
 }
 
-func (s *EthBackendClientDirect) EngineGetPayloadBodiesByHashV1(ctx context.Context, in *zkevm_remote.EngineGetPayloadBodiesByHashV1Request, opts ...grpc.CallOption) (*zkevm_remote.EngineGetPayloadBodiesV1Response, error) {
+func (s *EthBackendClientDirect) EngineGetPayloadBodiesByHashV1(ctx context.Context, in *remote.EngineGetPayloadBodiesByHashV1Request, opts ...grpc.CallOption) (*remote.EngineGetPayloadBodiesV1Response, error) {
 	return s.server.EngineGetPayloadBodiesByHashV1(ctx, in)
 }
 
-func (s *EthBackendClientDirect) EngineGetPayloadBodiesByRangeV1(ctx context.Context, in *zkevm_remote.EngineGetPayloadBodiesByRangeV1Request, opts ...grpc.CallOption) (*zkevm_remote.EngineGetPayloadBodiesV1Response, error) {
+func (s *EthBackendClientDirect) EngineGetPayloadBodiesByRangeV1(ctx context.Context, in *remote.EngineGetPayloadBodiesByRangeV1Request, opts ...grpc.CallOption) (*remote.EngineGetPayloadBodiesV1Response, error) {
 	return s.server.EngineGetPayloadBodiesByRangeV1(ctx, in)
 }
 
-func (s *EthBackendClientDirect) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_types.VersionReply, error) {
+func (s *EthBackendClientDirect) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error) {
 	return s.server.Version(ctx, in)
 }
 
-func (s *EthBackendClientDirect) ProtocolVersion(ctx context.Context, in *zkevm_remote.ProtocolVersionRequest, opts ...grpc.CallOption) (*zkevm_remote.ProtocolVersionReply, error) {
+func (s *EthBackendClientDirect) ProtocolVersion(ctx context.Context, in *remote.ProtocolVersionRequest, opts ...grpc.CallOption) (*remote.ProtocolVersionReply, error) {
 	return s.server.ProtocolVersion(ctx, in)
 }
 
-func (s *EthBackendClientDirect) ClientVersion(ctx context.Context, in *zkevm_remote.ClientVersionRequest, opts ...grpc.CallOption) (*zkevm_remote.ClientVersionReply, error) {
+func (s *EthBackendClientDirect) ClientVersion(ctx context.Context, in *remote.ClientVersionRequest, opts ...grpc.CallOption) (*remote.ClientVersionReply, error) {
 	return s.server.ClientVersion(ctx, in)
 }
 
 // -- start Subscribe
 
-func (s *EthBackendClientDirect) Subscribe(ctx context.Context, in *zkevm_remote.SubscribeRequest, opts ...grpc.CallOption) (zkevm_remote.ETHBACKEND_SubscribeClient, error) {
+func (s *EthBackendClientDirect) Subscribe(ctx context.Context, in *remote.SubscribeRequest, opts ...grpc.CallOption) (remote.ETHBACKEND_SubscribeClient, error) {
 	ch := make(chan *subscribeReply, 16384)
 	streamServer := &SubscribeStreamS{ch: ch, ctx: ctx}
 	go func() {
@@ -95,7 +95,7 @@ func (s *EthBackendClientDirect) Subscribe(ctx context.Context, in *zkevm_remote
 }
 
 type subscribeReply struct {
-	r   *zkevm_remote.SubscribeReply
+	r   *remote.SubscribeReply
 	err error
 }
 type SubscribeStreamS struct {
@@ -104,7 +104,7 @@ type SubscribeStreamS struct {
 	grpc.ServerStream
 }
 
-func (s *SubscribeStreamS) Send(m *zkevm_remote.SubscribeReply) error {
+func (s *SubscribeStreamS) Send(m *remote.SubscribeReply) error {
 	s.ch <- &subscribeReply{r: m}
 	return nil
 }
@@ -122,7 +122,7 @@ type SubscribeStreamC struct {
 	grpc.ClientStream
 }
 
-func (c *SubscribeStreamC) Recv() (*zkevm_remote.SubscribeReply, error) {
+func (c *SubscribeStreamC) Recv() (*remote.SubscribeReply, error) {
 	m, ok := <-c.ch
 	if !ok || m == nil {
 		return nil, io.EOF
@@ -135,7 +135,7 @@ func (c *SubscribeStreamC) Context() context.Context { return c.ctx }
 
 // -- SubscribeLogs
 
-func (s *EthBackendClientDirect) SubscribeLogs(ctx context.Context, opts ...grpc.CallOption) (zkevm_remote.ETHBACKEND_SubscribeLogsClient, error) {
+func (s *EthBackendClientDirect) SubscribeLogs(ctx context.Context, opts ...grpc.CallOption) (remote.ETHBACKEND_SubscribeLogsClient, error) {
 	subscribeLogsRequestChan := make(chan *subscribeLogsRequest, 16384)
 	subscribeLogsReplyChan := make(chan *subscribeLogsReply, 16384)
 	srv := &SubscribeLogsStreamS{
@@ -164,21 +164,21 @@ type SubscribeLogsStreamS struct {
 }
 
 type subscribeLogsReply struct {
-	r   *zkevm_remote.SubscribeLogsReply
+	r   *remote.SubscribeLogsReply
 	err error
 }
 
 type subscribeLogsRequest struct {
-	r   *zkevm_remote.LogsFilterRequest
+	r   *remote.LogsFilterRequest
 	err error
 }
 
-func (s *SubscribeLogsStreamS) Send(m *zkevm_remote.SubscribeLogsReply) error {
+func (s *SubscribeLogsStreamS) Send(m *remote.SubscribeLogsReply) error {
 	s.chSend <- &subscribeLogsReply{r: m}
 	return nil
 }
 
-func (s *SubscribeLogsStreamS) Recv() (*zkevm_remote.LogsFilterRequest, error) {
+func (s *SubscribeLogsStreamS) Recv() (*remote.LogsFilterRequest, error) {
 	m, ok := <-s.chRecv
 	if !ok || m == nil {
 		return nil, io.EOF
@@ -200,12 +200,12 @@ type SubscribeLogsStreamC struct {
 	grpc.ClientStream
 }
 
-func (c *SubscribeLogsStreamC) Send(m *zkevm_remote.LogsFilterRequest) error {
+func (c *SubscribeLogsStreamC) Send(m *remote.LogsFilterRequest) error {
 	c.chSend <- &subscribeLogsRequest{r: m}
 	return nil
 }
 
-func (c *SubscribeLogsStreamC) Recv() (*zkevm_remote.SubscribeLogsReply, error) {
+func (c *SubscribeLogsStreamC) Recv() (*remote.SubscribeLogsReply, error) {
 	m, ok := <-c.chRecv
 	if !ok || m == nil {
 		return nil, io.EOF
@@ -215,22 +215,22 @@ func (c *SubscribeLogsStreamC) Recv() (*zkevm_remote.SubscribeLogsReply, error) 
 
 // -- end SubscribeLogs
 
-func (s *EthBackendClientDirect) Block(ctx context.Context, in *zkevm_remote.BlockRequest, opts ...grpc.CallOption) (*zkevm_remote.BlockReply, error) {
+func (s *EthBackendClientDirect) Block(ctx context.Context, in *remote.BlockRequest, opts ...grpc.CallOption) (*remote.BlockReply, error) {
 	return s.server.Block(ctx, in)
 }
 
-func (s *EthBackendClientDirect) TxnLookup(ctx context.Context, in *zkevm_remote.TxnLookupRequest, opts ...grpc.CallOption) (*zkevm_remote.TxnLookupReply, error) {
+func (s *EthBackendClientDirect) TxnLookup(ctx context.Context, in *remote.TxnLookupRequest, opts ...grpc.CallOption) (*remote.TxnLookupReply, error) {
 	return s.server.TxnLookup(ctx, in)
 }
 
-func (s *EthBackendClientDirect) NodeInfo(ctx context.Context, in *zkevm_remote.NodesInfoRequest, opts ...grpc.CallOption) (*zkevm_remote.NodesInfoReply, error) {
+func (s *EthBackendClientDirect) NodeInfo(ctx context.Context, in *remote.NodesInfoRequest, opts ...grpc.CallOption) (*remote.NodesInfoReply, error) {
 	return s.server.NodeInfo(ctx, in)
 }
 
-func (s *EthBackendClientDirect) Peers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_remote.PeersReply, error) {
+func (s *EthBackendClientDirect) Peers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*remote.PeersReply, error) {
 	return s.server.Peers(ctx, in)
 }
 
-func (s *EthBackendClientDirect) PendingBlock(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevm_remote.PendingBlockReply, error) {
+func (s *EthBackendClientDirect) PendingBlock(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*remote.PendingBlockReply, error) {
 	return s.server.PendingBlock(ctx, in)
 }

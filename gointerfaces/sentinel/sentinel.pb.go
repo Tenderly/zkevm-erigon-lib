@@ -4,10 +4,10 @@
 // 	protoc        v4.22.2
 // source: p2psentinel/sentinel.proto
 
-package zkevm_sentinel
+package sentinel
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevm_types"
+	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
