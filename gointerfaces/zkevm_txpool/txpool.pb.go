@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v4.22.2
-// source: txpool/txpool.proto
+// source: txpool/zkevm_txpool.proto
 
 package zkevm_txpool
 

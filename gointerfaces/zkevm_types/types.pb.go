@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v4.22.2
-// source: types/types.proto
+// source: types/zkevm_types.proto
 
 package zkevm_types
 
@@ -1060,7 +1060,7 @@ var file_types_types_proto_extTypes = []protoimpl.ExtensionInfo{
 		Field:         50001,
 		Name:          "types.service_major_version",
 		Tag:           "varint,50001,opt,name=service_major_version",
-		Filename:      "types/types.proto",
+		Filename:      "types/zkevm_types.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.FileOptions)(nil),
@@ -1068,7 +1068,7 @@ var file_types_types_proto_extTypes = []protoimpl.ExtensionInfo{
 		Field:         50002,
 		Name:          "types.service_minor_version",
 		Tag:           "varint,50002,opt,name=service_minor_version",
-		Filename:      "types/types.proto",
+		Filename:      "types/zkevm_types.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.FileOptions)(nil),
@@ -1076,7 +1076,7 @@ var file_types_types_proto_extTypes = []protoimpl.ExtensionInfo{
 		Field:         50003,
 		Name:          "types.service_patch_version",
 		Tag:           "varint,50003,opt,name=service_patch_version",
-		Filename:      "types/types.proto",
+		Filename:      "types/zkevm_types.proto",
 	},
 }
 

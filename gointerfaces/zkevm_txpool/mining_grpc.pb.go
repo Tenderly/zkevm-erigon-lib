@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: txpool/mining.proto
+// source: txpool/zkevm_mining.proto
 
 package zkevm_txpool
 
@@ -531,5 +531,5 @@ var Mining_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "txpool/mining.proto",
+	Metadata: "txpool/zkevm_mining.proto",
 }

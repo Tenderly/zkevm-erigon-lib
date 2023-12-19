@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.2
-// source: txpool/txpool.proto
+// source: txpool/zkevm_txpool.proto
 
 package zkevm_txpool
 
@@ -451,5 +451,5 @@ var Txpool_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "txpool/txpool.proto",
+	Metadata: "txpool/zkevm_txpool.proto",
 }
