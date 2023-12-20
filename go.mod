@@ -30,7 +30,7 @@ require (
 	github.com/quasilyte/go-ruleguard/dsl v0.3.22
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/testify v1.8.4
-	github.com/tenderly/erigon-interfaces v0.0.0-20231219142311-539864b62885
+	github.com/tenderly/erigon-interfaces v0.0.0-20231220095022-487ab5ca6e5b
 	github.com/tenderly/erigon/erigon-lib v0.0.0-20231213155600-d3d9290e9e54
 	github.com/tidwall/btree v1.6.0
 	golang.org/x/crypto v0.16.0

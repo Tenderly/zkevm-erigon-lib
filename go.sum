@@ -372,10 +372,8 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
-github.com/tenderly/erigon-interfaces v0.0.0-20231219140827-467ea4134e52 h1:5LoxFpvk13bhqXPV3qRJ1d2QRDaPPhv11LQHqkigR+0=
-github.com/tenderly/erigon-interfaces v0.0.0-20231219140827-467ea4134e52/go.mod h1:t/I4UlQ/bqEf6omBfqALUuKzMm4RNPgW8qCpRhj8bug=
-github.com/tenderly/erigon-interfaces v0.0.0-20231219142311-539864b62885 h1:nv6sn0C8KoRBhMP3RBi7VieeYzH/SyASGAmyNeffmHc=
-github.com/tenderly/erigon-interfaces v0.0.0-20231219142311-539864b62885/go.mod h1:t/I4UlQ/bqEf6omBfqALUuKzMm4RNPgW8qCpRhj8bug=
+github.com/tenderly/erigon-interfaces v0.0.0-20231220095022-487ab5ca6e5b h1:9E42T3Q6hSisFTiiXyi8MoL7jzehZDQMHyosEgDhSeo=
+github.com/tenderly/erigon-interfaces v0.0.0-20231220095022-487ab5ca6e5b/go.mod h1:t/I4UlQ/bqEf6omBfqALUuKzMm4RNPgW8qCpRhj8bug=
 github.com/tenderly/erigon/erigon-lib v0.0.0-20231213155600-d3d9290e9e54 h1:vLrn2DoxJc0tiNuVYscxPywRUE92Vwr/UGCbecKkFF8=
 github.com/tenderly/erigon/erigon-lib v0.0.0-20231213155600-d3d9290e9e54/go.mod h1:o9uvVuBb1ZhExJ0LyAQABGUem/Puu1ha9mKNM/h5si0=
 github.com/tenderly/secp256k1 v1.0.1-0.20231212115822-31dacfc1e0c7 h1:dXoKNz5mRiDiLuxBAnM8voo1CIgEl1K87MuVQur6R2o=
