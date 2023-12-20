@@ -7,7 +7,7 @@
 package zkevmremote
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -175,7 +175,7 @@ type EtherbaseReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Address *types.H160 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Address *zkevmtypes.H160 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 }
 
 func (x *EtherbaseReply) Reset() {
@@ -210,7 +210,7 @@ func (*EtherbaseReply) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *EtherbaseReply) GetAddress() *types.H160 {
+func (x *EtherbaseReply) GetAddress() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Address
 	}
@@ -486,9 +486,9 @@ type EnginePayloadStatus struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status          EngineStatus `protobuf:"varint,1,opt,name=status,proto3,enum=zkevmremote.EngineStatus" json:"status,omitempty"`
-	LatestValidHash *types.H256  `protobuf:"bytes,2,opt,name=latest_valid_hash,json=latestValidHash,proto3" json:"latest_valid_hash,omitempty"`
-	ValidationError string       `protobuf:"bytes,3,opt,name=validation_error,json=validationError,proto3" json:"validation_error,omitempty"`
+	Status          EngineStatus     `protobuf:"varint,1,opt,name=status,proto3,enum=zkevmremote.EngineStatus" json:"status,omitempty"`
+	LatestValidHash *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=latest_valid_hash,json=latestValidHash,proto3" json:"latest_valid_hash,omitempty"`
+	ValidationError string           `protobuf:"bytes,3,opt,name=validation_error,json=validationError,proto3" json:"validation_error,omitempty"`
 }
 
 func (x *EnginePayloadStatus) Reset() {
@@ -530,7 +530,7 @@ func (x *EnginePayloadStatus) GetStatus() EngineStatus {
 	return EngineStatus_VALID
 }
 
-func (x *EnginePayloadStatus) GetLatestValidHash() *types.H256 {
+func (x *EnginePayloadStatus) GetLatestValidHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.LatestValidHash
 	}
@@ -549,11 +549,11 @@ type EnginePayloadAttributes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Version               uint32              `protobuf:"varint,1,opt,name=version,proto3" json:"version,omitempty"` // v1 - no withdrawals, v2 - with withdrawals
-	Timestamp             uint64              `protobuf:"varint,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	PrevRandao            *types.H256         `protobuf:"bytes,3,opt,name=prev_randao,json=prevRandao,proto3" json:"prev_randao,omitempty"`
-	SuggestedFeeRecipient *types.H160         `protobuf:"bytes,4,opt,name=suggested_fee_recipient,json=suggestedFeeRecipient,proto3" json:"suggested_fee_recipient,omitempty"`
-	Withdrawals           []*types.Withdrawal `protobuf:"bytes,5,rep,name=withdrawals,proto3" json:"withdrawals,omitempty"`
+	Version               uint32                   `protobuf:"varint,1,opt,name=version,proto3" json:"version,omitempty"` // v1 - no withdrawals, v2 - with withdrawals
+	Timestamp             uint64                   `protobuf:"varint,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	PrevRandao            *zkevmtypes.H256         `protobuf:"bytes,3,opt,name=prev_randao,json=prevRandao,proto3" json:"prev_randao,omitempty"`
+	SuggestedFeeRecipient *zkevmtypes.H160         `protobuf:"bytes,4,opt,name=suggested_fee_recipient,json=suggestedFeeRecipient,proto3" json:"suggested_fee_recipient,omitempty"`
+	Withdrawals           []*zkevmtypes.Withdrawal `protobuf:"bytes,5,rep,name=withdrawals,proto3" json:"withdrawals,omitempty"`
 }
 
 func (x *EnginePayloadAttributes) Reset() {
@@ -602,21 +602,21 @@ func (x *EnginePayloadAttributes) GetTimestamp() uint64 {
 	return 0
 }
 
-func (x *EnginePayloadAttributes) GetPrevRandao() *types.H256 {
+func (x *EnginePayloadAttributes) GetPrevRandao() *zkevmtypes.H256 {
 	if x != nil {
 		return x.PrevRandao
 	}
 	return nil
 }
 
-func (x *EnginePayloadAttributes) GetSuggestedFeeRecipient() *types.H160 {
+func (x *EnginePayloadAttributes) GetSuggestedFeeRecipient() *zkevmtypes.H160 {
 	if x != nil {
 		return x.SuggestedFeeRecipient
 	}
 	return nil
 }
 
-func (x *EnginePayloadAttributes) GetWithdrawals() []*types.Withdrawal {
+func (x *EnginePayloadAttributes) GetWithdrawals() []*zkevmtypes.Withdrawal {
 	if x != nil {
 		return x.Withdrawals
 	}
@@ -628,9 +628,9 @@ type EngineForkChoiceState struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	HeadBlockHash      *types.H256 `protobuf:"bytes,1,opt,name=head_block_hash,json=headBlockHash,proto3" json:"head_block_hash,omitempty"`
-	SafeBlockHash      *types.H256 `protobuf:"bytes,2,opt,name=safe_block_hash,json=safeBlockHash,proto3" json:"safe_block_hash,omitempty"`
-	FinalizedBlockHash *types.H256 `protobuf:"bytes,3,opt,name=finalized_block_hash,json=finalizedBlockHash,proto3" json:"finalized_block_hash,omitempty"`
+	HeadBlockHash      *zkevmtypes.H256 `protobuf:"bytes,1,opt,name=head_block_hash,json=headBlockHash,proto3" json:"head_block_hash,omitempty"`
+	SafeBlockHash      *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=safe_block_hash,json=safeBlockHash,proto3" json:"safe_block_hash,omitempty"`
+	FinalizedBlockHash *zkevmtypes.H256 `protobuf:"bytes,3,opt,name=finalized_block_hash,json=finalizedBlockHash,proto3" json:"finalized_block_hash,omitempty"`
 }
 
 func (x *EngineForkChoiceState) Reset() {
@@ -665,21 +665,21 @@ func (*EngineForkChoiceState) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *EngineForkChoiceState) GetHeadBlockHash() *types.H256 {
+func (x *EngineForkChoiceState) GetHeadBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.HeadBlockHash
 	}
 	return nil
 }
 
-func (x *EngineForkChoiceState) GetSafeBlockHash() *types.H256 {
+func (x *EngineForkChoiceState) GetSafeBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.SafeBlockHash
 	}
 	return nil
 }
 
-func (x *EngineForkChoiceState) GetFinalizedBlockHash() *types.H256 {
+func (x *EngineForkChoiceState) GetFinalizedBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.FinalizedBlockHash
 	}
@@ -801,8 +801,8 @@ type EngineGetPayloadResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ExecutionPayload *types.ExecutionPayload `protobuf:"bytes,1,opt,name=execution_payload,json=executionPayload,proto3" json:"execution_payload,omitempty"`
-	BlockValue       *types.H256             `protobuf:"bytes,2,opt,name=block_value,json=blockValue,proto3" json:"block_value,omitempty"`
+	ExecutionPayload *zkevmtypes.ExecutionPayload `protobuf:"bytes,1,opt,name=execution_payload,json=executionPayload,proto3" json:"execution_payload,omitempty"`
+	BlockValue       *zkevmtypes.H256             `protobuf:"bytes,2,opt,name=block_value,json=blockValue,proto3" json:"block_value,omitempty"`
 }
 
 func (x *EngineGetPayloadResponse) Reset() {
@@ -837,14 +837,14 @@ func (*EngineGetPayloadResponse) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *EngineGetPayloadResponse) GetExecutionPayload() *types.ExecutionPayload {
+func (x *EngineGetPayloadResponse) GetExecutionPayload() *zkevmtypes.ExecutionPayload {
 	if x != nil {
 		return x.ExecutionPayload
 	}
 	return nil
 }
 
-func (x *EngineGetPayloadResponse) GetBlockValue() *types.H256 {
+func (x *EngineGetPayloadResponse) GetBlockValue() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockValue
 	}
@@ -1128,10 +1128,10 @@ type LogsFilterRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AllAddresses bool          `protobuf:"varint,1,opt,name=all_addresses,json=allAddresses,proto3" json:"all_addresses,omitempty"`
-	Addresses    []*types.H160 `protobuf:"bytes,2,rep,name=addresses,proto3" json:"addresses,omitempty"`
-	AllTopics    bool          `protobuf:"varint,3,opt,name=all_topics,json=allTopics,proto3" json:"all_topics,omitempty"`
-	Topics       []*types.H256 `protobuf:"bytes,4,rep,name=topics,proto3" json:"topics,omitempty"`
+	AllAddresses bool               `protobuf:"varint,1,opt,name=all_addresses,json=allAddresses,proto3" json:"all_addresses,omitempty"`
+	Addresses    []*zkevmtypes.H160 `protobuf:"bytes,2,rep,name=addresses,proto3" json:"addresses,omitempty"`
+	AllTopics    bool               `protobuf:"varint,3,opt,name=all_topics,json=allTopics,proto3" json:"all_topics,omitempty"`
+	Topics       []*zkevmtypes.H256 `protobuf:"bytes,4,rep,name=topics,proto3" json:"topics,omitempty"`
 }
 
 func (x *LogsFilterRequest) Reset() {
@@ -1173,7 +1173,7 @@ func (x *LogsFilterRequest) GetAllAddresses() bool {
 	return false
 }
 
-func (x *LogsFilterRequest) GetAddresses() []*types.H160 {
+func (x *LogsFilterRequest) GetAddresses() []*zkevmtypes.H160 {
 	if x != nil {
 		return x.Addresses
 	}
@@ -1187,7 +1187,7 @@ func (x *LogsFilterRequest) GetAllTopics() bool {
 	return false
 }
 
-func (x *LogsFilterRequest) GetTopics() []*types.H256 {
+func (x *LogsFilterRequest) GetTopics() []*zkevmtypes.H256 {
 	if x != nil {
 		return x.Topics
 	}
@@ -1199,15 +1199,15 @@ type SubscribeLogsReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Address          *types.H160   `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
-	BlockHash        *types.H256   `protobuf:"bytes,2,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
-	BlockNumber      uint64        `protobuf:"varint,3,opt,name=block_number,json=blockNumber,proto3" json:"block_number,omitempty"`
-	Data             []byte        `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
-	LogIndex         uint64        `protobuf:"varint,5,opt,name=log_index,json=logIndex,proto3" json:"log_index,omitempty"`
-	Topics           []*types.H256 `protobuf:"bytes,6,rep,name=topics,proto3" json:"topics,omitempty"`
-	TransactionHash  *types.H256   `protobuf:"bytes,7,opt,name=transaction_hash,json=transactionHash,proto3" json:"transaction_hash,omitempty"`
-	TransactionIndex uint64        `protobuf:"varint,8,opt,name=transaction_index,json=transactionIndex,proto3" json:"transaction_index,omitempty"`
-	Removed          bool          `protobuf:"varint,9,opt,name=removed,proto3" json:"removed,omitempty"`
+	Address          *zkevmtypes.H160   `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	BlockHash        *zkevmtypes.H256   `protobuf:"bytes,2,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
+	BlockNumber      uint64             `protobuf:"varint,3,opt,name=block_number,json=blockNumber,proto3" json:"block_number,omitempty"`
+	Data             []byte             `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
+	LogIndex         uint64             `protobuf:"varint,5,opt,name=log_index,json=logIndex,proto3" json:"log_index,omitempty"`
+	Topics           []*zkevmtypes.H256 `protobuf:"bytes,6,rep,name=topics,proto3" json:"topics,omitempty"`
+	TransactionHash  *zkevmtypes.H256   `protobuf:"bytes,7,opt,name=transaction_hash,json=transactionHash,proto3" json:"transaction_hash,omitempty"`
+	TransactionIndex uint64             `protobuf:"varint,8,opt,name=transaction_index,json=transactionIndex,proto3" json:"transaction_index,omitempty"`
+	Removed          bool               `protobuf:"varint,9,opt,name=removed,proto3" json:"removed,omitempty"`
 }
 
 func (x *SubscribeLogsReply) Reset() {
@@ -1242,14 +1242,14 @@ func (*SubscribeLogsReply) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *SubscribeLogsReply) GetAddress() *types.H160 {
+func (x *SubscribeLogsReply) GetAddress() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Address
 	}
 	return nil
 }
 
-func (x *SubscribeLogsReply) GetBlockHash() *types.H256 {
+func (x *SubscribeLogsReply) GetBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockHash
 	}
@@ -1277,14 +1277,14 @@ func (x *SubscribeLogsReply) GetLogIndex() uint64 {
 	return 0
 }
 
-func (x *SubscribeLogsReply) GetTopics() []*types.H256 {
+func (x *SubscribeLogsReply) GetTopics() []*zkevmtypes.H256 {
 	if x != nil {
 		return x.Topics
 	}
 	return nil
 }
 
-func (x *SubscribeLogsReply) GetTransactionHash() *types.H256 {
+func (x *SubscribeLogsReply) GetTransactionHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.TransactionHash
 	}
@@ -1310,8 +1310,8 @@ type BlockRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	BlockHeight uint64      `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
-	BlockHash   *types.H256 `protobuf:"bytes,3,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
+	BlockHeight uint64           `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
+	BlockHash   *zkevmtypes.H256 `protobuf:"bytes,3,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
 }
 
 func (x *BlockRequest) Reset() {
@@ -1353,7 +1353,7 @@ func (x *BlockRequest) GetBlockHeight() uint64 {
 	return 0
 }
 
-func (x *BlockRequest) GetBlockHash() *types.H256 {
+func (x *BlockRequest) GetBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockHash
 	}
@@ -1420,7 +1420,7 @@ type TxnLookupRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TxnHash *types.H256 `protobuf:"bytes,1,opt,name=txn_hash,json=txnHash,proto3" json:"txn_hash,omitempty"`
+	TxnHash *zkevmtypes.H256 `protobuf:"bytes,1,opt,name=txn_hash,json=txnHash,proto3" json:"txn_hash,omitempty"`
 }
 
 func (x *TxnLookupRequest) Reset() {
@@ -1455,7 +1455,7 @@ func (*TxnLookupRequest) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{24}
 }
 
-func (x *TxnLookupRequest) GetTxnHash() *types.H256 {
+func (x *TxnLookupRequest) GetTxnHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.TxnHash
 	}
@@ -1561,7 +1561,7 @@ type NodesInfoReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	NodesInfo []*types.NodeInfoReply `protobuf:"bytes,1,rep,name=nodes_info,json=nodesInfo,proto3" json:"nodes_info,omitempty"`
+	NodesInfo []*zkevmtypes.NodeInfoReply `protobuf:"bytes,1,rep,name=nodes_info,json=nodesInfo,proto3" json:"nodes_info,omitempty"`
 }
 
 func (x *NodesInfoReply) Reset() {
@@ -1596,7 +1596,7 @@ func (*NodesInfoReply) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{27}
 }
 
-func (x *NodesInfoReply) GetNodesInfo() []*types.NodeInfoReply {
+func (x *NodesInfoReply) GetNodesInfo() []*zkevmtypes.NodeInfoReply {
 	if x != nil {
 		return x.NodesInfo
 	}
@@ -1608,7 +1608,7 @@ type PeersReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Peers []*types.PeerInfo `protobuf:"bytes,1,rep,name=peers,proto3" json:"peers,omitempty"`
+	Peers []*zkevmtypes.PeerInfo `protobuf:"bytes,1,rep,name=peers,proto3" json:"peers,omitempty"`
 }
 
 func (x *PeersReply) Reset() {
@@ -1643,7 +1643,7 @@ func (*PeersReply) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{28}
 }
 
-func (x *PeersReply) GetPeers() []*types.PeerInfo {
+func (x *PeersReply) GetPeers() []*zkevmtypes.PeerInfo {
 	if x != nil {
 		return x.Peers
 	}
@@ -1702,7 +1702,7 @@ type EngineGetPayloadBodiesByHashV1Request struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Hashes []*types.H256 `protobuf:"bytes,1,rep,name=hashes,proto3" json:"hashes,omitempty"`
+	Hashes []*zkevmtypes.H256 `protobuf:"bytes,1,rep,name=hashes,proto3" json:"hashes,omitempty"`
 }
 
 func (x *EngineGetPayloadBodiesByHashV1Request) Reset() {
@@ -1737,7 +1737,7 @@ func (*EngineGetPayloadBodiesByHashV1Request) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{30}
 }
 
-func (x *EngineGetPayloadBodiesByHashV1Request) GetHashes() []*types.H256 {
+func (x *EngineGetPayloadBodiesByHashV1Request) GetHashes() []*zkevmtypes.H256 {
 	if x != nil {
 		return x.Hashes
 	}
@@ -1804,7 +1804,7 @@ type EngineGetPayloadBodiesV1Response struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Bodies []*types.ExecutionPayloadBodyV1 `protobuf:"bytes,1,rep,name=bodies,proto3" json:"bodies,omitempty"`
+	Bodies []*zkevmtypes.ExecutionPayloadBodyV1 `protobuf:"bytes,1,rep,name=bodies,proto3" json:"bodies,omitempty"`
 }
 
 func (x *EngineGetPayloadBodiesV1Response) Reset() {
@@ -1839,7 +1839,7 @@ func (*EngineGetPayloadBodiesV1Response) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmethbackend_proto_rawDescGZIP(), []int{32}
 }
 
-func (x *EngineGetPayloadBodiesV1Response) GetBodies() []*types.ExecutionPayloadBodyV1 {
+func (x *EngineGetPayloadBodiesV1Response) GetBodies() []*zkevmtypes.ExecutionPayloadBodyV1 {
 	if x != nil {
 		return x.Bodies
 	}
@@ -2216,16 +2216,16 @@ var file_zkevmremote_zkevmethbackend_proto_goTypes = []interface{}{
 	(*EngineGetPayloadBodiesByHashV1Request)(nil),  // 32: zkevmremote.EngineGetPayloadBodiesByHashV1Request
 	(*EngineGetPayloadBodiesByRangeV1Request)(nil), // 33: zkevmremote.EngineGetPayloadBodiesByRangeV1Request
 	(*EngineGetPayloadBodiesV1Response)(nil),       // 34: zkevmremote.EngineGetPayloadBodiesV1Response
-	(*types.H160)(nil),                             // 35: zkevmtypes.H160
-	(*types.H256)(nil),                             // 36: zkevmtypes.H256
-	(*types.Withdrawal)(nil),                       // 37: zkevmtypes.Withdrawal
-	(*types.ExecutionPayload)(nil),                 // 38: zkevmtypes.ExecutionPayload
-	(*types.NodeInfoReply)(nil),                    // 39: zkevmtypes.NodeInfoReply
-	(*types.PeerInfo)(nil),                         // 40: zkevmtypes.PeerInfo
-	(*types.ExecutionPayloadBodyV1)(nil),           // 41: zkevmtypes.ExecutionPayloadBodyV1
+	(*zkevmtypes.H160)(nil),                        // 35: zkevmtypes.H160
+	(*zkevmtypes.H256)(nil),                        // 36: zkevmtypes.H256
+	(*zkevmtypes.Withdrawal)(nil),                  // 37: zkevmtypes.Withdrawal
+	(*zkevmtypes.ExecutionPayload)(nil),            // 38: zkevmtypes.ExecutionPayload
+	(*zkevmtypes.NodeInfoReply)(nil),               // 39: zkevmtypes.NodeInfoReply
+	(*zkevmtypes.PeerInfo)(nil),                    // 40: zkevmtypes.PeerInfo
+	(*zkevmtypes.ExecutionPayloadBodyV1)(nil),      // 41: zkevmtypes.ExecutionPayloadBodyV1
 	(*emptypb.Empty)(nil),                          // 42: google.protobuf.Empty
-	(*types.BlobsBundleV1)(nil),                    // 43: zkevmtypes.BlobsBundleV1
-	(*types.VersionReply)(nil),                     // 44: zkevmtypes.VersionReply
+	(*zkevmtypes.BlobsBundleV1)(nil),               // 43: zkevmtypes.BlobsBundleV1
+	(*zkevmtypes.VersionReply)(nil),                // 44: zkevmtypes.VersionReply
 }
 var file_zkevmremote_zkevmethbackend_proto_depIdxs = []int32{
 	35, // 0: zkevmremote.EtherbaseReply.address:type_name -> zkevmtypes.H160

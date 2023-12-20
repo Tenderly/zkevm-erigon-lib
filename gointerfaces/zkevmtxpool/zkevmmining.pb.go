@@ -7,7 +7,7 @@
 package zkevmtxpool
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -896,24 +896,24 @@ func file_zkevmtxpool_zkevmmining_proto_rawDescGZIP() []byte {
 
 var file_zkevmtxpool_zkevmmining_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_zkevmtxpool_zkevmmining_proto_goTypes = []interface{}{
-	(*OnPendingBlockRequest)(nil), // 0: zkevmtxpool.OnPendingBlockRequest
-	(*OnPendingBlockReply)(nil),   // 1: zkevmtxpool.OnPendingBlockReply
-	(*OnMinedBlockRequest)(nil),   // 2: zkevmtxpool.OnMinedBlockRequest
-	(*OnMinedBlockReply)(nil),     // 3: zkevmtxpool.OnMinedBlockReply
-	(*OnPendingLogsRequest)(nil),  // 4: zkevmtxpool.OnPendingLogsRequest
-	(*OnPendingLogsReply)(nil),    // 5: zkevmtxpool.OnPendingLogsReply
-	(*GetWorkRequest)(nil),        // 6: zkevmtxpool.GetWorkRequest
-	(*GetWorkReply)(nil),          // 7: zkevmtxpool.GetWorkReply
-	(*SubmitWorkRequest)(nil),     // 8: zkevmtxpool.SubmitWorkRequest
-	(*SubmitWorkReply)(nil),       // 9: zkevmtxpool.SubmitWorkReply
-	(*SubmitHashRateRequest)(nil), // 10: zkevmtxpool.SubmitHashRateRequest
-	(*SubmitHashRateReply)(nil),   // 11: zkevmtxpool.SubmitHashRateReply
-	(*HashRateRequest)(nil),       // 12: zkevmtxpool.HashRateRequest
-	(*HashRateReply)(nil),         // 13: zkevmtxpool.HashRateReply
-	(*MiningRequest)(nil),         // 14: zkevmtxpool.MiningRequest
-	(*MiningReply)(nil),           // 15: zkevmtxpool.MiningReply
-	(*emptypb.Empty)(nil),         // 16: google.protobuf.Empty
-	(*types.VersionReply)(nil),    // 17: zkevmtypes.VersionReply
+	(*OnPendingBlockRequest)(nil),   // 0: zkevmtxpool.OnPendingBlockRequest
+	(*OnPendingBlockReply)(nil),     // 1: zkevmtxpool.OnPendingBlockReply
+	(*OnMinedBlockRequest)(nil),     // 2: zkevmtxpool.OnMinedBlockRequest
+	(*OnMinedBlockReply)(nil),       // 3: zkevmtxpool.OnMinedBlockReply
+	(*OnPendingLogsRequest)(nil),    // 4: zkevmtxpool.OnPendingLogsRequest
+	(*OnPendingLogsReply)(nil),      // 5: zkevmtxpool.OnPendingLogsReply
+	(*GetWorkRequest)(nil),          // 6: zkevmtxpool.GetWorkRequest
+	(*GetWorkReply)(nil),            // 7: zkevmtxpool.GetWorkReply
+	(*SubmitWorkRequest)(nil),       // 8: zkevmtxpool.SubmitWorkRequest
+	(*SubmitWorkReply)(nil),         // 9: zkevmtxpool.SubmitWorkReply
+	(*SubmitHashRateRequest)(nil),   // 10: zkevmtxpool.SubmitHashRateRequest
+	(*SubmitHashRateReply)(nil),     // 11: zkevmtxpool.SubmitHashRateReply
+	(*HashRateRequest)(nil),         // 12: zkevmtxpool.HashRateRequest
+	(*HashRateReply)(nil),           // 13: zkevmtxpool.HashRateReply
+	(*MiningRequest)(nil),           // 14: zkevmtxpool.MiningRequest
+	(*MiningReply)(nil),             // 15: zkevmtxpool.MiningReply
+	(*emptypb.Empty)(nil),           // 16: google.protobuf.Empty
+	(*zkevmtypes.VersionReply)(nil), // 17: zkevmtypes.VersionReply
 }
 var file_zkevmtxpool_zkevmmining_proto_depIdxs = []int32{
 	16, // 0: zkevmtxpool.Mining.Version:input_type -> google.protobuf.Empty

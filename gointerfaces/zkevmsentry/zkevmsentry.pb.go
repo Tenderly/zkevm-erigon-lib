@@ -7,7 +7,7 @@
 package zkevmsentry
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -428,7 +428,7 @@ type SendMessageByIdRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	Data   *OutboundMessageData `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	PeerId *types.H512          `protobuf:"bytes,2,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
+	PeerId *zkevmtypes.H512     `protobuf:"bytes,2,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
 }
 
 func (x *SendMessageByIdRequest) Reset() {
@@ -470,7 +470,7 @@ func (x *SendMessageByIdRequest) GetData() *OutboundMessageData {
 	return nil
 }
 
-func (x *SendMessageByIdRequest) GetPeerId() *types.H512 {
+func (x *SendMessageByIdRequest) GetPeerId() *zkevmtypes.H512 {
 	if x != nil {
 		return x.PeerId
 	}
@@ -537,7 +537,7 @@ type SentPeers struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Peers []*types.H512 `protobuf:"bytes,1,rep,name=peers,proto3" json:"peers,omitempty"`
+	Peers []*zkevmtypes.H512 `protobuf:"bytes,1,rep,name=peers,proto3" json:"peers,omitempty"`
 }
 
 func (x *SentPeers) Reset() {
@@ -572,7 +572,7 @@ func (*SentPeers) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *SentPeers) GetPeers() []*types.H512 {
+func (x *SentPeers) GetPeers() []*zkevmtypes.H512 {
 	if x != nil {
 		return x.Peers
 	}
@@ -584,8 +584,8 @@ type PenalizePeerRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PeerId  *types.H512 `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
-	Penalty PenaltyKind `protobuf:"varint,2,opt,name=penalty,proto3,enum=zkevmsentry.PenaltyKind" json:"penalty,omitempty"`
+	PeerId  *zkevmtypes.H512 `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
+	Penalty PenaltyKind      `protobuf:"varint,2,opt,name=penalty,proto3,enum=zkevmsentry.PenaltyKind" json:"penalty,omitempty"`
 }
 
 func (x *PenalizePeerRequest) Reset() {
@@ -620,7 +620,7 @@ func (*PenalizePeerRequest) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *PenalizePeerRequest) GetPeerId() *types.H512 {
+func (x *PenalizePeerRequest) GetPeerId() *zkevmtypes.H512 {
 	if x != nil {
 		return x.PeerId
 	}
@@ -639,8 +639,8 @@ type PeerMinBlockRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PeerId   *types.H512 `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
-	MinBlock uint64      `protobuf:"varint,2,opt,name=min_block,json=minBlock,proto3" json:"min_block,omitempty"`
+	PeerId   *zkevmtypes.H512 `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
+	MinBlock uint64           `protobuf:"varint,2,opt,name=min_block,json=minBlock,proto3" json:"min_block,omitempty"`
 }
 
 func (x *PeerMinBlockRequest) Reset() {
@@ -675,7 +675,7 @@ func (*PeerMinBlockRequest) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *PeerMinBlockRequest) GetPeerId() *types.H512 {
+func (x *PeerMinBlockRequest) GetPeerId() *zkevmtypes.H512 {
 	if x != nil {
 		return x.PeerId
 	}
@@ -694,9 +694,9 @@ type InboundMessage struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id     MessageId   `protobuf:"varint,1,opt,name=id,proto3,enum=zkevmsentry.MessageId" json:"id,omitempty"`
-	Data   []byte      `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
-	PeerId *types.H512 `protobuf:"bytes,3,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
+	Id     MessageId        `protobuf:"varint,1,opt,name=id,proto3,enum=zkevmsentry.MessageId" json:"id,omitempty"`
+	Data   []byte           `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	PeerId *zkevmtypes.H512 `protobuf:"bytes,3,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
 }
 
 func (x *InboundMessage) Reset() {
@@ -745,7 +745,7 @@ func (x *InboundMessage) GetData() []byte {
 	return nil
 }
 
-func (x *InboundMessage) GetPeerId() *types.H512 {
+func (x *InboundMessage) GetPeerId() *zkevmtypes.H512 {
 	if x != nil {
 		return x.PeerId
 	}
@@ -757,9 +757,9 @@ type Forks struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Genesis     *types.H256 `protobuf:"bytes,1,opt,name=genesis,proto3" json:"genesis,omitempty"`
-	HeightForks []uint64    `protobuf:"varint,2,rep,packed,name=height_forks,json=heightForks,proto3" json:"height_forks,omitempty"`
-	TimeForks   []uint64    `protobuf:"varint,3,rep,packed,name=time_forks,json=timeForks,proto3" json:"time_forks,omitempty"`
+	Genesis     *zkevmtypes.H256 `protobuf:"bytes,1,opt,name=genesis,proto3" json:"genesis,omitempty"`
+	HeightForks []uint64         `protobuf:"varint,2,rep,packed,name=height_forks,json=heightForks,proto3" json:"height_forks,omitempty"`
+	TimeForks   []uint64         `protobuf:"varint,3,rep,packed,name=time_forks,json=timeForks,proto3" json:"time_forks,omitempty"`
 }
 
 func (x *Forks) Reset() {
@@ -794,7 +794,7 @@ func (*Forks) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *Forks) GetGenesis() *types.H256 {
+func (x *Forks) GetGenesis() *zkevmtypes.H256 {
 	if x != nil {
 		return x.Genesis
 	}
@@ -820,12 +820,12 @@ type StatusData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	NetworkId       uint64      `protobuf:"varint,1,opt,name=network_id,json=networkId,proto3" json:"network_id,omitempty"`
-	TotalDifficulty *types.H256 `protobuf:"bytes,2,opt,name=total_difficulty,json=totalDifficulty,proto3" json:"total_difficulty,omitempty"`
-	BestHash        *types.H256 `protobuf:"bytes,3,opt,name=best_hash,json=bestHash,proto3" json:"best_hash,omitempty"`
-	ForkData        *Forks      `protobuf:"bytes,4,opt,name=fork_data,json=forkData,proto3" json:"fork_data,omitempty"`
-	MaxBlockHeight  uint64      `protobuf:"varint,5,opt,name=max_block_height,json=maxBlockHeight,proto3" json:"max_block_height,omitempty"`
-	MaxBlockTime    uint64      `protobuf:"varint,6,opt,name=max_block_time,json=maxBlockTime,proto3" json:"max_block_time,omitempty"`
+	NetworkId       uint64           `protobuf:"varint,1,opt,name=network_id,json=networkId,proto3" json:"network_id,omitempty"`
+	TotalDifficulty *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=total_difficulty,json=totalDifficulty,proto3" json:"total_difficulty,omitempty"`
+	BestHash        *zkevmtypes.H256 `protobuf:"bytes,3,opt,name=best_hash,json=bestHash,proto3" json:"best_hash,omitempty"`
+	ForkData        *Forks           `protobuf:"bytes,4,opt,name=fork_data,json=forkData,proto3" json:"fork_data,omitempty"`
+	MaxBlockHeight  uint64           `protobuf:"varint,5,opt,name=max_block_height,json=maxBlockHeight,proto3" json:"max_block_height,omitempty"`
+	MaxBlockTime    uint64           `protobuf:"varint,6,opt,name=max_block_time,json=maxBlockTime,proto3" json:"max_block_time,omitempty"`
 }
 
 func (x *StatusData) Reset() {
@@ -867,14 +867,14 @@ func (x *StatusData) GetNetworkId() uint64 {
 	return 0
 }
 
-func (x *StatusData) GetTotalDifficulty() *types.H256 {
+func (x *StatusData) GetTotalDifficulty() *zkevmtypes.H256 {
 	if x != nil {
 		return x.TotalDifficulty
 	}
 	return nil
 }
 
-func (x *StatusData) GetBestHash() *types.H256 {
+func (x *StatusData) GetBestHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BestHash
 	}
@@ -1039,7 +1039,7 @@ type PeersReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Peers []*types.PeerInfo `protobuf:"bytes,1,rep,name=peers,proto3" json:"peers,omitempty"`
+	Peers []*zkevmtypes.PeerInfo `protobuf:"bytes,1,rep,name=peers,proto3" json:"peers,omitempty"`
 }
 
 func (x *PeersReply) Reset() {
@@ -1074,7 +1074,7 @@ func (*PeersReply) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *PeersReply) GetPeers() []*types.PeerInfo {
+func (x *PeersReply) GetPeers() []*zkevmtypes.PeerInfo {
 	if x != nil {
 		return x.Peers
 	}
@@ -1234,7 +1234,7 @@ type PeerByIdRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PeerId *types.H512 `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
+	PeerId *zkevmtypes.H512 `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
 }
 
 func (x *PeerByIdRequest) Reset() {
@@ -1269,7 +1269,7 @@ func (*PeerByIdRequest) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{17}
 }
 
-func (x *PeerByIdRequest) GetPeerId() *types.H512 {
+func (x *PeerByIdRequest) GetPeerId() *zkevmtypes.H512 {
 	if x != nil {
 		return x.PeerId
 	}
@@ -1281,7 +1281,7 @@ type PeerByIdReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Peer *types.PeerInfo `protobuf:"bytes,1,opt,name=peer,proto3,oneof" json:"peer,omitempty"`
+	Peer *zkevmtypes.PeerInfo `protobuf:"bytes,1,opt,name=peer,proto3,oneof" json:"peer,omitempty"`
 }
 
 func (x *PeerByIdReply) Reset() {
@@ -1316,7 +1316,7 @@ func (*PeerByIdReply) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{18}
 }
 
-func (x *PeerByIdReply) GetPeer() *types.PeerInfo {
+func (x *PeerByIdReply) GetPeer() *zkevmtypes.PeerInfo {
 	if x != nil {
 		return x.Peer
 	}
@@ -1366,7 +1366,7 @@ type PeerEvent struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PeerId  *types.H512           `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
+	PeerId  *zkevmtypes.H512      `protobuf:"bytes,1,opt,name=peer_id,json=peerId,proto3" json:"peer_id,omitempty"`
 	EventId PeerEvent_PeerEventId `protobuf:"varint,2,opt,name=event_id,json=eventId,proto3,enum=zkevmsentry.PeerEvent_PeerEventId" json:"event_id,omitempty"`
 }
 
@@ -1402,7 +1402,7 @@ func (*PeerEvent) Descriptor() ([]byte, []int) {
 	return file_zkevmp2psentry_zkevmsentry_proto_rawDescGZIP(), []int{20}
 }
 
-func (x *PeerEvent) GetPeerId() *types.H512 {
+func (x *PeerEvent) GetPeerId() *zkevmtypes.H512 {
 	if x != nil {
 		return x.PeerId
 	}
@@ -1716,11 +1716,11 @@ var file_zkevmp2psentry_zkevmsentry_proto_goTypes = []interface{}{
 	(*PeerByIdReply)(nil),                   // 22: zkevmsentry.PeerByIdReply
 	(*PeerEventsRequest)(nil),               // 23: zkevmsentry.PeerEventsRequest
 	(*PeerEvent)(nil),                       // 24: zkevmsentry.PeerEvent
-	(*types.H512)(nil),                      // 25: zkevmtypes.H512
-	(*types.H256)(nil),                      // 26: zkevmtypes.H256
-	(*types.PeerInfo)(nil),                  // 27: zkevmtypes.PeerInfo
+	(*zkevmtypes.H512)(nil),                 // 25: zkevmtypes.H512
+	(*zkevmtypes.H256)(nil),                 // 26: zkevmtypes.H256
+	(*zkevmtypes.PeerInfo)(nil),             // 27: zkevmtypes.PeerInfo
 	(*emptypb.Empty)(nil),                   // 28: google.protobuf.Empty
-	(*types.NodeInfoReply)(nil),             // 29: zkevmtypes.NodeInfoReply
+	(*zkevmtypes.NodeInfoReply)(nil),        // 29: zkevmtypes.NodeInfoReply
 }
 var file_zkevmp2psentry_zkevmsentry_proto_depIdxs = []int32{
 	0,  // 0: zkevmsentry.OutboundMessageData.id:type_name -> zkevmsentry.MessageId

@@ -7,7 +7,7 @@
 package zkevmdownloader
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -30,8 +30,8 @@ type DownloadItem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Path        string      `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	TorrentHash *types.H160 `protobuf:"bytes,2,opt,name=torrent_hash,json=torrentHash,proto3" json:"torrent_hash,omitempty"` // will be resolved as magnet link
+	Path        string           `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	TorrentHash *zkevmtypes.H160 `protobuf:"bytes,2,opt,name=torrent_hash,json=torrentHash,proto3" json:"torrent_hash,omitempty"` // will be resolved as magnet link
 }
 
 func (x *DownloadItem) Reset() {
@@ -73,7 +73,7 @@ func (x *DownloadItem) GetPath() string {
 	return ""
 }
 
-func (x *DownloadItem) GetTorrentHash() *types.H160 {
+func (x *DownloadItem) GetTorrentHash() *zkevmtypes.H160 {
 	if x != nil {
 		return x.TorrentHash
 	}
@@ -411,7 +411,7 @@ var file_zkevmdownloader_zkevmdownloader_proto_goTypes = []interface{}{
 	(*VerifyRequest)(nil),   // 2: zkevmdownloader.VerifyRequest
 	(*StatsRequest)(nil),    // 3: zkevmdownloader.StatsRequest
 	(*StatsReply)(nil),      // 4: zkevmdownloader.StatsReply
-	(*types.H160)(nil),      // 5: zkevmtypes.H160
+	(*zkevmtypes.H160)(nil), // 5: zkevmtypes.H160
 	(*emptypb.Empty)(nil),   // 6: google.protobuf.Empty
 }
 var file_zkevmdownloader_zkevmdownloader_proto_depIdxs = []int32{

@@ -7,7 +7,7 @@
 package zkevmtxpool
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -134,7 +134,7 @@ type TxHashes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Hashes []*types.H256 `protobuf:"bytes,1,rep,name=hashes,proto3" json:"hashes,omitempty"`
+	Hashes []*zkevmtypes.H256 `protobuf:"bytes,1,rep,name=hashes,proto3" json:"hashes,omitempty"`
 }
 
 func (x *TxHashes) Reset() {
@@ -169,7 +169,7 @@ func (*TxHashes) Descriptor() ([]byte, []int) {
 	return file_zkevmtxpool_zkevmtxpool_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *TxHashes) GetHashes() []*types.H256 {
+func (x *TxHashes) GetHashes() []*zkevmtypes.H256 {
 	if x != nil {
 		return x.Hashes
 	}
@@ -283,7 +283,7 @@ type TransactionsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Hashes []*types.H256 `protobuf:"bytes,1,rep,name=hashes,proto3" json:"hashes,omitempty"`
+	Hashes []*zkevmtypes.H256 `protobuf:"bytes,1,rep,name=hashes,proto3" json:"hashes,omitempty"`
 }
 
 func (x *TransactionsRequest) Reset() {
@@ -318,7 +318,7 @@ func (*TransactionsRequest) Descriptor() ([]byte, []int) {
 	return file_zkevmtxpool_zkevmtxpool_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *TransactionsRequest) GetHashes() []*types.H256 {
+func (x *TransactionsRequest) GetHashes() []*zkevmtypes.H256 {
 	if x != nil {
 		return x.Hashes
 	}
@@ -695,7 +695,7 @@ type NonceRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Address *types.H160 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Address *zkevmtypes.H160 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 }
 
 func (x *NonceRequest) Reset() {
@@ -730,7 +730,7 @@ func (*NonceRequest) Descriptor() ([]byte, []int) {
 	return file_zkevmtxpool_zkevmtxpool_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *NonceRequest) GetAddress() *types.H160 {
+func (x *NonceRequest) GetAddress() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Address
 	}
@@ -798,7 +798,7 @@ type AllReply_Tx struct {
 	unknownFields protoimpl.UnknownFields
 
 	TxnType AllReply_TxnType `protobuf:"varint,1,opt,name=txn_type,json=txnType,proto3,enum=zkevmtxpool.AllReply_TxnType" json:"txn_type,omitempty"`
-	Sender  *types.H160      `protobuf:"bytes,2,opt,name=sender,proto3" json:"sender,omitempty"`
+	Sender  *zkevmtypes.H160 `protobuf:"bytes,2,opt,name=sender,proto3" json:"sender,omitempty"`
 	RlpTx   []byte           `protobuf:"bytes,3,opt,name=rlp_tx,json=rlpTx,proto3" json:"rlp_tx,omitempty"`
 }
 
@@ -841,7 +841,7 @@ func (x *AllReply_Tx) GetTxnType() AllReply_TxnType {
 	return AllReply_PENDING
 }
 
-func (x *AllReply_Tx) GetSender() *types.H160 {
+func (x *AllReply_Tx) GetSender() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Sender
 	}
@@ -860,9 +860,9 @@ type PendingReply_Tx struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Sender  *types.H160 `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
-	RlpTx   []byte      `protobuf:"bytes,2,opt,name=rlp_tx,json=rlpTx,proto3" json:"rlp_tx,omitempty"`
-	IsLocal bool        `protobuf:"varint,3,opt,name=is_local,json=isLocal,proto3" json:"is_local,omitempty"`
+	Sender  *zkevmtypes.H160 `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
+	RlpTx   []byte           `protobuf:"bytes,2,opt,name=rlp_tx,json=rlpTx,proto3" json:"rlp_tx,omitempty"`
+	IsLocal bool             `protobuf:"varint,3,opt,name=is_local,json=isLocal,proto3" json:"is_local,omitempty"`
 }
 
 func (x *PendingReply_Tx) Reset() {
@@ -897,7 +897,7 @@ func (*PendingReply_Tx) Descriptor() ([]byte, []int) {
 	return file_zkevmtxpool_zkevmtxpool_proto_rawDescGZIP(), []int{9, 0}
 }
 
-func (x *PendingReply_Tx) GetSender() *types.H160 {
+func (x *PendingReply_Tx) GetSender() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Sender
 	}
@@ -1054,28 +1054,28 @@ func file_zkevmtxpool_zkevmtxpool_proto_rawDescGZIP() []byte {
 var file_zkevmtxpool_zkevmtxpool_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_zkevmtxpool_zkevmtxpool_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_zkevmtxpool_zkevmtxpool_proto_goTypes = []interface{}{
-	(ImportResult)(0),           // 0: zkevmtxpool.ImportResult
-	(AllReply_TxnType)(0),       // 1: zkevmtxpool.AllReply.TxnType
-	(*TxHashes)(nil),            // 2: zkevmtxpool.TxHashes
-	(*AddRequest)(nil),          // 3: zkevmtxpool.AddRequest
-	(*AddReply)(nil),            // 4: zkevmtxpool.AddReply
-	(*TransactionsRequest)(nil), // 5: zkevmtxpool.TransactionsRequest
-	(*TransactionsReply)(nil),   // 6: zkevmtxpool.TransactionsReply
-	(*OnAddRequest)(nil),        // 7: zkevmtxpool.OnAddRequest
-	(*OnAddReply)(nil),          // 8: zkevmtxpool.OnAddReply
-	(*AllRequest)(nil),          // 9: zkevmtxpool.AllRequest
-	(*AllReply)(nil),            // 10: zkevmtxpool.AllReply
-	(*PendingReply)(nil),        // 11: zkevmtxpool.PendingReply
-	(*StatusRequest)(nil),       // 12: zkevmtxpool.StatusRequest
-	(*StatusReply)(nil),         // 13: zkevmtxpool.StatusReply
-	(*NonceRequest)(nil),        // 14: zkevmtxpool.NonceRequest
-	(*NonceReply)(nil),          // 15: zkevmtxpool.NonceReply
-	(*AllReply_Tx)(nil),         // 16: zkevmtxpool.AllReply.Tx
-	(*PendingReply_Tx)(nil),     // 17: zkevmtxpool.PendingReply.Tx
-	(*types.H256)(nil),          // 18: zkevmtypes.H256
-	(*types.H160)(nil),          // 19: zkevmtypes.H160
-	(*emptypb.Empty)(nil),       // 20: google.protobuf.Empty
-	(*types.VersionReply)(nil),  // 21: zkevmtypes.VersionReply
+	(ImportResult)(0),               // 0: zkevmtxpool.ImportResult
+	(AllReply_TxnType)(0),           // 1: zkevmtxpool.AllReply.TxnType
+	(*TxHashes)(nil),                // 2: zkevmtxpool.TxHashes
+	(*AddRequest)(nil),              // 3: zkevmtxpool.AddRequest
+	(*AddReply)(nil),                // 4: zkevmtxpool.AddReply
+	(*TransactionsRequest)(nil),     // 5: zkevmtxpool.TransactionsRequest
+	(*TransactionsReply)(nil),       // 6: zkevmtxpool.TransactionsReply
+	(*OnAddRequest)(nil),            // 7: zkevmtxpool.OnAddRequest
+	(*OnAddReply)(nil),              // 8: zkevmtxpool.OnAddReply
+	(*AllRequest)(nil),              // 9: zkevmtxpool.AllRequest
+	(*AllReply)(nil),                // 10: zkevmtxpool.AllReply
+	(*PendingReply)(nil),            // 11: zkevmtxpool.PendingReply
+	(*StatusRequest)(nil),           // 12: zkevmtxpool.StatusRequest
+	(*StatusReply)(nil),             // 13: zkevmtxpool.StatusReply
+	(*NonceRequest)(nil),            // 14: zkevmtxpool.NonceRequest
+	(*NonceReply)(nil),              // 15: zkevmtxpool.NonceReply
+	(*AllReply_Tx)(nil),             // 16: zkevmtxpool.AllReply.Tx
+	(*PendingReply_Tx)(nil),         // 17: zkevmtxpool.PendingReply.Tx
+	(*zkevmtypes.H256)(nil),         // 18: zkevmtypes.H256
+	(*zkevmtypes.H160)(nil),         // 19: zkevmtypes.H160
+	(*emptypb.Empty)(nil),           // 20: google.protobuf.Empty
+	(*zkevmtypes.VersionReply)(nil), // 21: zkevmtypes.VersionReply
 }
 var file_zkevmtxpool_zkevmtxpool_proto_depIdxs = []int32{
 	18, // 0: zkevmtxpool.TxHashes.hashes:type_name -> zkevmtypes.H256

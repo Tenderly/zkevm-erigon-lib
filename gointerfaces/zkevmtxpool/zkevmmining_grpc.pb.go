@@ -8,7 +8,7 @@ package zkevmtxpool
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -37,7 +37,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MiningClient interface {
 	// Version returns the service version number
-	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error)
+	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error)
 	// subscribe to pending blocks event
 	OnPendingBlock(ctx context.Context, in *OnPendingBlockRequest, opts ...grpc.CallOption) (Mining_OnPendingBlockClient, error)
 	// subscribe to mined blocks event
@@ -78,8 +78,8 @@ func NewMiningClient(cc grpc.ClientConnInterface) MiningClient {
 	return &miningClient{cc}
 }
 
-func (c *miningClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error) {
-	out := new(types.VersionReply)
+func (c *miningClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error) {
+	out := new(zkevmtypes.VersionReply)
 	err := c.cc.Invoke(ctx, Mining_Version_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -233,7 +233,7 @@ func (c *miningClient) Mining(ctx context.Context, in *MiningRequest, opts ...gr
 // for forward compatibility
 type MiningServer interface {
 	// Version returns the service version number
-	Version(context.Context, *emptypb.Empty) (*types.VersionReply, error)
+	Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error)
 	// subscribe to pending blocks event
 	OnPendingBlock(*OnPendingBlockRequest, Mining_OnPendingBlockServer) error
 	// subscribe to mined blocks event
@@ -271,7 +271,7 @@ type MiningServer interface {
 type UnimplementedMiningServer struct {
 }
 
-func (UnimplementedMiningServer) Version(context.Context, *emptypb.Empty) (*types.VersionReply, error) {
+func (UnimplementedMiningServer) Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")
 }
 func (UnimplementedMiningServer) OnPendingBlock(*OnPendingBlockRequest, Mining_OnPendingBlockServer) error {

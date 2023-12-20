@@ -8,7 +8,7 @@ package zkevmsentry
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -62,7 +62,7 @@ type SentryClient interface {
 	// Subscribe to notifications about connected or lost peers.
 	PeerEvents(ctx context.Context, in *PeerEventsRequest, opts ...grpc.CallOption) (Sentry_PeerEventsClient, error)
 	// NodeInfo returns a collection of metadata known about the host.
-	NodeInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.NodeInfoReply, error)
+	NodeInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.NodeInfoReply, error)
 }
 
 type sentryClient struct {
@@ -236,8 +236,8 @@ func (x *sentryPeerEventsClient) Recv() (*PeerEvent, error) {
 	return m, nil
 }
 
-func (c *sentryClient) NodeInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.NodeInfoReply, error) {
-	out := new(types.NodeInfoReply)
+func (c *sentryClient) NodeInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.NodeInfoReply, error) {
+	out := new(zkevmtypes.NodeInfoReply)
 	err := c.cc.Invoke(ctx, Sentry_NodeInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -270,7 +270,7 @@ type SentryServer interface {
 	// Subscribe to notifications about connected or lost peers.
 	PeerEvents(*PeerEventsRequest, Sentry_PeerEventsServer) error
 	// NodeInfo returns a collection of metadata known about the host.
-	NodeInfo(context.Context, *emptypb.Empty) (*types.NodeInfoReply, error)
+	NodeInfo(context.Context, *emptypb.Empty) (*zkevmtypes.NodeInfoReply, error)
 	mustEmbedUnimplementedSentryServer()
 }
 
@@ -317,7 +317,7 @@ func (UnimplementedSentryServer) PeerById(context.Context, *PeerByIdRequest) (*P
 func (UnimplementedSentryServer) PeerEvents(*PeerEventsRequest, Sentry_PeerEventsServer) error {
 	return status.Errorf(codes.Unimplemented, "method PeerEvents not implemented")
 }
-func (UnimplementedSentryServer) NodeInfo(context.Context, *emptypb.Empty) (*types.NodeInfoReply, error) {
+func (UnimplementedSentryServer) NodeInfo(context.Context, *emptypb.Empty) (*zkevmtypes.NodeInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NodeInfo not implemented")
 }
 func (UnimplementedSentryServer) mustEmbedUnimplementedSentryServer() {}

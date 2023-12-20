@@ -8,7 +8,7 @@ package zkevmtxpool
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -37,7 +37,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TxpoolClient interface {
 	// Version returns the service version number
-	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error)
+	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error)
 	// preserves incoming order, changes amount, unknown hashes will be omitted
 	FindUnknown(ctx context.Context, in *TxHashes, opts ...grpc.CallOption) (*TxHashes, error)
 	// Expecting signed transactions. Preserves incoming order and amount
@@ -65,8 +65,8 @@ func NewTxpoolClient(cc grpc.ClientConnInterface) TxpoolClient {
 	return &txpoolClient{cc}
 }
 
-func (c *txpoolClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error) {
-	out := new(types.VersionReply)
+func (c *txpoolClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error) {
+	out := new(zkevmtypes.VersionReply)
 	err := c.cc.Invoke(ctx, Txpool_Version_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -174,7 +174,7 @@ func (c *txpoolClient) Nonce(ctx context.Context, in *NonceRequest, opts ...grpc
 // for forward compatibility
 type TxpoolServer interface {
 	// Version returns the service version number
-	Version(context.Context, *emptypb.Empty) (*types.VersionReply, error)
+	Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error)
 	// preserves incoming order, changes amount, unknown hashes will be omitted
 	FindUnknown(context.Context, *TxHashes) (*TxHashes, error)
 	// Expecting signed transactions. Preserves incoming order and amount
@@ -199,7 +199,7 @@ type TxpoolServer interface {
 type UnimplementedTxpoolServer struct {
 }
 
-func (UnimplementedTxpoolServer) Version(context.Context, *emptypb.Empty) (*types.VersionReply, error) {
+func (UnimplementedTxpoolServer) Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")
 }
 func (UnimplementedTxpoolServer) FindUnknown(context.Context, *TxHashes) (*TxHashes, error) {

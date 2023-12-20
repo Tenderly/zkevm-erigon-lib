@@ -7,7 +7,7 @@
 package zkevmexecution
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -78,8 +78,8 @@ type ForkChoiceReceipt struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Success         bool        `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`                                         // Forkchoice is either successful or unsuccessful.
-	LatestValidHash *types.H256 `protobuf:"bytes,2,opt,name=latest_valid_hash,json=latestValidHash,proto3" json:"latest_valid_hash,omitempty"` // Return latest valid hash in case of halt of execution.
+	Success         bool             `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`                                         // Forkchoice is either successful or unsuccessful.
+	LatestValidHash *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=latest_valid_hash,json=latestValidHash,proto3" json:"latest_valid_hash,omitempty"` // Return latest valid hash in case of halt of execution.
 }
 
 func (x *ForkChoiceReceipt) Reset() {
@@ -121,7 +121,7 @@ func (x *ForkChoiceReceipt) GetSuccess() bool {
 	return false
 }
 
-func (x *ForkChoiceReceipt) GetLatestValidHash() *types.H256 {
+func (x *ForkChoiceReceipt) GetLatestValidHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.LatestValidHash
 	}
@@ -135,8 +135,8 @@ type ValidationReceipt struct {
 	unknownFields protoimpl.UnknownFields
 
 	ValidationStatus ValidationStatus `protobuf:"varint,1,opt,name=validation_status,json=validationStatus,proto3,enum=zkevmexecution.ValidationStatus" json:"validation_status,omitempty"`
-	LatestValidHash  *types.H256      `protobuf:"bytes,2,opt,name=latest_valid_hash,json=latestValidHash,proto3" json:"latest_valid_hash,omitempty"`
-	MissingHash      *types.H256      `protobuf:"bytes,3,opt,name=missing_hash,json=missingHash,proto3,oneof" json:"missing_hash,omitempty"` // The missing hash, in case we receive MissingSegment so that we can reverse download it.
+	LatestValidHash  *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=latest_valid_hash,json=latestValidHash,proto3" json:"latest_valid_hash,omitempty"`
+	MissingHash      *zkevmtypes.H256 `protobuf:"bytes,3,opt,name=missing_hash,json=missingHash,proto3,oneof" json:"missing_hash,omitempty"` // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 }
 
 func (x *ValidationReceipt) Reset() {
@@ -178,14 +178,14 @@ func (x *ValidationReceipt) GetValidationStatus() ValidationStatus {
 	return ValidationStatus_Success
 }
 
-func (x *ValidationReceipt) GetLatestValidHash() *types.H256 {
+func (x *ValidationReceipt) GetLatestValidHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.LatestValidHash
 	}
 	return nil
 }
 
-func (x *ValidationReceipt) GetMissingHash() *types.H256 {
+func (x *ValidationReceipt) GetMissingHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.MissingHash
 	}
@@ -245,25 +245,25 @@ type Header struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ParentHash      *types.H256  `protobuf:"bytes,1,opt,name=parent_hash,json=parentHash,proto3" json:"parent_hash,omitempty"`
-	Coinbase        *types.H160  `protobuf:"bytes,2,opt,name=coinbase,proto3" json:"coinbase,omitempty"`
-	StateRoot       *types.H256  `protobuf:"bytes,3,opt,name=state_root,json=stateRoot,proto3" json:"state_root,omitempty"`
-	ReceiptRoot     *types.H256  `protobuf:"bytes,4,opt,name=receipt_root,json=receiptRoot,proto3" json:"receipt_root,omitempty"`
-	LogsBloom       *types.H2048 `protobuf:"bytes,5,opt,name=logs_bloom,json=logsBloom,proto3" json:"logs_bloom,omitempty"`
-	MixDigest       *types.H256  `protobuf:"bytes,6,opt,name=mix_digest,json=mixDigest,proto3" json:"mix_digest,omitempty"`
-	BlockNumber     uint64       `protobuf:"varint,7,opt,name=block_number,json=blockNumber,proto3" json:"block_number,omitempty"`
-	GasLimit        uint64       `protobuf:"varint,8,opt,name=gas_limit,json=gasLimit,proto3" json:"gas_limit,omitempty"`
-	GasUsed         uint64       `protobuf:"varint,9,opt,name=gas_used,json=gasUsed,proto3" json:"gas_used,omitempty"`
-	Timestamp       uint64       `protobuf:"varint,10,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Nonce           uint64       `protobuf:"varint,11,opt,name=nonce,proto3" json:"nonce,omitempty"`
-	ExtraData       []byte       `protobuf:"bytes,12,opt,name=extra_data,json=extraData,proto3" json:"extra_data,omitempty"`
-	Difficulty      *types.H256  `protobuf:"bytes,13,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
-	BlockHash       *types.H256  `protobuf:"bytes,14,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"` // We keep this so that we can validate it
-	OmmerHash       *types.H256  `protobuf:"bytes,15,opt,name=ommer_hash,json=ommerHash,proto3" json:"ommer_hash,omitempty"`
-	TransactionHash *types.H256  `protobuf:"bytes,16,opt,name=transaction_hash,json=transactionHash,proto3" json:"transaction_hash,omitempty"`
-	BaseFeePerGas   *types.H256  `protobuf:"bytes,17,opt,name=base_fee_per_gas,json=baseFeePerGas,proto3,oneof" json:"base_fee_per_gas,omitempty"`
-	WithdrawalHash  *types.H256  `protobuf:"bytes,18,opt,name=withdrawal_hash,json=withdrawalHash,proto3,oneof" json:"withdrawal_hash,omitempty"`
-	ExcessDataGas   *types.H256  `protobuf:"bytes,19,opt,name=excess_data_gas,json=excessDataGas,proto3,oneof" json:"excess_data_gas,omitempty"`
+	ParentHash      *zkevmtypes.H256  `protobuf:"bytes,1,opt,name=parent_hash,json=parentHash,proto3" json:"parent_hash,omitempty"`
+	Coinbase        *zkevmtypes.H160  `protobuf:"bytes,2,opt,name=coinbase,proto3" json:"coinbase,omitempty"`
+	StateRoot       *zkevmtypes.H256  `protobuf:"bytes,3,opt,name=state_root,json=stateRoot,proto3" json:"state_root,omitempty"`
+	ReceiptRoot     *zkevmtypes.H256  `protobuf:"bytes,4,opt,name=receipt_root,json=receiptRoot,proto3" json:"receipt_root,omitempty"`
+	LogsBloom       *zkevmtypes.H2048 `protobuf:"bytes,5,opt,name=logs_bloom,json=logsBloom,proto3" json:"logs_bloom,omitempty"`
+	MixDigest       *zkevmtypes.H256  `protobuf:"bytes,6,opt,name=mix_digest,json=mixDigest,proto3" json:"mix_digest,omitempty"`
+	BlockNumber     uint64            `protobuf:"varint,7,opt,name=block_number,json=blockNumber,proto3" json:"block_number,omitempty"`
+	GasLimit        uint64            `protobuf:"varint,8,opt,name=gas_limit,json=gasLimit,proto3" json:"gas_limit,omitempty"`
+	GasUsed         uint64            `protobuf:"varint,9,opt,name=gas_used,json=gasUsed,proto3" json:"gas_used,omitempty"`
+	Timestamp       uint64            `protobuf:"varint,10,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Nonce           uint64            `protobuf:"varint,11,opt,name=nonce,proto3" json:"nonce,omitempty"`
+	ExtraData       []byte            `protobuf:"bytes,12,opt,name=extra_data,json=extraData,proto3" json:"extra_data,omitempty"`
+	Difficulty      *zkevmtypes.H256  `protobuf:"bytes,13,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
+	BlockHash       *zkevmtypes.H256  `protobuf:"bytes,14,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"` // We keep this so that we can validate it
+	OmmerHash       *zkevmtypes.H256  `protobuf:"bytes,15,opt,name=ommer_hash,json=ommerHash,proto3" json:"ommer_hash,omitempty"`
+	TransactionHash *zkevmtypes.H256  `protobuf:"bytes,16,opt,name=transaction_hash,json=transactionHash,proto3" json:"transaction_hash,omitempty"`
+	BaseFeePerGas   *zkevmtypes.H256  `protobuf:"bytes,17,opt,name=base_fee_per_gas,json=baseFeePerGas,proto3,oneof" json:"base_fee_per_gas,omitempty"`
+	WithdrawalHash  *zkevmtypes.H256  `protobuf:"bytes,18,opt,name=withdrawal_hash,json=withdrawalHash,proto3,oneof" json:"withdrawal_hash,omitempty"`
+	ExcessDataGas   *zkevmtypes.H256  `protobuf:"bytes,19,opt,name=excess_data_gas,json=excessDataGas,proto3,oneof" json:"excess_data_gas,omitempty"`
 }
 
 func (x *Header) Reset() {
@@ -298,42 +298,42 @@ func (*Header) Descriptor() ([]byte, []int) {
 	return file_zkevmexecution_zkevmexecution_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *Header) GetParentHash() *types.H256 {
+func (x *Header) GetParentHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.ParentHash
 	}
 	return nil
 }
 
-func (x *Header) GetCoinbase() *types.H160 {
+func (x *Header) GetCoinbase() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Coinbase
 	}
 	return nil
 }
 
-func (x *Header) GetStateRoot() *types.H256 {
+func (x *Header) GetStateRoot() *zkevmtypes.H256 {
 	if x != nil {
 		return x.StateRoot
 	}
 	return nil
 }
 
-func (x *Header) GetReceiptRoot() *types.H256 {
+func (x *Header) GetReceiptRoot() *zkevmtypes.H256 {
 	if x != nil {
 		return x.ReceiptRoot
 	}
 	return nil
 }
 
-func (x *Header) GetLogsBloom() *types.H2048 {
+func (x *Header) GetLogsBloom() *zkevmtypes.H2048 {
 	if x != nil {
 		return x.LogsBloom
 	}
 	return nil
 }
 
-func (x *Header) GetMixDigest() *types.H256 {
+func (x *Header) GetMixDigest() *zkevmtypes.H256 {
 	if x != nil {
 		return x.MixDigest
 	}
@@ -382,49 +382,49 @@ func (x *Header) GetExtraData() []byte {
 	return nil
 }
 
-func (x *Header) GetDifficulty() *types.H256 {
+func (x *Header) GetDifficulty() *zkevmtypes.H256 {
 	if x != nil {
 		return x.Difficulty
 	}
 	return nil
 }
 
-func (x *Header) GetBlockHash() *types.H256 {
+func (x *Header) GetBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockHash
 	}
 	return nil
 }
 
-func (x *Header) GetOmmerHash() *types.H256 {
+func (x *Header) GetOmmerHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.OmmerHash
 	}
 	return nil
 }
 
-func (x *Header) GetTransactionHash() *types.H256 {
+func (x *Header) GetTransactionHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.TransactionHash
 	}
 	return nil
 }
 
-func (x *Header) GetBaseFeePerGas() *types.H256 {
+func (x *Header) GetBaseFeePerGas() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BaseFeePerGas
 	}
 	return nil
 }
 
-func (x *Header) GetWithdrawalHash() *types.H256 {
+func (x *Header) GetWithdrawalHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.WithdrawalHash
 	}
 	return nil
 }
 
-func (x *Header) GetExcessDataGas() *types.H256 {
+func (x *Header) GetExcessDataGas() *zkevmtypes.H256 {
 	if x != nil {
 		return x.ExcessDataGas
 	}
@@ -437,12 +437,12 @@ type BlockBody struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	BlockHash   *types.H256 `protobuf:"bytes,1,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
-	BlockNumber uint64      `protobuf:"varint,2,opt,name=block_number,json=blockNumber,proto3" json:"block_number,omitempty"`
+	BlockHash   *zkevmtypes.H256 `protobuf:"bytes,1,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
+	BlockNumber uint64           `protobuf:"varint,2,opt,name=block_number,json=blockNumber,proto3" json:"block_number,omitempty"`
 	// Raw transactions in byte format.
-	Transactions [][]byte            `protobuf:"bytes,3,rep,name=transactions,proto3" json:"transactions,omitempty"`
-	Uncles       []*Header           `protobuf:"bytes,4,rep,name=uncles,proto3" json:"uncles,omitempty"`
-	Withdrawals  []*types.Withdrawal `protobuf:"bytes,5,rep,name=withdrawals,proto3" json:"withdrawals,omitempty"`
+	Transactions [][]byte                 `protobuf:"bytes,3,rep,name=transactions,proto3" json:"transactions,omitempty"`
+	Uncles       []*Header                `protobuf:"bytes,4,rep,name=uncles,proto3" json:"uncles,omitempty"`
+	Withdrawals  []*zkevmtypes.Withdrawal `protobuf:"bytes,5,rep,name=withdrawals,proto3" json:"withdrawals,omitempty"`
 }
 
 func (x *BlockBody) Reset() {
@@ -477,7 +477,7 @@ func (*BlockBody) Descriptor() ([]byte, []int) {
 	return file_zkevmexecution_zkevmexecution_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *BlockBody) GetBlockHash() *types.H256 {
+func (x *BlockBody) GetBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockHash
 	}
@@ -505,7 +505,7 @@ func (x *BlockBody) GetUncles() []*Header {
 	return nil
 }
 
-func (x *BlockBody) GetWithdrawals() []*types.Withdrawal {
+func (x *BlockBody) GetWithdrawals() []*zkevmtypes.Withdrawal {
 	if x != nil {
 		return x.Withdrawals
 	}
@@ -659,8 +659,8 @@ type GetSegmentRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Get headers/body by number or hash, invalid if none set.
-	BlockNumber *uint64     `protobuf:"varint,1,opt,name=block_number,json=blockNumber,proto3,oneof" json:"block_number,omitempty"`
-	BlockHash   *types.H256 `protobuf:"bytes,2,opt,name=block_hash,json=blockHash,proto3,oneof" json:"block_hash,omitempty"`
+	BlockNumber *uint64          `protobuf:"varint,1,opt,name=block_number,json=blockNumber,proto3,oneof" json:"block_number,omitempty"`
+	BlockHash   *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=block_hash,json=blockHash,proto3,oneof" json:"block_hash,omitempty"`
 }
 
 func (x *GetSegmentRequest) Reset() {
@@ -702,7 +702,7 @@ func (x *GetSegmentRequest) GetBlockNumber() uint64 {
 	return 0
 }
 
-func (x *GetSegmentRequest) GetBlockHash() *types.H256 {
+func (x *GetSegmentRequest) GetBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockHash
 	}
@@ -1067,11 +1067,11 @@ var file_zkevmexecution_zkevmexecution_proto_goTypes = []interface{}{
 	(*InsertHeadersRequest)(nil),        // 10: zkevmexecution.InsertHeadersRequest
 	(*InsertBodiesRequest)(nil),         // 11: zkevmexecution.InsertBodiesRequest
 	(*EmptyMessage)(nil),                // 12: zkevmexecution.EmptyMessage
-	(*types.H256)(nil),                  // 13: zkevmtypes.H256
-	(*types.H160)(nil),                  // 14: zkevmtypes.H160
-	(*types.H2048)(nil),                 // 15: zkevmtypes.H2048
-	(*types.Withdrawal)(nil),            // 16: zkevmtypes.Withdrawal
-	(*types.ExecutionPayload)(nil),      // 17: zkevmtypes.ExecutionPayload
+	(*zkevmtypes.H256)(nil),             // 13: zkevmtypes.H256
+	(*zkevmtypes.H160)(nil),             // 14: zkevmtypes.H160
+	(*zkevmtypes.H2048)(nil),            // 15: zkevmtypes.H2048
+	(*zkevmtypes.Withdrawal)(nil),       // 16: zkevmtypes.Withdrawal
+	(*zkevmtypes.ExecutionPayload)(nil), // 17: zkevmtypes.ExecutionPayload
 }
 var file_zkevmexecution_zkevmexecution_proto_depIdxs = []int32{
 	13, // 0: zkevmexecution.ForkChoiceReceipt.latest_valid_hash:type_name -> zkevmtypes.H256

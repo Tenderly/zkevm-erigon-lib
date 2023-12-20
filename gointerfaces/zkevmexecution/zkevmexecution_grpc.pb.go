@@ -8,7 +8,7 @@ package zkevmexecution
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -39,14 +39,14 @@ type ExecutionClient interface {
 	InsertHeaders(ctx context.Context, in *InsertHeadersRequest, opts ...grpc.CallOption) (*EmptyMessage, error)
 	InsertBodies(ctx context.Context, in *InsertBodiesRequest, opts ...grpc.CallOption) (*EmptyMessage, error)
 	// Chain Validation and ForkChoice.
-	ValidateChain(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*ValidationReceipt, error)
-	UpdateForkChoice(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*ForkChoiceReceipt, error)
-	AssembleBlock(ctx context.Context, in *EmptyMessage, opts ...grpc.CallOption) (*types.ExecutionPayload, error)
+	ValidateChain(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*ValidationReceipt, error)
+	UpdateForkChoice(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*ForkChoiceReceipt, error)
+	AssembleBlock(ctx context.Context, in *EmptyMessage, opts ...grpc.CallOption) (*zkevmtypes.ExecutionPayload, error)
 	// Chain Getters.
 	GetHeader(ctx context.Context, in *GetSegmentRequest, opts ...grpc.CallOption) (*GetHeaderResponse, error)
 	GetBody(ctx context.Context, in *GetSegmentRequest, opts ...grpc.CallOption) (*GetBodyResponse, error)
-	IsCanonicalHash(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*IsCanonicalResponse, error)
-	GetHeaderHashNumber(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*GetHeaderHashNumberResponse, error)
+	IsCanonicalHash(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*IsCanonicalResponse, error)
+	GetHeaderHashNumber(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*GetHeaderHashNumberResponse, error)
 }
 
 type executionClient struct {
@@ -75,7 +75,7 @@ func (c *executionClient) InsertBodies(ctx context.Context, in *InsertBodiesRequ
 	return out, nil
 }
 
-func (c *executionClient) ValidateChain(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*ValidationReceipt, error) {
+func (c *executionClient) ValidateChain(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*ValidationReceipt, error) {
 	out := new(ValidationReceipt)
 	err := c.cc.Invoke(ctx, Execution_ValidateChain_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -84,7 +84,7 @@ func (c *executionClient) ValidateChain(ctx context.Context, in *types.H256, opt
 	return out, nil
 }
 
-func (c *executionClient) UpdateForkChoice(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*ForkChoiceReceipt, error) {
+func (c *executionClient) UpdateForkChoice(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*ForkChoiceReceipt, error) {
 	out := new(ForkChoiceReceipt)
 	err := c.cc.Invoke(ctx, Execution_UpdateForkChoice_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -93,8 +93,8 @@ func (c *executionClient) UpdateForkChoice(ctx context.Context, in *types.H256, 
 	return out, nil
 }
 
-func (c *executionClient) AssembleBlock(ctx context.Context, in *EmptyMessage, opts ...grpc.CallOption) (*types.ExecutionPayload, error) {
-	out := new(types.ExecutionPayload)
+func (c *executionClient) AssembleBlock(ctx context.Context, in *EmptyMessage, opts ...grpc.CallOption) (*zkevmtypes.ExecutionPayload, error) {
+	out := new(zkevmtypes.ExecutionPayload)
 	err := c.cc.Invoke(ctx, Execution_AssembleBlock_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -120,7 +120,7 @@ func (c *executionClient) GetBody(ctx context.Context, in *GetSegmentRequest, op
 	return out, nil
 }
 
-func (c *executionClient) IsCanonicalHash(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*IsCanonicalResponse, error) {
+func (c *executionClient) IsCanonicalHash(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*IsCanonicalResponse, error) {
 	out := new(IsCanonicalResponse)
 	err := c.cc.Invoke(ctx, Execution_IsCanonicalHash_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -129,7 +129,7 @@ func (c *executionClient) IsCanonicalHash(ctx context.Context, in *types.H256, o
 	return out, nil
 }
 
-func (c *executionClient) GetHeaderHashNumber(ctx context.Context, in *types.H256, opts ...grpc.CallOption) (*GetHeaderHashNumberResponse, error) {
+func (c *executionClient) GetHeaderHashNumber(ctx context.Context, in *zkevmtypes.H256, opts ...grpc.CallOption) (*GetHeaderHashNumberResponse, error) {
 	out := new(GetHeaderHashNumberResponse)
 	err := c.cc.Invoke(ctx, Execution_GetHeaderHashNumber_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -146,14 +146,14 @@ type ExecutionServer interface {
 	InsertHeaders(context.Context, *InsertHeadersRequest) (*EmptyMessage, error)
 	InsertBodies(context.Context, *InsertBodiesRequest) (*EmptyMessage, error)
 	// Chain Validation and ForkChoice.
-	ValidateChain(context.Context, *types.H256) (*ValidationReceipt, error)
-	UpdateForkChoice(context.Context, *types.H256) (*ForkChoiceReceipt, error)
-	AssembleBlock(context.Context, *EmptyMessage) (*types.ExecutionPayload, error)
+	ValidateChain(context.Context, *zkevmtypes.H256) (*ValidationReceipt, error)
+	UpdateForkChoice(context.Context, *zkevmtypes.H256) (*ForkChoiceReceipt, error)
+	AssembleBlock(context.Context, *EmptyMessage) (*zkevmtypes.ExecutionPayload, error)
 	// Chain Getters.
 	GetHeader(context.Context, *GetSegmentRequest) (*GetHeaderResponse, error)
 	GetBody(context.Context, *GetSegmentRequest) (*GetBodyResponse, error)
-	IsCanonicalHash(context.Context, *types.H256) (*IsCanonicalResponse, error)
-	GetHeaderHashNumber(context.Context, *types.H256) (*GetHeaderHashNumberResponse, error)
+	IsCanonicalHash(context.Context, *zkevmtypes.H256) (*IsCanonicalResponse, error)
+	GetHeaderHashNumber(context.Context, *zkevmtypes.H256) (*GetHeaderHashNumberResponse, error)
 	mustEmbedUnimplementedExecutionServer()
 }
 
@@ -167,13 +167,13 @@ func (UnimplementedExecutionServer) InsertHeaders(context.Context, *InsertHeader
 func (UnimplementedExecutionServer) InsertBodies(context.Context, *InsertBodiesRequest) (*EmptyMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InsertBodies not implemented")
 }
-func (UnimplementedExecutionServer) ValidateChain(context.Context, *types.H256) (*ValidationReceipt, error) {
+func (UnimplementedExecutionServer) ValidateChain(context.Context, *zkevmtypes.H256) (*ValidationReceipt, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateChain not implemented")
 }
-func (UnimplementedExecutionServer) UpdateForkChoice(context.Context, *types.H256) (*ForkChoiceReceipt, error) {
+func (UnimplementedExecutionServer) UpdateForkChoice(context.Context, *zkevmtypes.H256) (*ForkChoiceReceipt, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateForkChoice not implemented")
 }
-func (UnimplementedExecutionServer) AssembleBlock(context.Context, *EmptyMessage) (*types.ExecutionPayload, error) {
+func (UnimplementedExecutionServer) AssembleBlock(context.Context, *EmptyMessage) (*zkevmtypes.ExecutionPayload, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssembleBlock not implemented")
 }
 func (UnimplementedExecutionServer) GetHeader(context.Context, *GetSegmentRequest) (*GetHeaderResponse, error) {
@@ -182,10 +182,10 @@ func (UnimplementedExecutionServer) GetHeader(context.Context, *GetSegmentReques
 func (UnimplementedExecutionServer) GetBody(context.Context, *GetSegmentRequest) (*GetBodyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBody not implemented")
 }
-func (UnimplementedExecutionServer) IsCanonicalHash(context.Context, *types.H256) (*IsCanonicalResponse, error) {
+func (UnimplementedExecutionServer) IsCanonicalHash(context.Context, *zkevmtypes.H256) (*IsCanonicalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsCanonicalHash not implemented")
 }
-func (UnimplementedExecutionServer) GetHeaderHashNumber(context.Context, *types.H256) (*GetHeaderHashNumberResponse, error) {
+func (UnimplementedExecutionServer) GetHeaderHashNumber(context.Context, *zkevmtypes.H256) (*GetHeaderHashNumberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetHeaderHashNumber not implemented")
 }
 func (UnimplementedExecutionServer) mustEmbedUnimplementedExecutionServer() {}
@@ -238,7 +238,7 @@ func _Execution_InsertBodies_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _Execution_ValidateChain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(types.H256)
+	in := new(zkevmtypes.H256)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -250,13 +250,13 @@ func _Execution_ValidateChain_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: Execution_ValidateChain_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExecutionServer).ValidateChain(ctx, req.(*types.H256))
+		return srv.(ExecutionServer).ValidateChain(ctx, req.(*zkevmtypes.H256))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Execution_UpdateForkChoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(types.H256)
+	in := new(zkevmtypes.H256)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -268,7 +268,7 @@ func _Execution_UpdateForkChoice_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: Execution_UpdateForkChoice_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExecutionServer).UpdateForkChoice(ctx, req.(*types.H256))
+		return srv.(ExecutionServer).UpdateForkChoice(ctx, req.(*zkevmtypes.H256))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -328,7 +328,7 @@ func _Execution_GetBody_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _Execution_IsCanonicalHash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(types.H256)
+	in := new(zkevmtypes.H256)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -340,13 +340,13 @@ func _Execution_IsCanonicalHash_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: Execution_IsCanonicalHash_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExecutionServer).IsCanonicalHash(ctx, req.(*types.H256))
+		return srv.(ExecutionServer).IsCanonicalHash(ctx, req.(*zkevmtypes.H256))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Execution_GetHeaderHashNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(types.H256)
+	in := new(zkevmtypes.H256)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -358,7 +358,7 @@ func _Execution_GetHeaderHashNumber_Handler(srv interface{}, ctx context.Context
 		FullMethod: Execution_GetHeaderHashNumber_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExecutionServer).GetHeaderHashNumber(ctx, req.(*types.H256))
+		return srv.(ExecutionServer).GetHeaderHashNumber(ctx, req.(*zkevmtypes.H256))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -7,7 +7,7 @@
 package zkevmsentinel
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -238,11 +238,11 @@ type Status struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ForkDigest     uint32      `protobuf:"varint,1,opt,name=fork_digest,json=forkDigest,proto3" json:"fork_digest,omitempty"` // 4 bytes can be repressented in uint32.
-	FinalizedRoot  *types.H256 `protobuf:"bytes,2,opt,name=finalized_root,json=finalizedRoot,proto3" json:"finalized_root,omitempty"`
-	FinalizedEpoch uint64      `protobuf:"varint,3,opt,name=finalized_epoch,json=finalizedEpoch,proto3" json:"finalized_epoch,omitempty"`
-	HeadRoot       *types.H256 `protobuf:"bytes,4,opt,name=head_root,json=headRoot,proto3" json:"head_root,omitempty"`
-	HeadSlot       uint64      `protobuf:"varint,5,opt,name=head_slot,json=headSlot,proto3" json:"head_slot,omitempty"`
+	ForkDigest     uint32           `protobuf:"varint,1,opt,name=fork_digest,json=forkDigest,proto3" json:"fork_digest,omitempty"` // 4 bytes can be repressented in uint32.
+	FinalizedRoot  *zkevmtypes.H256 `protobuf:"bytes,2,opt,name=finalized_root,json=finalizedRoot,proto3" json:"finalized_root,omitempty"`
+	FinalizedEpoch uint64           `protobuf:"varint,3,opt,name=finalized_epoch,json=finalizedEpoch,proto3" json:"finalized_epoch,omitempty"`
+	HeadRoot       *zkevmtypes.H256 `protobuf:"bytes,4,opt,name=head_root,json=headRoot,proto3" json:"head_root,omitempty"`
+	HeadSlot       uint64           `protobuf:"varint,5,opt,name=head_slot,json=headSlot,proto3" json:"head_slot,omitempty"`
 }
 
 func (x *Status) Reset() {
@@ -284,7 +284,7 @@ func (x *Status) GetForkDigest() uint32 {
 	return 0
 }
 
-func (x *Status) GetFinalizedRoot() *types.H256 {
+func (x *Status) GetFinalizedRoot() *zkevmtypes.H256 {
 	if x != nil {
 		return x.FinalizedRoot
 	}
@@ -298,7 +298,7 @@ func (x *Status) GetFinalizedEpoch() uint64 {
 	return 0
 }
 
-func (x *Status) GetHeadRoot() *types.H256 {
+func (x *Status) GetHeadRoot() *zkevmtypes.H256 {
 	if x != nil {
 		return x.HeadRoot
 	}
@@ -574,15 +574,15 @@ func file_zkevmp2psentinel_zkevmsentinel_proto_rawDescGZIP() []byte {
 var file_zkevmp2psentinel_zkevmsentinel_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_zkevmp2psentinel_zkevmsentinel_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_zkevmp2psentinel_zkevmsentinel_proto_goTypes = []interface{}{
-	(GossipType)(0),      // 0: zkevmsentinel.GossipType
-	(*EmptyMessage)(nil), // 1: zkevmsentinel.EmptyMessage
-	(*Peer)(nil),         // 2: zkevmsentinel.Peer
-	(*GossipData)(nil),   // 3: zkevmsentinel.GossipData
-	(*Status)(nil),       // 4: zkevmsentinel.Status
-	(*PeerCount)(nil),    // 5: zkevmsentinel.PeerCount
-	(*RequestData)(nil),  // 6: zkevmsentinel.RequestData
-	(*ResponseData)(nil), // 7: zkevmsentinel.ResponseData
-	(*types.H256)(nil),   // 8: zkevmtypes.H256
+	(GossipType)(0),         // 0: zkevmsentinel.GossipType
+	(*EmptyMessage)(nil),    // 1: zkevmsentinel.EmptyMessage
+	(*Peer)(nil),            // 2: zkevmsentinel.Peer
+	(*GossipData)(nil),      // 3: zkevmsentinel.GossipData
+	(*Status)(nil),          // 4: zkevmsentinel.Status
+	(*PeerCount)(nil),       // 5: zkevmsentinel.PeerCount
+	(*RequestData)(nil),     // 6: zkevmsentinel.RequestData
+	(*ResponseData)(nil),    // 7: zkevmsentinel.ResponseData
+	(*zkevmtypes.H256)(nil), // 8: zkevmtypes.H256
 }
 var file_zkevmp2psentinel_zkevmsentinel_proto_depIdxs = []int32{
 	0,  // 0: zkevmsentinel.GossipData.type:type_name -> zkevmsentinel.GossipType

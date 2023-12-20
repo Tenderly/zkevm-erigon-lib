@@ -55,8 +55,8 @@ grpc: protoc-all
 	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/tenderly/erigon-interfaces --go_out=gointerfaces -I=$(PROTOC_INCLUDE) \
 		zkevmtypes/zkevmtypes.proto
 	PATH="$(GOBIN):$(PATH)" protoc --proto_path=vendor/github.com/tenderly/erigon-interfaces --go_out=gointerfaces --go-grpc_out=gointerfaces -I=$(PROTOC_INCLUDE) \
-		--go_opt=Mzkevmtypes/zkevmtypes.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
-		--go-grpc_opt=Mzkevmtypes/zkevmtypes.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/types \
+		--go_opt=Mzkevmtypes/zkevmtypes.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes \
+		--go-grpc_opt=Mzkevmtypes/zkevmtypes.proto=github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes \
 		zkevmp2psentry/zkevmsentry.proto zkevmp2psentinel/zkevmsentinel.proto \
 		zkevmremote/zkevmkv.proto zkevmremote/zkevmethbackend.proto \
 		zkevmdownloader/zkevmdownloader.proto zkevmexecution/zkevmexecution.proto \

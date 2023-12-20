@@ -8,7 +8,7 @@ package zkevmremote
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -38,7 +38,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type KVClient interface {
 	// Version returns the service version number
-	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error)
+	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error)
 	// Tx exposes read-only transactions for the key-value store
 	//
 	// When tx open, client must receive 1 message from server with txID
@@ -69,8 +69,8 @@ func NewKVClient(cc grpc.ClientConnInterface) KVClient {
 	return &kVClient{cc}
 }
 
-func (c *kVClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error) {
-	out := new(types.VersionReply)
+func (c *kVClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error) {
+	out := new(zkevmtypes.VersionReply)
 	err := c.cc.Invoke(ctx, KV_Version_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -209,7 +209,7 @@ func (c *kVClient) DomainRange(ctx context.Context, in *DomainRangeReq, opts ...
 // for forward compatibility
 type KVServer interface {
 	// Version returns the service version number
-	Version(context.Context, *emptypb.Empty) (*types.VersionReply, error)
+	Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error)
 	// Tx exposes read-only transactions for the key-value store
 	//
 	// When tx open, client must receive 1 message from server with txID
@@ -237,7 +237,7 @@ type KVServer interface {
 type UnimplementedKVServer struct {
 }
 
-func (UnimplementedKVServer) Version(context.Context, *emptypb.Empty) (*types.VersionReply, error) {
+func (UnimplementedKVServer) Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")
 }
 func (UnimplementedKVServer) Tx(KV_TxServer) error {

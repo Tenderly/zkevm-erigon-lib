@@ -8,7 +8,7 @@ package zkevmremote
 
 import (
 	context "context"
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -50,7 +50,7 @@ type ETHBACKENDClient interface {
 	NetVersion(ctx context.Context, in *NetVersionRequest, opts ...grpc.CallOption) (*NetVersionReply, error)
 	NetPeerCount(ctx context.Context, in *NetPeerCountRequest, opts ...grpc.CallOption) (*NetPeerCountReply, error)
 	// Validate and possibly execute the payload.
-	EngineNewPayload(ctx context.Context, in *types.ExecutionPayload, opts ...grpc.CallOption) (*EnginePayloadStatus, error)
+	EngineNewPayload(ctx context.Context, in *zkevmtypes.ExecutionPayload, opts ...grpc.CallOption) (*EnginePayloadStatus, error)
 	// Update fork choice
 	EngineForkChoiceUpdated(ctx context.Context, in *EngineForkChoiceUpdatedRequest, opts ...grpc.CallOption) (*EngineForkChoiceUpdatedResponse, error)
 	// Fetch Execution Payload using its ID.
@@ -58,9 +58,9 @@ type ETHBACKENDClient interface {
 	EngineGetPayloadBodiesByHashV1(ctx context.Context, in *EngineGetPayloadBodiesByHashV1Request, opts ...grpc.CallOption) (*EngineGetPayloadBodiesV1Response, error)
 	EngineGetPayloadBodiesByRangeV1(ctx context.Context, in *EngineGetPayloadBodiesByRangeV1Request, opts ...grpc.CallOption) (*EngineGetPayloadBodiesV1Response, error)
 	// Fetch the blobs bundle using its ID.
-	EngineGetBlobsBundleV1(ctx context.Context, in *EngineGetBlobsBundleRequest, opts ...grpc.CallOption) (*types.BlobsBundleV1, error)
+	EngineGetBlobsBundleV1(ctx context.Context, in *EngineGetBlobsBundleRequest, opts ...grpc.CallOption) (*zkevmtypes.BlobsBundleV1, error)
 	// Version returns the service version number
-	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error)
+	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error)
 	// ProtocolVersion returns the Ethereum protocol version number (e.g. 66 for ETH66).
 	ProtocolVersion(ctx context.Context, in *ProtocolVersionRequest, opts ...grpc.CallOption) (*ProtocolVersionReply, error)
 	// ClientVersion returns the Ethereum client version string using node name convention (e.g. TurboGeth/v2021.03.2-alpha/Linux).
@@ -117,7 +117,7 @@ func (c *eTHBACKENDClient) NetPeerCount(ctx context.Context, in *NetPeerCountReq
 	return out, nil
 }
 
-func (c *eTHBACKENDClient) EngineNewPayload(ctx context.Context, in *types.ExecutionPayload, opts ...grpc.CallOption) (*EnginePayloadStatus, error) {
+func (c *eTHBACKENDClient) EngineNewPayload(ctx context.Context, in *zkevmtypes.ExecutionPayload, opts ...grpc.CallOption) (*EnginePayloadStatus, error) {
 	out := new(EnginePayloadStatus)
 	err := c.cc.Invoke(ctx, ETHBACKEND_EngineNewPayload_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -162,8 +162,8 @@ func (c *eTHBACKENDClient) EngineGetPayloadBodiesByRangeV1(ctx context.Context, 
 	return out, nil
 }
 
-func (c *eTHBACKENDClient) EngineGetBlobsBundleV1(ctx context.Context, in *EngineGetBlobsBundleRequest, opts ...grpc.CallOption) (*types.BlobsBundleV1, error) {
-	out := new(types.BlobsBundleV1)
+func (c *eTHBACKENDClient) EngineGetBlobsBundleV1(ctx context.Context, in *EngineGetBlobsBundleRequest, opts ...grpc.CallOption) (*zkevmtypes.BlobsBundleV1, error) {
+	out := new(zkevmtypes.BlobsBundleV1)
 	err := c.cc.Invoke(ctx, ETHBACKEND_EngineGetBlobsBundleV1_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -171,8 +171,8 @@ func (c *eTHBACKENDClient) EngineGetBlobsBundleV1(ctx context.Context, in *Engin
 	return out, nil
 }
 
-func (c *eTHBACKENDClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*types.VersionReply, error) {
-	out := new(types.VersionReply)
+func (c *eTHBACKENDClient) Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*zkevmtypes.VersionReply, error) {
+	out := new(zkevmtypes.VersionReply)
 	err := c.cc.Invoke(ctx, ETHBACKEND_Version_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -314,7 +314,7 @@ type ETHBACKENDServer interface {
 	NetVersion(context.Context, *NetVersionRequest) (*NetVersionReply, error)
 	NetPeerCount(context.Context, *NetPeerCountRequest) (*NetPeerCountReply, error)
 	// Validate and possibly execute the payload.
-	EngineNewPayload(context.Context, *types.ExecutionPayload) (*EnginePayloadStatus, error)
+	EngineNewPayload(context.Context, *zkevmtypes.ExecutionPayload) (*EnginePayloadStatus, error)
 	// Update fork choice
 	EngineForkChoiceUpdated(context.Context, *EngineForkChoiceUpdatedRequest) (*EngineForkChoiceUpdatedResponse, error)
 	// Fetch Execution Payload using its ID.
@@ -322,9 +322,9 @@ type ETHBACKENDServer interface {
 	EngineGetPayloadBodiesByHashV1(context.Context, *EngineGetPayloadBodiesByHashV1Request) (*EngineGetPayloadBodiesV1Response, error)
 	EngineGetPayloadBodiesByRangeV1(context.Context, *EngineGetPayloadBodiesByRangeV1Request) (*EngineGetPayloadBodiesV1Response, error)
 	// Fetch the blobs bundle using its ID.
-	EngineGetBlobsBundleV1(context.Context, *EngineGetBlobsBundleRequest) (*types.BlobsBundleV1, error)
+	EngineGetBlobsBundleV1(context.Context, *EngineGetBlobsBundleRequest) (*zkevmtypes.BlobsBundleV1, error)
 	// Version returns the service version number
-	Version(context.Context, *emptypb.Empty) (*types.VersionReply, error)
+	Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error)
 	// ProtocolVersion returns the Ethereum protocol version number (e.g. 66 for ETH66).
 	ProtocolVersion(context.Context, *ProtocolVersionRequest) (*ProtocolVersionReply, error)
 	// ClientVersion returns the Ethereum client version string using node name convention (e.g. TurboGeth/v2021.03.2-alpha/Linux).
@@ -360,7 +360,7 @@ func (UnimplementedETHBACKENDServer) NetVersion(context.Context, *NetVersionRequ
 func (UnimplementedETHBACKENDServer) NetPeerCount(context.Context, *NetPeerCountRequest) (*NetPeerCountReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NetPeerCount not implemented")
 }
-func (UnimplementedETHBACKENDServer) EngineNewPayload(context.Context, *types.ExecutionPayload) (*EnginePayloadStatus, error) {
+func (UnimplementedETHBACKENDServer) EngineNewPayload(context.Context, *zkevmtypes.ExecutionPayload) (*EnginePayloadStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EngineNewPayload not implemented")
 }
 func (UnimplementedETHBACKENDServer) EngineForkChoiceUpdated(context.Context, *EngineForkChoiceUpdatedRequest) (*EngineForkChoiceUpdatedResponse, error) {
@@ -375,10 +375,10 @@ func (UnimplementedETHBACKENDServer) EngineGetPayloadBodiesByHashV1(context.Cont
 func (UnimplementedETHBACKENDServer) EngineGetPayloadBodiesByRangeV1(context.Context, *EngineGetPayloadBodiesByRangeV1Request) (*EngineGetPayloadBodiesV1Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EngineGetPayloadBodiesByRangeV1 not implemented")
 }
-func (UnimplementedETHBACKENDServer) EngineGetBlobsBundleV1(context.Context, *EngineGetBlobsBundleRequest) (*types.BlobsBundleV1, error) {
+func (UnimplementedETHBACKENDServer) EngineGetBlobsBundleV1(context.Context, *EngineGetBlobsBundleRequest) (*zkevmtypes.BlobsBundleV1, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EngineGetBlobsBundleV1 not implemented")
 }
-func (UnimplementedETHBACKENDServer) Version(context.Context, *emptypb.Empty) (*types.VersionReply, error) {
+func (UnimplementedETHBACKENDServer) Version(context.Context, *emptypb.Empty) (*zkevmtypes.VersionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")
 }
 func (UnimplementedETHBACKENDServer) ProtocolVersion(context.Context, *ProtocolVersionRequest) (*ProtocolVersionReply, error) {
@@ -476,7 +476,7 @@ func _ETHBACKEND_NetPeerCount_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _ETHBACKEND_EngineNewPayload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(types.ExecutionPayload)
+	in := new(zkevmtypes.ExecutionPayload)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -488,7 +488,7 @@ func _ETHBACKEND_EngineNewPayload_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: ETHBACKEND_EngineNewPayload_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ETHBACKENDServer).EngineNewPayload(ctx, req.(*types.ExecutionPayload))
+		return srv.(ETHBACKENDServer).EngineNewPayload(ctx, req.(*zkevmtypes.ExecutionPayload))
 	}
 	return interceptor(ctx, in, info, handler)
 }

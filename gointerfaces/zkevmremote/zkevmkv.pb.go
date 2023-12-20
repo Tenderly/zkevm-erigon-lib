@@ -7,7 +7,7 @@
 package zkevmremote
 
 import (
-	types "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	zkevmtypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/zkevmtypes"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -383,8 +383,8 @@ type StorageChange struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Location *types.H256 `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
-	Data     []byte      `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Location *zkevmtypes.H256 `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
+	Data     []byte           `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *StorageChange) Reset() {
@@ -419,7 +419,7 @@ func (*StorageChange) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmkv_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *StorageChange) GetLocation() *types.H256 {
+func (x *StorageChange) GetLocation() *zkevmtypes.H256 {
 	if x != nil {
 		return x.Location
 	}
@@ -438,7 +438,7 @@ type AccountChange struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Address        *types.H160      `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Address        *zkevmtypes.H160 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Incarnation    uint64           `protobuf:"varint,2,opt,name=incarnation,proto3" json:"incarnation,omitempty"`
 	Action         Action           `protobuf:"varint,3,opt,name=action,proto3,enum=zkevmremote.Action" json:"action,omitempty"`
 	Data           []byte           `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"` // nil if there is no UPSERT in action
@@ -478,7 +478,7 @@ func (*AccountChange) Descriptor() ([]byte, []int) {
 	return file_zkevmremote_zkevmkv_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *AccountChange) GetAddress() *types.H160 {
+func (x *AccountChange) GetAddress() *zkevmtypes.H160 {
 	if x != nil {
 		return x.Address
 	}
@@ -600,7 +600,7 @@ type StateChange struct {
 
 	Direction   Direction        `protobuf:"varint,1,opt,name=direction,proto3,enum=zkevmremote.Direction" json:"direction,omitempty"`
 	BlockHeight uint64           `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
-	BlockHash   *types.H256      `protobuf:"bytes,3,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
+	BlockHash   *zkevmtypes.H256 `protobuf:"bytes,3,opt,name=block_hash,json=blockHash,proto3" json:"block_hash,omitempty"`
 	Changes     []*AccountChange `protobuf:"bytes,4,rep,name=changes,proto3" json:"changes,omitempty"`
 	Txs         [][]byte         `protobuf:"bytes,5,rep,name=txs,proto3" json:"txs,omitempty"` // enable by withTransactions=true
 }
@@ -651,7 +651,7 @@ func (x *StateChange) GetBlockHeight() uint64 {
 	return 0
 }
 
-func (x *StateChange) GetBlockHash() *types.H256 {
+func (x *StateChange) GetBlockHash() *zkevmtypes.H256 {
 	if x != nil {
 		return x.BlockHash
 	}
@@ -2034,34 +2034,34 @@ func file_zkevmremote_zkevmkv_proto_rawDescGZIP() []byte {
 var file_zkevmremote_zkevmkv_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_zkevmremote_zkevmkv_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_zkevmremote_zkevmkv_proto_goTypes = []interface{}{
-	(Op)(0),                    // 0: zkevmremote.Op
-	(Action)(0),                // 1: zkevmremote.Action
-	(Direction)(0),             // 2: zkevmremote.Direction
-	(*Cursor)(nil),             // 3: zkevmremote.Cursor
-	(*Pair)(nil),               // 4: zkevmremote.Pair
-	(*StorageChange)(nil),      // 5: zkevmremote.StorageChange
-	(*AccountChange)(nil),      // 6: zkevmremote.AccountChange
-	(*StateChangeBatch)(nil),   // 7: zkevmremote.StateChangeBatch
-	(*StateChange)(nil),        // 8: zkevmremote.StateChange
-	(*StateChangeRequest)(nil), // 9: zkevmremote.StateChangeRequest
-	(*SnapshotsRequest)(nil),   // 10: zkevmremote.SnapshotsRequest
-	(*SnapshotsReply)(nil),     // 11: zkevmremote.SnapshotsReply
-	(*RangeReq)(nil),           // 12: zkevmremote.RangeReq
-	(*DomainGetReq)(nil),       // 13: zkevmremote.DomainGetReq
-	(*DomainGetReply)(nil),     // 14: zkevmremote.DomainGetReply
-	(*HistoryGetReq)(nil),      // 15: zkevmremote.HistoryGetReq
-	(*HistoryGetReply)(nil),    // 16: zkevmremote.HistoryGetReply
-	(*IndexRangeReq)(nil),      // 17: zkevmremote.IndexRangeReq
-	(*IndexRangeReply)(nil),    // 18: zkevmremote.IndexRangeReply
-	(*HistoryRangeReq)(nil),    // 19: zkevmremote.HistoryRangeReq
-	(*DomainRangeReq)(nil),     // 20: zkevmremote.DomainRangeReq
-	(*Pairs)(nil),              // 21: zkevmremote.Pairs
-	(*ParisPagination)(nil),    // 22: zkevmremote.ParisPagination
-	(*IndexPagination)(nil),    // 23: zkevmremote.IndexPagination
-	(*types.H256)(nil),         // 24: zkevmtypes.H256
-	(*types.H160)(nil),         // 25: zkevmtypes.H160
-	(*emptypb.Empty)(nil),      // 26: google.protobuf.Empty
-	(*types.VersionReply)(nil), // 27: zkevmtypes.VersionReply
+	(Op)(0),                         // 0: zkevmremote.Op
+	(Action)(0),                     // 1: zkevmremote.Action
+	(Direction)(0),                  // 2: zkevmremote.Direction
+	(*Cursor)(nil),                  // 3: zkevmremote.Cursor
+	(*Pair)(nil),                    // 4: zkevmremote.Pair
+	(*StorageChange)(nil),           // 5: zkevmremote.StorageChange
+	(*AccountChange)(nil),           // 6: zkevmremote.AccountChange
+	(*StateChangeBatch)(nil),        // 7: zkevmremote.StateChangeBatch
+	(*StateChange)(nil),             // 8: zkevmremote.StateChange
+	(*StateChangeRequest)(nil),      // 9: zkevmremote.StateChangeRequest
+	(*SnapshotsRequest)(nil),        // 10: zkevmremote.SnapshotsRequest
+	(*SnapshotsReply)(nil),          // 11: zkevmremote.SnapshotsReply
+	(*RangeReq)(nil),                // 12: zkevmremote.RangeReq
+	(*DomainGetReq)(nil),            // 13: zkevmremote.DomainGetReq
+	(*DomainGetReply)(nil),          // 14: zkevmremote.DomainGetReply
+	(*HistoryGetReq)(nil),           // 15: zkevmremote.HistoryGetReq
+	(*HistoryGetReply)(nil),         // 16: zkevmremote.HistoryGetReply
+	(*IndexRangeReq)(nil),           // 17: zkevmremote.IndexRangeReq
+	(*IndexRangeReply)(nil),         // 18: zkevmremote.IndexRangeReply
+	(*HistoryRangeReq)(nil),         // 19: zkevmremote.HistoryRangeReq
+	(*DomainRangeReq)(nil),          // 20: zkevmremote.DomainRangeReq
+	(*Pairs)(nil),                   // 21: zkevmremote.Pairs
+	(*ParisPagination)(nil),         // 22: zkevmremote.ParisPagination
+	(*IndexPagination)(nil),         // 23: zkevmremote.IndexPagination
+	(*zkevmtypes.H256)(nil),         // 24: zkevmtypes.H256
+	(*zkevmtypes.H160)(nil),         // 25: zkevmtypes.H160
+	(*emptypb.Empty)(nil),           // 26: google.protobuf.Empty
+	(*zkevmtypes.VersionReply)(nil), // 27: zkevmtypes.VersionReply
 }
 var file_zkevmremote_zkevmkv_proto_depIdxs = []int32{
 	0,  // 0: zkevmremote.Cursor.op:type_name -> zkevmremote.Op
