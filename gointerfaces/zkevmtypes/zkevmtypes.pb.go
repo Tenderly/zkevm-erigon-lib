@@ -1057,36 +1057,36 @@ var file_zkevmtypes_zkevmtypes_proto_extTypes = []protoimpl.ExtensionInfo{
 	{
 		ExtendedType:  (*descriptorpb.FileOptions)(nil),
 		ExtensionType: (*uint32)(nil),
-		Field:         50001,
+		Field:         60001,
 		Name:          "zkevmtypes.service_major_version",
-		Tag:           "varint,50001,opt,name=service_major_version",
+		Tag:           "varint,60001,opt,name=service_major_version",
 		Filename:      "zkevmtypes/zkevmtypes.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.FileOptions)(nil),
 		ExtensionType: (*uint32)(nil),
-		Field:         50002,
+		Field:         60002,
 		Name:          "zkevmtypes.service_minor_version",
-		Tag:           "varint,50002,opt,name=service_minor_version",
+		Tag:           "varint,60002,opt,name=service_minor_version",
 		Filename:      "zkevmtypes/zkevmtypes.proto",
 	},
 	{
 		ExtendedType:  (*descriptorpb.FileOptions)(nil),
 		ExtensionType: (*uint32)(nil),
-		Field:         50003,
+		Field:         60003,
 		Name:          "zkevmtypes.service_patch_version",
-		Tag:           "varint,50003,opt,name=service_patch_version",
+		Tag:           "varint,60003,opt,name=service_patch_version",
 		Filename:      "zkevmtypes/zkevmtypes.proto",
 	},
 }
 
 // Extension fields to descriptorpb.FileOptions.
 var (
-	// optional uint32 service_major_version = 50001;
+	// optional uint32 service_major_version = 60001;
 	E_ServiceMajorVersion = &file_zkevmtypes_zkevmtypes_proto_extTypes[0]
-	// optional uint32 service_minor_version = 50002;
+	// optional uint32 service_minor_version = 60002;
 	E_ServiceMinorVersion = &file_zkevmtypes_zkevmtypes_proto_extTypes[1]
-	// optional uint32 service_patch_version = 50003;
+	// optional uint32 service_patch_version = 60003;
 	E_ServicePatchVersion = &file_zkevmtypes_zkevmtypes_proto_extTypes[2]
 )
 
