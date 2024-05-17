@@ -32,10 +32,10 @@ import (
 	"time"
 
 	"github.com/c2h5oh/datasize"
+	"github.com/ledgerwatch/log/v3"
 	"github.com/tenderly/zkevm-erigon-lib/common"
 	dir2 "github.com/tenderly/zkevm-erigon-lib/common/dir"
 	"github.com/tenderly/zkevm-erigon-lib/etl"
-	"github.com/ledgerwatch/log/v3"
 	"golang.org/x/exp/slices"
 )
 
@@ -272,11 +272,19 @@ func (db *DictionaryBuilder) Less(i, j int) bool {
 	return db.items[i].score < db.items[j].score
 }
 
-func dictionaryBuilderLess(i, j *Pattern) bool {
+func dictionaryBuilderLess(i, j *Pattern) int {
 	if i.score == j.score {
-		return bytes.Compare(i.word, j.word) < 0
+		if bytes.Compare(i.word, j.word) < 0 {
+			return -1
+		} else {
+			return 1
+		}
 	}
-	return i.score < j.score
+	if i.score < j.score {
+		return -1
+	} else {
+		return 1
+	}
 }
 
 func (db *DictionaryBuilder) Swap(i, j int) {
@@ -355,11 +363,19 @@ type Pattern struct {
 type PatternList []*Pattern
 
 func (pl PatternList) Len() int { return len(pl) }
-func patternListLess(i, j *Pattern) bool {
+func patternListLess(i, j *Pattern) int {
 	if i.uses == j.uses {
-		return bits.Reverse64(i.code) < bits.Reverse64(j.code)
+		if bits.Reverse64(i.code) < bits.Reverse64(j.code) {
+			return -1
+		} else {
+			return 1
+		}
 	}
-	return i.uses < j.uses
+	if i.uses < j.uses {
+		return -1
+	} else {
+		return 1
+	}
 }
 
 // PatternHuff is an intermediate node in a huffman tree of patterns
@@ -527,11 +543,20 @@ type PositionList []*Position
 
 func (pl PositionList) Len() int { return len(pl) }
 
-func positionListLess(i, j *Position) bool {
+func positionListLess(i, j *Position) int {
 	if i.uses == j.uses {
-		return bits.Reverse64(i.code) < bits.Reverse64(j.code)
+		if bits.Reverse64(i.code) < bits.Reverse64(j.code) {
+			return -1
+		} else {
+			return 1
+		}
 	}
-	return i.uses < j.uses
+	if i.uses < j.uses {
+		return -1
+	} else {
+		return 1
+	}
+	return 0
 }
 
 type PositionHeap []*PositionHuff

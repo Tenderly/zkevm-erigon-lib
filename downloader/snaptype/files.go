@@ -212,20 +212,40 @@ func ParseDir(dir string) (res []FileInfo, err error) {
 		}
 		res = append(res, meta)
 	}
-	slices.SortFunc(res, func(i, j FileInfo) bool {
+	slices.SortFunc(res, func(i, j FileInfo) int {
 		if i.Version != j.Version {
-			return i.Version < j.Version
+			if i.Version < j.Version {
+				return -1
+			} else {
+				return 1
+			}
 		}
 		if i.From != j.From {
-			return i.From < j.From
+			if i.From < j.From {
+				return -1
+			} else {
+				return 1
+			}
 		}
 		if i.To != j.To {
-			return i.To < j.To
+			if i.To < j.To {
+				return -1
+			} else {
+				return 1
+			}
 		}
 		if i.T != j.T {
-			return i.T < j.T
+			if i.T < j.T {
+				return -1
+			} else {
+				return 1
+			}
 		}
-		return i.Ext < j.Ext
+		if i.Ext < j.Ext {
+			return -1
+		} else {
+			return 1
+		}
 	})
 
 	return res, nil
