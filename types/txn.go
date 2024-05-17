@@ -27,7 +27,6 @@ import (
 	"sort"
 
 	"github.com/holiman/uint256"
-	"github.com/ledgerwatch/secp256k1"
 	"golang.org/x/crypto/sha3"
 
 	"github.com/tenderly/zkevm-erigon-lib/common"
@@ -446,10 +445,6 @@ func (ctx *TxParseContext) ParseTransaction(payload []byte, pos int, slot *TxSlo
 	binary.BigEndian.PutUint64(ctx.Sig[48:56], ctx.S[1])
 	binary.BigEndian.PutUint64(ctx.Sig[56:64], ctx.S[0])
 	ctx.Sig[64] = vByte
-	// recover sender
-	if _, err = secp256k1.RecoverPubkeyWithContext(secp256k1.DefaultContext, ctx.Sighash[:], ctx.Sig[:], ctx.buf[:0]); err != nil {
-		return 0, fmt.Errorf("%w: recovering sender from signature: %s", ErrParseTxn, err) //nolint
-	}
 	//apply keccak to the public key
 	ctx.Keccak2.Reset()
 	if _, err = ctx.Keccak2.Write(ctx.buf[1:65]); err != nil {

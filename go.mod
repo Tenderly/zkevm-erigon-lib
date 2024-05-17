@@ -5,7 +5,6 @@ go 1.19
 require (
 	github.com/ledgerwatch/interfaces v0.0.0-20230412092010-e1c4a1a4279e
 	github.com/ledgerwatch/log/v3 v3.7.0
-	github.com/ledgerwatch/secp256k1 v1.0.0
 	github.com/ledgerwatch/trackerslist v1.1.0
 	github.com/torquem-ch/mdbx-go v0.27.10
 )

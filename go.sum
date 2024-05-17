@@ -69,8 +69,6 @@ github.com/ledgerwatch/interfaces v0.0.0-20230412092010-e1c4a1a4279e h1:mT6GE/Xs
 github.com/ledgerwatch/interfaces v0.0.0-20230412092010-e1c4a1a4279e/go.mod h1:ugQv1QllJzBny3cKZKxUrSnykkjkBgm27eQM6dnGAcc=
 github.com/ledgerwatch/log/v3 v3.7.0 h1:aFPEZdwZx4jzA3+/Pf8wNDN5tCI0cIolq/kfvgcM+og=
 github.com/ledgerwatch/log/v3 v3.7.0/go.mod h1:J2Jl6zV/58LeA6LTaVVnCGyf1/cYYSEOOLHY4ZN8S2A=
-github.com/ledgerwatch/secp256k1 v1.0.0 h1:Usvz87YoTG0uePIV8woOof5cQnLXGYa162rFf3YnwaQ=
-github.com/ledgerwatch/secp256k1 v1.0.0/go.mod h1:SPmqJFciiF/Q0mPt2jVs2dTr/1TZBTIA+kPMmKgBAak=
 github.com/ledgerwatch/trackerslist v1.1.0 h1:eKhgeURD9x/J3qzMnL6C0e0cLy6Ld7Ck/VR/yF+7cZQ=
 github.com/ledgerwatch/trackerslist v1.1.0/go.mod h1:wWU/V810cpsEl//o49ebwAWf0BL0WOJiu/577L4IVok=
 github.com/matryer/moq v0.3.1 h1:kLDiBJoGcusWS2BixGyTkF224aSCD8nLY24tj/NcTCs=
