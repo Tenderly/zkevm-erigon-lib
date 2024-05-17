@@ -21,8 +21,8 @@ import (
 	"errors"
 
 	"github.com/VictoriaMetrics/metrics"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/iter"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/order"
+	"github.com/tenderly/zkevm-erigon-lib/kv/iter"
+	"github.com/tenderly/zkevm-erigon-lib/kv/order"
 )
 
 //Variables Naming:

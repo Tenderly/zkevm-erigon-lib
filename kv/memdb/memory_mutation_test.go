@@ -19,7 +19,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 func initializeDbNonDupSort(rwTx kv.RwTx) {

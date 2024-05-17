@@ -31,8 +31,8 @@ import (
 
 	"github.com/ledgerwatch/log/v3"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
-	"github.com/gateway-fm/cdk-erigon-lib/rlp"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/rlp"
 )
 
 // keccakState wraps sha3.state. In addition to the usual hash methods, it also supports

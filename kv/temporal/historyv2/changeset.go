@@ -23,9 +23,9 @@ import (
 	math2 "math"
 	"reflect"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/hexutility"
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/common/hexutility"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 func NewChangeSet() *ChangeSet {

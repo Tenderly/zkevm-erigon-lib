@@ -5,9 +5,9 @@ package txpool
 
 import (
 	"context"
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/remote"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
-	types2 "github.com/gateway-fm/cdk-erigon-lib/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	types2 "github.com/tenderly/zkevm-erigon-lib/types"
 	"sync"
 )
 

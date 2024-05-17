@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
 )
 
 func Benchmark_HexPatriciaHahsed_ReviewKeys(b *testing.B) {

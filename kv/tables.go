@@ -20,7 +20,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"fmt"
 )
 

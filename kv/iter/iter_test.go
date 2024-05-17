@@ -22,10 +22,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/iter"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/memdb"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/order"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/iter"
+	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
+	"github.com/tenderly/zkevm-erigon-lib/kv/order"
 	"github.com/stretchr/testify/require"
 )
 

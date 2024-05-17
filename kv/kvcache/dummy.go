@@ -18,8 +18,8 @@ package kvcache
 import (
 	"context"
 
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/remote"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 // DummyCache - doesn't remember anything - can be used when service is not remote

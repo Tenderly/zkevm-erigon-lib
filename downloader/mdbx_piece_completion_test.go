@@ -19,7 +19,7 @@ package downloader
 import (
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/kv/memdb"
+	"github.com/tenderly/zkevm-erigon-lib/kv/memdb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/stretchr/testify/require"
 )
 

@@ -25,8 +25,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/dbg"
-	"github.com/gateway-fm/cdk-erigon-lib/mmap"
+	"github.com/tenderly/zkevm-erigon-lib/common/dbg"
+	"github.com/tenderly/zkevm-erigon-lib/mmap"
 	"github.com/ledgerwatch/log/v3"
 )
 

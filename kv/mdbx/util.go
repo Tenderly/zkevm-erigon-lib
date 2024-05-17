@@ -17,7 +17,7 @@
 package mdbx
 
 import (
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 	"github.com/ledgerwatch/log/v3"
 	mdbxbind "github.com/torquem-ch/mdbx-go/mdbx"
 )

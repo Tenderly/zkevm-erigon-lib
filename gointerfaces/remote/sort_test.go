@@ -3,8 +3,8 @@ package remote_test
 import (
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/remote"
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/exp/slices"
 )

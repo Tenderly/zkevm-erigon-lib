@@ -24,7 +24,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
 )
 
 func Test_HexPatriciaHashed_ResetThenSingularUpdates(t *testing.T) {

@@ -10,8 +10,8 @@ import (
 	"golang.org/x/crypto/sha3"
 	"golang.org/x/exp/slices"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
 )
 
 // In memory commitment and state to use with the tests

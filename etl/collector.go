@@ -29,8 +29,8 @@ import (
 
 	"github.com/ledgerwatch/log/v3"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 type LoadNextFunc func(originalK, k, v []byte) error

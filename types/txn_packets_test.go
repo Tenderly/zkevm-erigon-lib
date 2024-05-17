@@ -24,7 +24,7 @@ import (
 	"github.com/holiman/uint256"
 	"github.com/stretchr/testify/require"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/hexutility"
+	"github.com/tenderly/zkevm-erigon-lib/common/hexutility"
 )
 
 var hashParseTests = []struct {

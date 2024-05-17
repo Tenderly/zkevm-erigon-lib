@@ -24,7 +24,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/cmp"
+	"github.com/tenderly/zkevm-erigon-lib/common/cmp"
 	"github.com/ledgerwatch/log/v3"
 )
 

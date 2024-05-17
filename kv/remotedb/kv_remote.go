@@ -23,18 +23,18 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/gateway-fm/cdk-erigon-lib/kv/iter"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/order"
+	"github.com/tenderly/zkevm-erigon-lib/kv/iter"
+	"github.com/tenderly/zkevm-erigon-lib/kv/order"
 	"github.com/ledgerwatch/log/v3"
 	"golang.org/x/sync/semaphore"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces"
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/grpcutil"
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/remote"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/mdbx"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/grpcutil"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/remote"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"
 )
 
 // generate the messages and services

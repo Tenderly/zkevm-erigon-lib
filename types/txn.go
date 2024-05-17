@@ -30,12 +30,12 @@ import (
 	"github.com/ledgerwatch/secp256k1"
 	"golang.org/x/crypto/sha3"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
-	"github.com/gateway-fm/cdk-erigon-lib/common/u256"
-	"github.com/gateway-fm/cdk-erigon-lib/crypto"
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces/types"
-	"github.com/gateway-fm/cdk-erigon-lib/rlp"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/common/u256"
+	"github.com/tenderly/zkevm-erigon-lib/crypto"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/rlp"
 )
 
 type TxParseConfig struct {

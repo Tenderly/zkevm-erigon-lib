@@ -5,7 +5,7 @@ package types
 import (
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/u256"
+	"github.com/tenderly/zkevm-erigon-lib/common/u256"
 )
 
 // golang.org/s/draft-fuzzing-design

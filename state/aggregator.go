@@ -29,15 +29,15 @@ import (
 
 	"github.com/VictoriaMetrics/metrics"
 	"github.com/holiman/uint256"
-	"github.com/gateway-fm/cdk-erigon-lib/common/background"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/iter"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/order"
+	"github.com/tenderly/zkevm-erigon-lib/common/background"
+	"github.com/tenderly/zkevm-erigon-lib/kv/iter"
+	"github.com/tenderly/zkevm-erigon-lib/kv/order"
 	"github.com/ledgerwatch/log/v3"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/gateway-fm/cdk-erigon-lib/commitment"
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/commitment"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
 )
 
 // StepsInBiggestFile - files of this size are completely frozen/immutable.

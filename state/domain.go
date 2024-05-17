@@ -32,18 +32,18 @@ import (
 	"time"
 
 	"github.com/RoaringBitmap/roaring/roaring64"
-	"github.com/gateway-fm/cdk-erigon-lib/common/background"
+	"github.com/tenderly/zkevm-erigon-lib/common/background"
 	btree2 "github.com/tidwall/btree"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/ledgerwatch/log/v3"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
-	"github.com/gateway-fm/cdk-erigon-lib/common/dir"
-	"github.com/gateway-fm/cdk-erigon-lib/compress"
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/bitmapdb"
-	"github.com/gateway-fm/cdk-erigon-lib/recsplit"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/dir"
+	"github.com/tenderly/zkevm-erigon-lib/compress"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/bitmapdb"
+	"github.com/tenderly/zkevm-erigon-lib/recsplit"
 )
 
 // filesItem corresponding to a pair of files (.dat and .idx)

@@ -29,11 +29,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
-	"github.com/gateway-fm/cdk-erigon-lib/common/assert"
-	"github.com/gateway-fm/cdk-erigon-lib/etl"
-	"github.com/gateway-fm/cdk-erigon-lib/patricia"
-	"github.com/gateway-fm/cdk-erigon-lib/sais"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/assert"
+	"github.com/tenderly/zkevm-erigon-lib/etl"
+	"github.com/tenderly/zkevm-erigon-lib/patricia"
+	"github.com/tenderly/zkevm-erigon-lib/sais"
 	"github.com/ledgerwatch/log/v3"
 	"golang.org/x/exp/slices"
 )

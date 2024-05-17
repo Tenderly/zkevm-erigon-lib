@@ -20,9 +20,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
-	"github.com/gateway-fm/cdk-erigon-lib/common/length"
-	"github.com/gateway-fm/cdk-erigon-lib/rlp"
+	"github.com/tenderly/zkevm-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common/length"
+	"github.com/tenderly/zkevm-erigon-lib/rlp"
 )
 
 type NewPooledTransactionHashesPacket [][length.Hash]byte

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gateway-fm/cdk-erigon-lib/sais"
+	"github.com/tenderly/zkevm-erigon-lib/sais"
 	"github.com/stretchr/testify/assert"
 )
 

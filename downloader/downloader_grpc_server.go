@@ -23,9 +23,9 @@ import (
 
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/metainfo"
-	"github.com/gateway-fm/cdk-erigon-lib/gointerfaces"
-	proto_downloader "github.com/gateway-fm/cdk-erigon-lib/gointerfaces/downloader"
-	prototypes "github.com/gateway-fm/cdk-erigon-lib/gointerfaces/types"
+	"github.com/tenderly/zkevm-erigon-lib/gointerfaces"
+	proto_downloader "github.com/tenderly/zkevm-erigon-lib/gointerfaces/downloader"
+	prototypes "github.com/tenderly/zkevm-erigon-lib/gointerfaces/types"
 	"github.com/ledgerwatch/log/v3"
 	"google.golang.org/protobuf/types/known/emptypb"
 )

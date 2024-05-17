@@ -26,14 +26,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common/background"
+	"github.com/tenderly/zkevm-erigon-lib/common/background"
 	"github.com/ledgerwatch/log/v3"
 	"github.com/stretchr/testify/require"
 	btree2 "github.com/tidwall/btree"
 
-	"github.com/gateway-fm/cdk-erigon-lib/kv"
-	"github.com/gateway-fm/cdk-erigon-lib/kv/mdbx"
-	"github.com/gateway-fm/cdk-erigon-lib/recsplit"
+	"github.com/tenderly/zkevm-erigon-lib/kv"
+	"github.com/tenderly/zkevm-erigon-lib/kv/mdbx"
+	"github.com/tenderly/zkevm-erigon-lib/recsplit"
 )
 
 func testDbAndDomain(t *testing.T) (string, kv.RwDB, *Domain) {

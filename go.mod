@@ -1,4 +1,4 @@
-module github.com/gateway-fm/cdk-erigon-lib
+module github.com/tenderly/zkevm-erigon-lib
 
 go 1.19
 

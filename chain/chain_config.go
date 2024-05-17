@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/gateway-fm/cdk-erigon-lib/common"
+	"github.com/tenderly/zkevm-erigon-lib/common"
 )
 
 // Config is the core config which determines the blockchain settings.
